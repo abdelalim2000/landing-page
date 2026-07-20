@@ -45,7 +45,8 @@ export function initTechMap() {
       const path = container.querySelector(pathSelector);
       if (!signal || !path) return;
 
-      gsap.set(signal, { autoAlpha: 1 });
+      signal.classList.remove('hidden');
+      gsap.set(signal, { display: 'block', autoAlpha: 1 });
       gsap.to(signal, {
         motionPath: {
           path,
@@ -62,9 +63,10 @@ export function initTechMap() {
 
     const diagnosticSignal = document.querySelector('.diagnostic-signal');
     if (diagnosticSignal) {
+      diagnosticSignal.classList.remove('hidden');
       gsap.fromTo(
         diagnosticSignal,
-        { autoAlpha: 0, y: 0 },
+        { display: 'block', autoAlpha: 0, y: 0 },
         {
           autoAlpha: 1,
           y: 128,
