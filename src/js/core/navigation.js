@@ -1,4 +1,4 @@
-import gsap from 'gsap';
+import { gsap } from '../core/gsap-register.js';
 
 export function initNavigation() {
   const header = document.getElementById('site-header');

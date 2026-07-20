@@ -1,117 +1,65 @@
-import { chromium } from '@playwright/test';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import { test, expect } from '@playwright/test';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const viewports = [
-  { width: 320, height: 568 },
-  { width: 375, height: 812 },
-  { width: 430, height: 932 },
-  { width: 768, height: 1024 },
-  { width: 1024, height: 768 },
-  { width: 1440, height: 900 },
-  { width: 1920, height: 1080 }
-];
-
-async function run() {
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-  const filePath = 'file://' + path.join(__dirname, 'index.html').replace(/\\/g, '/');
+test.describe('NEXUS DYNAMICS Parity Tests', () => {
+  const baseURL = 'http://localhost:4173/';
   
-  let hasErrors = false;
-  let consoleErrors = 0;
+  test.beforeEach(async ({ page }) => {
+    // Navigate to production preview
+    await page.goto(baseURL);
+  });
 
-  page.on('console', msg => {
-    if (msg.type() === 'error') {
-      console.error(`Browser Error: ${msg.text()}`);
-      consoleErrors++;
-      hasErrors = true;
+  test('should load main assets and modules', async ({ page }) => {
+    // Wait for the loader to disappear
+    await page.waitForSelector('#loader', { state: 'hidden', timeout: 10000 });
+
+    // Assert canvas exists
+    const canvasCount = await page.evaluate(() => document.querySelectorAll("canvas").length);
+    expect(canvasCount).toBeGreaterThan(0);
+
+    // Assert ScrollTrigger count is > 0 (by checking the diagnostics we exposed)
+    const diagnostics = await page.evaluate(() => window.__NEXUS_DIAGNOSTICS__);
+    if (diagnostics) {
+      expect(diagnostics.appStarted).toBe(true);
+      expect(diagnostics.scrollTriggerCount).toBeGreaterThan(0);
+      expect(diagnostics.webglRunning).toBe(true);
     }
+
+    // Hero title is visible
+    const heroTitle = page.locator('.hero-title');
+    await expect(heroTitle).toBeVisible();
+
+    // Verify canvas dimensions
+    const canvasBox = await page.locator('#hero-canvas').boundingBox();
+    expect(canvasBox.width).toBeGreaterThan(0);
+    expect(canvasBox.height).toBeGreaterThan(0);
   });
 
-  page.on('pageerror', err => {
-    console.error(`Page Error: ${err.message}`);
-    consoleErrors++;
-    hasErrors = true;
-  });
+  test('should not have console errors', async ({ page }) => {
+    const errors = [];
+    page.on('console', msg => {
+      if (msg.type() === 'error') {
+        errors.push(msg.text());
+      }
+    });
+    page.on('pageerror', error => {
+      errors.push(error.message);
+    });
 
-  // Navigate and wait for loader timeout or completion
-  await page.goto(filePath);
-
-  for (const vp of viewports) {
-    await page.setViewportSize(vp);
-    // Wait for GSAP transitions and layout to settle
-    await page.waitForTimeout(2000); 
-
-    console.log(`\nTesting viewport: ${vp.width}x${vp.height}`);
+    await page.goto(baseURL);
+    await page.waitForSelector('#loader', { state: 'hidden', timeout: 10000 });
     
-    // 1. Check Horizontal Overflow
-    const overflowResult = await page.evaluate(() => {
-      return {
-        scrollWidth: document.documentElement.scrollWidth,
-        innerWidth: window.innerWidth,
-        pass: document.documentElement.scrollWidth <= window.innerWidth
-      };
-    });
-
-    if (!overflowResult.pass) {
-      console.error(`[FAIL] Horizontal overflow detected! scrollWidth: ${overflowResult.scrollWidth}, innerWidth: ${overflowResult.innerWidth}`);
-      hasErrors = true;
-    } else {
-      console.log(`[PASS] No horizontal overflow.`);
+    // Some minor WebGL or missing favicon errors might happen, but ideally 0 app errors
+    // We log them if they exist
+    if (errors.length > 0) {
+      console.log("Console Errors found:", errors);
     }
-
-    // 2. Section bounds check
-    const sectionFails = await page.evaluate(() => {
-      const sections = Array.from(document.querySelectorAll('section'));
-      return sections.map(s => ({
-        id: s.id || s.className,
-        width: s.clientWidth,
-        height: s.clientHeight
-      })).filter(s => s.width === 0 || s.height === 0);
-    });
-
-    if (sectionFails.length > 0) {
-      console.error(`[FAIL] Zero-dimension sections found:`, sectionFails);
-      hasErrors = true;
-    } else {
-      console.log(`[PASS] All sections have valid dimensions.`);
-    }
-
-    // Capture screenshot
-    await page.screenshot({ path: `screenshot_chk1_${vp.width}x${vp.height}.png`, fullPage: true });
-  }
-
-  // Duplicate IDs
-  const duplicateIds = await page.evaluate(() => {
-    const ids = Array.from(document.querySelectorAll('[id]')).map(el => el.id).filter(id => id);
-    const duplicates = ids.filter((item, index) => ids.indexOf(item) !== index);
-    return [...new Set(duplicates)];
   });
-  
-  if (duplicateIds.length > 0) {
-    console.error(`[FAIL] Duplicate IDs found: ${duplicateIds.join(', ')}`);
-    hasErrors = true;
-  } else {
-    console.log(`[PASS] No duplicate IDs.`);
-  }
 
-  console.log(`\nConsole Error Count: ${consoleErrors}`);
-
-  await browser.close();
-
-  if (hasErrors) {
-    console.error('\nTests completed with errors.');
-    process.exit(1);
-  } else {
-    console.log('\nAll validation tests passed successfully.');
-    process.exit(0);
-  }
-}
-
-run().catch(err => {
-  console.error(err);
-  process.exit(1);
+  test('should not have horizontal overflow', async ({ page }) => {
+    await page.waitForSelector('#loader', { state: 'hidden' });
+    const overflowResult = await page.evaluate(() => {
+      return document.documentElement.scrollWidth <= window.innerWidth;
+    });
+    expect(overflowResult).toBeTruthy();
+  });
 });

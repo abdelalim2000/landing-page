@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import gsap from 'gsap';
+import { gsap } from '../core/gsap-register.js';
 import { QualityManager } from './quality-manager.js';
 import { ThemeController } from './theme-controller.js';
 import vertShader from '../../shaders/particles.vert.glsl?raw';
@@ -46,12 +46,33 @@ export class HeroWebGL {
     this.animate = this.animate.bind(this);
     this.animationFrame = requestAnimationFrame(this.animate);
 
-    // Initial assembly animation
+  }
+
+  playAssembly() {
     gsap.to(this.material.uniforms.uAssembly, {
       value: 1.0,
       duration: 3.0,
       ease: "power3.out"
     });
+  }
+
+  setAssemblyProgress(progress) {
+    this.material.uniforms.uAssembly.value = progress;
+  }
+
+  setScrollProgress(progress) {
+    this.material.uniforms.uScroll.value = progress;
+  }
+
+  pause() {
+    this.isRunning = false;
+  }
+
+  resume() {
+    if (!this.isRunning) {
+      this.isRunning = true;
+      this.animate();
+    }
   }
 
   createParticles() {

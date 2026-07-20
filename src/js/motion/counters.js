@@ -1,7 +1,7 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap } from '../core/gsap-register.js';
 
-gsap.registerPlugin(ScrollTrigger);
+
+
 
 export function initCounters() {
   const ctx = gsap.context(() => {

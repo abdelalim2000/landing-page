@@ -1,36 +1,34 @@
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { gsap, ScrollTrigger } from '../core/gsap-register.js';
 import { HeroWebGL } from '../webgl/hero-core.js';
+import { startVisualExperienceOnce } from '../motion/hero-intro.js';
 import { initTextReveals } from '../motion/text-reveals.js';
 import { initCounters } from '../motion/counters.js';
 import { initApproachSequence } from '../motion/section-story.js';
 import { initTechMap } from '../motion/path-animation.js';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export function initHome() {
-  console.log("Initializing Home Page...");
+  console.log("[NEXUS] Initializing Home Page...");
   
-  const cleanups = [];
-  
-  // 1. WebGL Hero
-  const canvasContainer = document.getElementById('webgl-container');
   let heroWebGL = null;
+  const canvasContainer = document.getElementById('webgl-container') || document.getElementById('hero');
   if (canvasContainer) {
     heroWebGL = new HeroWebGL(canvasContainer);
-    cleanups.push(() => heroWebGL.dispose());
   }
 
-  // 2. Motion Modules
-  cleanups.push(initTextReveals());
-  cleanups.push(initCounters());
-  cleanups.push(initApproachSequence());
-  cleanups.push(initTechMap());
+  const context = gsap.context(() => {
+    // 1. Start the visual experience (Loader -> Hero Timeline)
+    startVisualExperienceOnce(heroWebGL);
 
-  // 3. Section Triggers (Core Capabilities)
-  const capabilityTriggers = document.querySelectorAll('.expertise-trigger');
-  const capabilityStages = document.querySelectorAll('.expertise-stage');
-  const capabilityContext = gsap.context(() => {
+    // 2. Motion Modules
+    initTextReveals();
+    initCounters();
+    initApproachSequence();
+    initTechMap();
+
+    // 3. Section Triggers (Core Capabilities)
+    const capabilityTriggers = document.querySelectorAll('.expertise-trigger');
+    const capabilityStages = document.querySelectorAll('.expertise-stage');
+    
     capabilityTriggers.forEach((trigger, i) => {
       ScrollTrigger.create({
         trigger: trigger,
@@ -56,20 +54,15 @@ export function initHome() {
         }
       });
     });
-  });
-  cleanups.push(() => capabilityContext.revert());
 
-  // 4. Diagnostics & Testimonials (Inlined for home page)
-  const homeContext = gsap.context(() => {
-    // Diagnostic
+    // 4. Diagnostics & Testimonials
     const tl = gsap.timeline({ scrollTrigger: { trigger: "#diagnostic", start: "top 60%", once: true } });
     tl.to(".diag-scanner", { opacity: 1, top: "100%", duration: 1.5, ease: "power1.inOut" })
       .to(".diag-scanner", { opacity: 0, duration: 0.2 })
       .to(".diag-bar", { width: "100%", duration: 1, stagger: 0.2 }, "-=1")
-      .to(".diag-status", { text: "[VERIFIED]", color: "var(--lime-primary)", duration: 0.5, stagger: 0.2 }, "-=0.8")
+      .to(".diag-status", { text: "[VERIFIED]", color: "var(--color-nd-lime)", duration: 0.5, stagger: 0.2 }, "-=0.8")
       .to(".diag-text", { opacity: 1, y: 0, duration: 0.8, stagger: 0.1 }, "-=0.5");
 
-    // Testimonials
     const slides = document.querySelectorAll('.test-slide');
     const counter = document.getElementById('test-counter');
     const btnPrev = document.getElementById('test-prev');
@@ -85,11 +78,23 @@ export function initHome() {
       btnNext.addEventListener('click', () => showSlide((current + 1) % slides.length));
       btnPrev.addEventListener('click', () => showSlide((current - 1 + slides.length) % slides.length));
     }
-  });
-  cleanups.push(() => homeContext.revert());
+  }, document.body);
+
+  // Expose diagnostics in dev mode
+  if (import.meta.env.DEV) {
+    window.__NEXUS_DIAGNOSTICS__ = {
+      appStarted: true,
+      page: "home",
+      scrollTriggerCount: ScrollTrigger.getAll().length,
+      canvasCount: document.querySelectorAll("canvas").length,
+      webglRunning: !!heroWebGL
+    };
+    console.log("[NEXUS] Diagnostics Active:", window.__NEXUS_DIAGNOSTICS__);
+  }
 
   return () => {
-    console.log("Cleaning up Home Page...");
-    cleanups.forEach(c => c && c());
+    console.log("[NEXUS] Cleaning up Home Page...");
+    context.revert();
+    if (heroWebGL) heroWebGL.dispose();
   };
 }

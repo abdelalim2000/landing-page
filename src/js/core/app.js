@@ -1,29 +1,40 @@
 import { initTheme } from './theme.js';
 import { initNavigation } from './navigation.js';
 import { initCursor } from './cursor.js';
-// We will import page logic dynamically here
+import { registerGsap } from './gsap-register.js';
 
-let applicationStarted = false;
+let appInitialized = false;
 
 export async function initializeApplication() {
-  if (applicationStarted) return;
-  applicationStarted = true;
+  if (appInitialized) return;
+  appInitialized = true;
 
-  console.log("Nexus Dynamics: Initializing System...");
+  console.log("Application Bootstrap Called.");
+  
+  // Register GSAP plugins centrally
+  registerGsap();
+  console.log("GSAP Plugins Registered.");
 
   // Initialize Core Systems
   const cleanupTheme = initTheme();
   const cleanupNav = initNavigation();
   const cleanupCursor = initCursor();
 
-  // Load Page Modules
+  // Determine current page
   const page = document.body.dataset.page;
+  console.log(`Detected data-page: ${page}`);
+  
+  if (!page) {
+    console.error("[NEXUS] Critical: data-page attribute is missing on <body>.");
+  }
+
   let pageCleanup = null;
 
   try {
     switch (page) {
       case "home":
         const { initHome } = await import('../pages/home.js');
+        console.log("Page module imported: home.js");
         pageCleanup = initHome();
         break;
       case "services":
@@ -46,17 +57,19 @@ export async function initializeApplication() {
         const { initContact } = await import('../pages/contact.js');
         pageCleanup = initContact();
         break;
+      default:
+        console.warn(`[NEXUS] No page module registered for: ${page}`);
     }
   } catch (error) {
-    console.error(`Failed to load module for page: ${page}`, error);
+    console.error(`[NEXUS] Failed to load module for page: ${page}`, error);
+    throw error;
   }
 
-  // Cleanup handler (Useful for Vite HMR)
   return () => {
     if (cleanupTheme) cleanupTheme();
     if (cleanupNav) cleanupNav();
     if (cleanupCursor) cleanupCursor();
     if (pageCleanup) pageCleanup();
-    applicationStarted = false;
+    appInitialized = false;
   };
 }

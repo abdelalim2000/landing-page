@@ -1,4 +1,4 @@
-import gsap from 'gsap';
+import { gsap } from '../core/gsap-register.js';
 
 export function initCursor() {
   const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);

@@ -1,45 +1,75 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth antialiased">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>NEXUS DYNAMICS | Intelligent Systems in Motion</title>
-  <meta name="description" content="Engineering complex digital products, intelligent platforms, and scalable technology for ambitious enterprises.">
+  <meta name="description"
+    content="Engineering complex digital products, intelligent platforms, and scalable technology for ambitious enterprises.">
   <meta name="theme-color" content="#02040A" id="meta-theme-color">
 
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
 
-          
-    
-    <script type="module" src="/src/main.js"></script>
+
+
+  <script type="module" src="/src/main.js"></script>
 </head>
+
 <body data-page="home">
-  
+
+  <!-- Loader -->
+  <div id="loader"
+    class="fixed inset-0 z-[100] flex flex-col justify-center items-center bg-page text-primary transition-opacity duration-500">
+    <div class="relative w-64 md:w-96">
+      <div class="flex justify-between items-end mb-2 font-mono text-xs text-nd-cyan tracking-widest uppercase">
+        <span id="loader-status">Initializing Systems...</span>
+        <span id="loader-progress">0%</span>
+      </div>
+      <div class="w-full h-[2px] bg-soft relative overflow-hidden">
+        <div id="loader-bar" class="absolute top-0 left-0 h-full bg-nd-cyan w-0"></div>
+      </div>
+    </div>
+  </div>
+
   <div class="custom-cursor" id="custom-cursor"></div>
-  <a href="#main" class="visually-hidden focus:!fixed focus:!top-4 focus:!left-4 focus:!z-[10000] focus:!bg-nd-cyan focus:!text-page focus:!px-4 focus:!py-2 focus:!rounded">Skip to content</a>
+  <a href="#main"
+    class="visually-hidden focus:!fixed focus:!top-4 focus:!left-4 focus:!z-[10000] focus:!bg-nd-cyan focus:!text-page focus:!px-4 focus:!py-2 focus:!rounded">Skip
+    to content</a>
 
   <!-- Navigation -->
   <header id="site-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-6">
     <div class="layout-container flex justify-between items-center" id="nav-container">
-      <a href="/" class="font-display font-bold text-xl tracking-wide z-10 relative text-primary">NEXUS<span class="text-nd-cyan">DYNAMICS</span></a>
+      <a href="/" class="font-display font-bold text-xl tracking-wide z-10 relative text-primary">NEXUS<span
+          class="text-nd-cyan">DYNAMICS</span></a>
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Primary Navigation">
-        <a href="#expertise" class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">Capabilities</a>
-        <a href="#work" class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">Work</a>
-        <a href="#approach" class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">Approach</a>
-        
+        <a href="#expertise"
+          class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">Capabilities</a>
+        <a href="#work"
+          class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">Work</a>
+        <a href="#approach"
+          class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">Approach</a>
+
         <!-- Theme Toggle Desktop -->
-        <button id="theme-toggle-desktop" class="relative w-12 h-6 rounded-full bg-soft border border-nd-border flex items-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan ml-2" aria-label="Toggle theme" aria-pressed="false">
-          <div class="w-4 h-4 rounded-full bg-primary theme-toggle-thumb flex items-center justify-center relative overflow-hidden">
-             <!-- Sun/Moon handled by CSS/JS -->
+        <button id="theme-toggle-desktop"
+          class="relative w-12 h-6 rounded-full bg-soft border border-nd-border flex items-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan ml-2"
+          aria-label="Toggle theme" aria-pressed="false">
+          <div
+            class="w-4 h-4 rounded-full bg-primary theme-toggle-thumb flex items-center justify-center relative overflow-hidden">
+            <!-- Sun/Moon handled by CSS/JS -->
           </div>
         </button>
 
         <a href="#contact" class="btn-magnetic text-xs px-5 py-2.5 ml-2">Start a Project</a>
       </nav>
-      <button class="md:hidden relative z-50 w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan" id="mobile-menu-btn" aria-label="Toggle Menu" aria-expanded="false">
+      <button
+        class="md:hidden relative z-50 w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan"
+        id="mobile-menu-btn" aria-label="Toggle Menu" aria-expanded="false">
         <span class="w-6 h-[2px] bg-primary transition-transform duration-300 line-1"></span>
         <span class="w-6 h-[2px] bg-primary transition-opacity duration-300 line-2"></span>
         <span class="w-6 h-[2px] bg-primary transition-transform duration-300 line-3"></span>
@@ -48,15 +78,19 @@
   </header>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="fixed inset-0 bg-surface z-40 flex flex-col justify-center px-8 opacity-0 pointer-events-none transition-opacity duration-500" aria-hidden="true" tabindex="-1">
+  <div id="mobile-menu"
+    class="fixed inset-0 bg-surface z-40 flex flex-col justify-center px-8 opacity-0 pointer-events-none transition-opacity duration-500"
+    aria-hidden="true" tabindex="-1">
     <nav class="flex flex-col gap-6 text-3xl font-display font-bold">
       <a href="#expertise" class="mobile-link text-primary">Capabilities</a>
       <a href="#work" class="mobile-link text-primary">Work</a>
       <a href="#approach" class="mobile-link text-primary">Approach</a>
-      
+
       <div class="mt-4 flex items-center gap-4">
         <span class="text-lg text-secondary">Theme</span>
-        <button id="theme-toggle-mobile" class="relative w-14 h-7 rounded-full bg-soft border border-nd-border flex items-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan" aria-label="Toggle theme">
+        <button id="theme-toggle-mobile"
+          class="relative w-14 h-7 rounded-full bg-soft border border-nd-border flex items-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan"
+          aria-label="Toggle theme">
           <div class="w-5 h-5 rounded-full bg-primary theme-toggle-thumb"></div>
         </button>
       </div>
@@ -69,34 +103,43 @@
     <!-- CHAPTER 01: THE SIGNAL (HERO) -->
     <section id="hero" class="relative isolate w-full min-h-[100svh] flex items-center pt-24 overflow-hidden bg-page">
       <canvas id="hero-canvas" class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true"></canvas>
-      <div class="hidden no-motion-fallback absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-elevated via-page to-page opacity-50"></div>
-      
+      <div
+        class="hidden no-motion-fallback absolute inset-0 z-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-elevated via-page to-page opacity-50">
+      </div>
+
       <div class="layout-container relative z-10 w-full pointer-events-none h-full flex flex-col justify-center">
         <div class="max-w-4xl pt-10 hero-content-wrapper">
           <div class="overflow-hidden mb-6">
-            <p class="hero-eyebrow font-display text-xs md:text-sm tracking-[0.2em] text-nd-cyan uppercase js-hidden">SIGNAL DETECTED · NEXUS CORE ACTIVE</p>
+            <p class="hero-eyebrow font-display text-xs md:text-sm tracking-[0.2em] text-nd-cyan uppercase gsap-reveal">
+              SIGNAL DETECTED · NEXUS CORE ACTIVE</p>
           </div>
-          
-          <h1 class="hero-title text-clamp-hero font-bold mb-8 js-hidden" style="perspective: 1000px;">
+
+          <h1 class="hero-title text-clamp-hero font-bold mb-8 gsap-reveal" style="perspective: 1000px;">
             <div class="overflow-hidden"><span class="block origin-bottom text-primary">We engineer the</span></div>
-            <div class="overflow-hidden"><span class="block origin-bottom text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary to-nd-cyan">systems behind</span></div>
-            <div class="overflow-hidden"><span class="block origin-bottom text-primary">ambitious companies.</span></div>
+            <div class="overflow-hidden"><span
+                class="block origin-bottom text-transparent bg-clip-text bg-gradient-to-r from-primary via-primary to-nd-cyan">systems
+                behind</span></div>
+            <div class="overflow-hidden"><span class="block origin-bottom text-primary">ambitious companies.</span>
+            </div>
           </h1>
-          
+
           <div class="overflow-hidden mb-12">
-            <p class="hero-copy text-secondary text-lg md:text-xl max-w-2xl js-hidden">
-              NEXUS DYNAMICS connects software engineering, cloud infrastructure, artificial intelligence, and growth strategy into unified digital architectures.
+            <p class="hero-copy text-secondary text-lg md:text-xl max-w-2xl gsap-reveal">
+              NEXUS DYNAMICS connects software engineering, cloud infrastructure, artificial intelligence, and growth
+              strategy into unified digital architectures.
             </p>
           </div>
-          
-          <div class="hero-ctas flex flex-wrap gap-4 items-center pointer-events-auto js-hidden">
+
+          <div class="hero-ctas flex flex-wrap gap-4 items-center pointer-events-auto gsap-reveal">
             <a href="#contact" class="btn-magnetic">Initialize Project</a>
             <a href="#expertise" class="btn-outline">Explore Capabilities</a>
           </div>
         </div>
 
-        <div class="hero-telemetry absolute bottom-8 right-8 md:right-16 text-xs font-mono text-muted text-right hidden md:block js-hidden">
-          <div class="flex items-center justify-end gap-2 mb-1"><span class="w-1.5 h-1.5 rounded-full bg-nd-lime animate-pulse"></span> INFRASTRUCTURE OPTIMIZED</div>
+        <div
+          class="hero-telemetry absolute bottom-8 right-8 md:right-16 text-xs font-mono text-muted text-right hidden md:block gsap-reveal">
+          <div class="flex items-center justify-end gap-2 mb-1"><span
+              class="w-1.5 h-1.5 rounded-full bg-nd-lime animate-pulse"></span> INFRASTRUCTURE OPTIMIZED</div>
           <div id="tel-nodes">NODES: 4,096</div>
           <div id="tel-sync">SYNC: PHASE 1</div>
         </div>
@@ -105,20 +148,30 @@
 
     <!-- Continuity Element -->
     <div class="relative w-full h-32 bg-page z-10 hidden md:block border-t border-nd-border">
-       <div id="signal-drop" class="absolute left-1/2 w-[1px] h-0 bg-gradient-to-b from-nd-cyan to-transparent transform -translate-x-1/2"></div>
+      <div id="signal-drop"
+        class="absolute left-1/2 w-[1px] h-0 bg-gradient-to-b from-nd-cyan to-transparent transform -translate-x-1/2">
+      </div>
     </div>
 
     <!-- CHAPTER 02: THE TRANSFORMATION (INTRODUCTION) -->
     <section id="introduction" class="py-24 md:py-32 bg-page relative isolate">
       <div class="layout-container relative z-10">
         <div class="max-w-5xl mx-auto mb-32 relative">
-          <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" aria-hidden="true" viewBox="0 0 1000 200" preserveAspectRatio="none">
-             <path id="intro-line-1" d="M0,50 L1000,50" stroke="currentColor" class="text-nd-cyan" stroke-width="1" stroke-dasharray="1000" stroke-dashoffset="1000" fill="none"/>
-             <path id="intro-line-2" d="M0,150 L1000,150" stroke="currentColor" class="text-nd-violet" stroke-width="1" stroke-dasharray="1000" stroke-dashoffset="1000" fill="none"/>
+          <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-20" aria-hidden="true"
+            viewBox="0 0 1000 200" preserveAspectRatio="none">
+            <path id="intro-line-1" d="M0,50 L1000,50" stroke="currentColor" class="text-nd-cyan" stroke-width="1"
+              stroke-dasharray="1000" stroke-dashoffset="1000" fill="none" />
+            <path id="intro-line-2" d="M0,150 L1000,150" stroke="currentColor" class="text-nd-violet" stroke-width="1"
+              stroke-dasharray="1000" stroke-dashoffset="1000" fill="none" />
           </svg>
 
-          <h2 class="text-clamp-intro font-display font-medium leading-[1.1] intro-text js-hidden text-primary">
-            <span class="opacity-30 inline-block word-illum">We</span> <span class="opacity-30 inline-block word-illum">turn</span> <span class="opacity-30 inline-block word-illum">complex</span> <span class="opacity-30 inline-block word-illum">business</span> <span class="opacity-30 inline-block word-illum">challenges</span> <span class="opacity-30 inline-block word-illum">into</span>
+          <h2 class="text-clamp-intro font-display font-medium leading-[1.1] intro-text gsap-reveal text-primary">
+            <span class="opacity-30 inline-block word-illum">We</span> <span
+              class="opacity-30 inline-block word-illum">turn</span> <span
+              class="opacity-30 inline-block word-illum">complex</span> <span
+              class="opacity-30 inline-block word-illum">business</span> <span
+              class="opacity-30 inline-block word-illum">challenges</span> <span
+              class="opacity-30 inline-block word-illum">into</span>
             <span class="text-nd-cyan inline-block font-bold">connected digital products,</span>
             <span class="text-nd-violet inline-block font-bold">intelligent platforms,</span>
             <span class="opacity-30 inline-block word-illum">and</span>
@@ -126,24 +179,33 @@
           </h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 pt-12 border-t border-nd-border intro-metrics js-hidden relative">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 pt-12 border-t border-nd-border intro-metrics gsap-reveal relative">
           <div class="absolute top-[-1px] left-0 h-[1px] bg-nd-cyan w-0 diagnostic-scanner"></div>
-          
+
           <div class="metric-item">
-            <div class="text-clamp-metric font-display mb-4 text-primary"><span class="counter" data-target="120">0</span><span class="text-3xl text-muted">+</span></div>
-            <div class="text-sm text-secondary uppercase tracking-widest border-l-2 border-nd-cyan pl-4 metric-label">Products Launched</div>
+            <div class="text-clamp-metric font-display mb-4 text-primary"><span class="counter"
+                data-target="120">0</span><span class="text-3xl text-muted">+</span></div>
+            <div class="text-sm text-secondary uppercase tracking-widest border-l-2 border-nd-cyan pl-4 metric-label">
+              Products Launched</div>
           </div>
           <div class="metric-item">
-            <div class="text-clamp-metric font-display mb-4 text-primary"><span class="counter" data-target="45">0</span></div>
-            <div class="text-sm text-secondary uppercase tracking-widest border-l-2 border-nd-violet pl-4 metric-label">Tech Partners</div>
+            <div class="text-clamp-metric font-display mb-4 text-primary"><span class="counter"
+                data-target="45">0</span></div>
+            <div class="text-sm text-secondary uppercase tracking-widest border-l-2 border-nd-violet pl-4 metric-label">
+              Tech Partners</div>
           </div>
           <div class="metric-item">
-            <div class="text-clamp-metric font-display mb-4 text-primary"><span class="counter" data-target="12">0</span></div>
-            <div class="text-sm text-secondary uppercase tracking-widest border-l-2 border-nd-cyan pl-4 metric-label">Industries Built</div>
+            <div class="text-clamp-metric font-display mb-4 text-primary"><span class="counter"
+                data-target="12">0</span></div>
+            <div class="text-sm text-secondary uppercase tracking-widest border-l-2 border-nd-cyan pl-4 metric-label">
+              Industries Built</div>
           </div>
           <div class="metric-item">
-            <div class="text-clamp-metric font-display mb-4 text-primary"><span class="counter" data-target="3.4" data-float="true">0.0</span><span class="text-3xl text-muted">×</span></div>
-            <div class="text-sm text-secondary uppercase tracking-widest border-l-2 border-nd-lime pl-4 metric-label">Avg Growth ROAS</div>
+            <div class="text-clamp-metric font-display mb-4 text-primary"><span class="counter" data-target="3.4"
+                data-float="true">0.0</span><span class="text-3xl text-muted">×</span></div>
+            <div class="text-sm text-secondary uppercase tracking-widest border-l-2 border-nd-lime pl-4 metric-label">
+              Avg Growth ROAS</div>
           </div>
         </div>
       </div>
@@ -158,97 +220,164 @@
         <div class="lg:hidden flex flex-col gap-4">
           <!-- Accordion 1 -->
           <div class="accordion-item border border-nd-border rounded-xl bg-elevated overflow-hidden">
-            <button class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan" aria-expanded="false">
+            <button
+              class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan"
+              aria-expanded="false">
               <div class="flex items-center gap-4">
                 <span class="font-mono text-nd-cyan text-sm">01</span>
                 <span class="text-xl font-display font-bold text-primary">Product Engineering</span>
               </div>
-              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div class="accordion-content px-6 pb-6">
-              <p class="text-secondary text-sm mb-4">Application layers, API flow, component topology, state and data relationships.</p>
-              <div class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden relative">
-                 <svg viewBox="0 0 100 50" class="w-full h-full opacity-50"><rect x="10" y="10" width="30" height="30" rx="2" fill="none" stroke="currentColor" class="text-nd-cyan" stroke-width="1"/><rect x="60" y="15" width="30" height="20" rx="2" fill="none" stroke="currentColor" class="text-primary" stroke-width="1"/><path d="M40,25 L60,25" stroke="currentColor" class="text-nd-cyan" stroke-dasharray="2" fill="none"/></svg>
+              <p class="text-secondary text-sm mb-4">Application layers, API flow, component topology, state and data
+                relationships.</p>
+              <div
+                class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden relative">
+                <svg viewBox="0 0 100 50" class="w-full h-full opacity-50">
+                  <rect x="10" y="10" width="30" height="30" rx="2" fill="none" stroke="currentColor"
+                    class="text-nd-cyan" stroke-width="1" />
+                  <rect x="60" y="15" width="30" height="20" rx="2" fill="none" stroke="currentColor"
+                    class="text-primary" stroke-width="1" />
+                  <path d="M40,25 L60,25" stroke="currentColor" class="text-nd-cyan" stroke-dasharray="2" fill="none" />
+                </svg>
               </div>
             </div>
           </div>
           <!-- Accordion 2 -->
           <div class="accordion-item border border-nd-border rounded-xl bg-elevated overflow-hidden">
-            <button class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-violet" aria-expanded="false">
+            <button
+              class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-violet"
+              aria-expanded="false">
               <div class="flex items-center gap-4">
                 <span class="font-mono text-nd-violet text-sm">02</span>
                 <span class="text-xl font-display font-bold text-primary">Cloud & Infrastructure</span>
               </div>
-              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div class="accordion-content px-6 pb-6">
-              <p class="text-secondary text-sm mb-4">Regions, containers, deployment pipelines, observability, and scaling signals.</p>
-              <div class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
-                <svg viewBox="0 0 100 50" class="w-full h-full opacity-50"><rect x="20" y="10" width="60" height="30" rx="2" fill="none" stroke="currentColor" class="text-nd-violet" stroke-width="1"/><circle cx="35" cy="25" r="4" fill="currentColor" class="text-primary"/><circle cx="50" cy="25" r="4" fill="currentColor" class="text-primary"/><circle cx="65" cy="25" r="4" fill="currentColor" class="text-primary"/></svg>
+              <p class="text-secondary text-sm mb-4">Regions, containers, deployment pipelines, observability, and
+                scaling signals.</p>
+              <div
+                class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
+                <svg viewBox="0 0 100 50" class="w-full h-full opacity-50">
+                  <rect x="20" y="10" width="60" height="30" rx="2" fill="none" stroke="currentColor"
+                    class="text-nd-violet" stroke-width="1" />
+                  <circle cx="35" cy="25" r="4" fill="currentColor" class="text-primary" />
+                  <circle cx="50" cy="25" r="4" fill="currentColor" class="text-primary" />
+                  <circle cx="65" cy="25" r="4" fill="currentColor" class="text-primary" />
+                </svg>
               </div>
             </div>
           </div>
           <!-- Accordion 3 -->
           <div class="accordion-item border border-nd-border rounded-xl bg-elevated overflow-hidden">
-            <button class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-lime" aria-expanded="false">
+            <button
+              class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-lime"
+              aria-expanded="false">
               <div class="flex items-center gap-4">
                 <span class="font-mono text-nd-lime text-sm">03</span>
                 <span class="text-xl font-display font-bold text-primary">Artificial Intelligence</span>
               </div>
-              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div class="accordion-content px-6 pb-6">
-              <p class="text-secondary text-sm mb-4">Input, context, model, tools, memory, verification, and output pipelines.</p>
-              <div class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
-                 <svg viewBox="0 0 100 50" class="w-full h-full opacity-50"><path d="M10,25 L30,15 L50,25 L70,35 L90,25" stroke="currentColor" class="text-nd-lime" fill="none" stroke-width="1"/><circle cx="10" cy="25" r="2" fill="currentColor" class="text-primary"/><circle cx="50" cy="25" r="2" fill="currentColor" class="text-primary"/><circle cx="90" cy="25" r="2" fill="currentColor" class="text-primary"/></svg>
+              <p class="text-secondary text-sm mb-4">Input, context, model, tools, memory, verification, and output
+                pipelines.</p>
+              <div
+                class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
+                <svg viewBox="0 0 100 50" class="w-full h-full opacity-50">
+                  <path d="M10,25 L30,15 L50,25 L70,35 L90,25" stroke="currentColor" class="text-nd-lime" fill="none"
+                    stroke-width="1" />
+                  <circle cx="10" cy="25" r="2" fill="currentColor" class="text-primary" />
+                  <circle cx="50" cy="25" r="2" fill="currentColor" class="text-primary" />
+                  <circle cx="90" cy="25" r="2" fill="currentColor" class="text-primary" />
+                </svg>
               </div>
             </div>
           </div>
           <!-- Accordion 4 -->
           <div class="accordion-item border border-nd-border rounded-xl bg-elevated overflow-hidden">
-            <button class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-expanded="false">
+            <button
+              class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              aria-expanded="false">
               <div class="flex items-center gap-4">
                 <span class="font-mono text-primary text-sm">04</span>
                 <span class="text-xl font-display font-bold text-primary">Cybersecurity</span>
               </div>
-              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div class="accordion-content px-6 pb-6">
-              <p class="text-secondary text-sm mb-4">Identity checks, trust boundaries, encryption, scanning, and monitoring.</p>
-              <div class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
-                 <svg viewBox="0 0 100 50" class="w-full h-full opacity-50"><rect x="25" y="15" width="50" height="20" rx="10" fill="none" stroke="currentColor" class="text-primary" stroke-width="1" stroke-dasharray="2 2"/><path d="M50,15 L50,35" stroke="currentColor" class="text-nd-cyan" stroke-width="1"/></svg>
+              <p class="text-secondary text-sm mb-4">Identity checks, trust boundaries, encryption, scanning, and
+                monitoring.</p>
+              <div
+                class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
+                <svg viewBox="0 0 100 50" class="w-full h-full opacity-50">
+                  <rect x="25" y="15" width="50" height="20" rx="10" fill="none" stroke="currentColor"
+                    class="text-primary" stroke-width="1" stroke-dasharray="2 2" />
+                  <path d="M50,15 L50,35" stroke="currentColor" class="text-nd-cyan" stroke-width="1" />
+                </svg>
               </div>
             </div>
           </div>
           <!-- Accordion 5 -->
           <div class="accordion-item border border-nd-border rounded-xl bg-elevated overflow-hidden">
-            <button class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-expanded="false">
+            <button
+              class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              aria-expanded="false">
               <div class="flex items-center gap-4">
                 <span class="font-mono text-primary text-sm">05</span>
                 <span class="text-xl font-display font-bold text-primary">Growth Technology</span>
               </div>
-              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div class="accordion-content px-6 pb-6">
-              <p class="text-secondary text-sm mb-4">Channels, attribution, customer data, experiments, conversions, and optimization.</p>
-              <div class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
-                 <svg viewBox="0 0 100 50" class="w-full h-full opacity-50"><path d="M20,40 C40,40 40,10 80,10" stroke="currentColor" class="text-nd-violet" fill="none" stroke-width="1"/><path d="M20,40 C50,40 50,30 80,30" stroke="currentColor" class="text-primary" fill="none" stroke-width="1"/></svg>
+              <p class="text-secondary text-sm mb-4">Channels, attribution, customer data, experiments, conversions, and
+                optimization.</p>
+              <div
+                class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
+                <svg viewBox="0 0 100 50" class="w-full h-full opacity-50">
+                  <path d="M20,40 C40,40 40,10 80,10" stroke="currentColor" class="text-nd-violet" fill="none"
+                    stroke-width="1" />
+                  <path d="M20,40 C50,40 50,30 80,30" stroke="currentColor" class="text-primary" fill="none"
+                    stroke-width="1" />
+                </svg>
               </div>
             </div>
           </div>
           <!-- Accordion 6 -->
           <div class="accordion-item border border-nd-border rounded-xl bg-elevated overflow-hidden">
-            <button class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-expanded="false">
+            <button
+              class="w-full p-6 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              aria-expanded="false">
               <div class="flex items-center gap-4">
                 <span class="font-mono text-primary text-sm">06</span>
                 <span class="text-xl font-display font-bold text-primary">Digital Experience</span>
               </div>
-              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="accordion-icon w-6 h-6 text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
             </button>
             <div class="accordion-content px-6 pb-6">
-              <p class="text-secondary text-sm mb-4">Typography, interaction layers, 3D media, responsive states, and motion systems.</p>
-              <div class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
-                 <svg viewBox="0 0 100 50" class="w-full h-full opacity-50"><rect x="30" y="10" width="40" height="30" rx="2" fill="none" stroke="currentColor" class="text-primary" stroke-width="1"/><path d="M40,25 L60,25" stroke="currentColor" class="text-nd-lime" stroke-width="1"/></svg>
+              <p class="text-secondary text-sm mb-4">Typography, interaction layers, 3D media, responsive states, and
+                motion systems.</p>
+              <div
+                class="h-40 bg-soft rounded border border-nd-border flex items-center justify-center overflow-hidden">
+                <svg viewBox="0 0 100 50" class="w-full h-full opacity-50">
+                  <rect x="30" y="10" width="40" height="30" rx="2" fill="none" stroke="currentColor"
+                    class="text-primary" stroke-width="1" />
+                  <path d="M40,25 L60,25" stroke="currentColor" class="text-nd-lime" stroke-width="1" />
+                </svg>
               </div>
             </div>
           </div>
@@ -256,141 +385,178 @@
 
         <!-- Desktop Interactive Split (Visible >= 1024px) -->
         <div class="hidden lg:grid grid-cols-12 gap-16" id="expertise-desktop-container">
-          
+
           <!-- Left: Scrolling List with Protected Heading -->
           <div class="col-span-5 relative py-12" id="expertise-left">
             <!-- Protected Sticky Heading Rail -->
-            <div class="sticky top-[96px] z-20 expertise-heading-rail flex flex-col justify-end pb-8" style="height: 160px;">
+            <div class="sticky top-[96px] z-20 expertise-heading-rail flex flex-col justify-end pb-8"
+              style="height: 160px;">
               <!-- Theme-aware gradient mask to hide scrolling text underneath -->
-              <div class="absolute inset-0 bg-gradient-to-b from-surface via-surface to-transparent pointer-events-none w-[110%] -ml-[5%] h-[200px] -mt-[40px]"></div>
-              
+              <div
+                class="absolute inset-0 bg-gradient-to-b from-surface via-surface to-transparent pointer-events-none w-[110%] -ml-[5%] h-[200px] -mt-[40px]">
+              </div>
+
               <span class="relative font-mono text-sm text-nd-cyan tracking-widest mb-2 z-10">CHAPTER 03</span>
               <h2 class="relative text-clamp-h2 font-display z-10 text-primary">Core Capabilities</h2>
             </div>
-            
+
             <!-- Active Reading Zone Triggers -->
             <div class="flex flex-col gap-[40vh] pb-[60vh] relative z-10 pt-8" id="expertise-triggers">
               <div class="expertise-trigger opacity-20 transition-opacity duration-500" data-index="0">
                 <span class="font-mono text-sm text-nd-cyan mb-2 block">01</span>
                 <h3 class="font-display text-4xl font-bold text-primary mb-4">Product Engineering</h3>
-                <p class="text-secondary text-lg">Application layers, API flow, component topology, state and data relationships.</p>
+                <p class="text-secondary text-lg">Application layers, API flow, component topology, state and data
+                  relationships.</p>
               </div>
               <div class="expertise-trigger opacity-20 transition-opacity duration-500" data-index="1">
                 <span class="font-mono text-sm text-nd-violet mb-2 block">02</span>
                 <h3 class="font-display text-4xl font-bold text-primary mb-4">Cloud & Infrastructure</h3>
-                <p class="text-secondary text-lg">Regions, containers, deployment pipelines, observability, scaling signals.</p>
+                <p class="text-secondary text-lg">Regions, containers, deployment pipelines, observability, scaling
+                  signals.</p>
               </div>
               <div class="expertise-trigger opacity-20 transition-opacity duration-500" data-index="2">
                 <span class="font-mono text-sm text-nd-lime mb-2 block">03</span>
                 <h3 class="font-display text-4xl font-bold text-primary mb-4">Artificial Intelligence</h3>
-                <p class="text-secondary text-lg">Input, context, model, tools, memory, verification, and output pipeline.</p>
+                <p class="text-secondary text-lg">Input, context, model, tools, memory, verification, and output
+                  pipeline.</p>
               </div>
               <div class="expertise-trigger opacity-20 transition-opacity duration-500" data-index="3">
                 <span class="font-mono text-sm text-primary mb-2 block">04</span>
                 <h3 class="font-display text-4xl font-bold text-primary mb-4">Cybersecurity</h3>
-                <p class="text-secondary text-lg">Identity checks, trust boundaries, encryption, scanning, and monitoring.</p>
+                <p class="text-secondary text-lg">Identity checks, trust boundaries, encryption, scanning, and
+                  monitoring.</p>
               </div>
               <div class="expertise-trigger opacity-20 transition-opacity duration-500" data-index="4">
                 <span class="font-mono text-sm text-primary mb-2 block">05</span>
                 <h3 class="font-display text-4xl font-bold text-primary mb-4">Growth Technology</h3>
-                <p class="text-secondary text-lg">Channels, attribution, customer data, experiments, conversions, optimization.</p>
+                <p class="text-secondary text-lg">Channels, attribution, customer data, experiments, conversions,
+                  optimization.</p>
               </div>
               <div class="expertise-trigger opacity-20 transition-opacity duration-500" data-index="5">
                 <span class="font-mono text-sm text-primary mb-2 block">06</span>
                 <h3 class="font-display text-4xl font-bold text-primary mb-4">Digital Experience</h3>
-                <p class="text-secondary text-lg">Typography, interaction layers, 3D media, responsive states, motion systems.</p>
+                <p class="text-secondary text-lg">Typography, interaction layers, 3D media, responsive states, motion
+                  systems.</p>
               </div>
             </div>
           </div>
 
           <!-- Right: Sticky Workspace (6 distinct visual states) -->
           <div class="col-span-7 relative">
-            <div class="sticky top-[140px] h-[650px] bg-elevated rounded-2xl border border-nd-border overflow-hidden" id="expertise-workspace">
-              
+            <div class="sticky top-[140px] h-[650px] bg-elevated rounded-2xl border border-nd-border overflow-hidden"
+              id="expertise-workspace">
+
               <!-- State 1: Product Engineering -->
               <div class="expertise-state is-active" id="exp-state-0">
-                 <div class="font-mono text-xs text-nd-cyan tracking-widest mb-6">SYS_STATE: UI_COMPONENTS</div>
-                 <div class="flex-1 relative flex items-center justify-center">
-                    <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
-                       <rect x="50" y="50" width="180" height="120" rx="8" fill="none" stroke="currentColor" class="text-primary opacity-20" stroke-width="2"/>
-                       <rect x="70" y="70" width="140" height="20" rx="4" fill="currentColor" class="text-primary opacity-10"/>
-                       <rect x="70" y="100" width="60" height="50" rx="4" fill="currentColor" class="text-nd-cyan opacity-20" stroke="currentColor" stroke-width="1"/>
-                       <path d="M140,125 L280,125" stroke="currentColor" class="text-nd-cyan opacity-50" stroke-width="2" stroke-dasharray="4"/>
-                       <rect x="280" y="80" width="100" height="140" rx="8" fill="none" stroke="currentColor" class="text-primary opacity-20" stroke-width="2"/>
-                       <circle cx="330" cy="150" r="20" fill="none" stroke="currentColor" class="text-primary opacity-40" stroke-width="2"/>
-                    </svg>
-                 </div>
+                <div class="font-mono text-xs text-nd-cyan tracking-widest mb-6">SYS_STATE: UI_COMPONENTS</div>
+                <div class="flex-1 relative flex items-center justify-center">
+                  <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
+                    <rect x="50" y="50" width="180" height="120" rx="8" fill="none" stroke="currentColor"
+                      class="text-primary opacity-20" stroke-width="2" />
+                    <rect x="70" y="70" width="140" height="20" rx="4" fill="currentColor"
+                      class="text-primary opacity-10" />
+                    <rect x="70" y="100" width="60" height="50" rx="4" fill="currentColor"
+                      class="text-nd-cyan opacity-20" stroke="currentColor" stroke-width="1" />
+                    <path d="M140,125 L280,125" stroke="currentColor" class="text-nd-cyan opacity-50" stroke-width="2"
+                      stroke-dasharray="4" />
+                    <rect x="280" y="80" width="100" height="140" rx="8" fill="none" stroke="currentColor"
+                      class="text-primary opacity-20" stroke-width="2" />
+                    <circle cx="330" cy="150" r="20" fill="none" stroke="currentColor" class="text-primary opacity-40"
+                      stroke-width="2" />
+                  </svg>
+                </div>
               </div>
 
               <!-- State 2: Cloud -->
               <div class="expertise-state" id="exp-state-1">
-                 <div class="font-mono text-xs text-nd-violet tracking-widest mb-6">SYS_STATE: CLOUD_REGIONS</div>
-                 <div class="flex-1 relative flex items-center justify-center">
-                    <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
-                       <circle cx="100" cy="150" r="60" fill="none" stroke="currentColor" class="text-nd-violet opacity-30" stroke-width="1" stroke-dasharray="4"/>
-                       <circle cx="300" cy="150" r="80" fill="none" stroke="currentColor" class="text-primary opacity-10" stroke-width="1" stroke-dasharray="4"/>
-                       <path d="M160,150 L220,150" stroke="currentColor" class="text-nd-violet opacity-50" stroke-width="2"/>
-                       <rect x="80" y="130" width="40" height="40" rx="4" fill="currentColor" class="text-nd-violet opacity-20"/>
-                       <rect x="260" y="110" width="30" height="30" rx="4" fill="currentColor" class="text-primary opacity-20"/>
-                       <rect x="310" y="110" width="30" height="30" rx="4" fill="currentColor" class="text-primary opacity-20"/>
-                       <rect x="285" y="160" width="30" height="30" rx="4" fill="currentColor" class="text-primary opacity-20"/>
-                    </svg>
-                 </div>
+                <div class="font-mono text-xs text-nd-violet tracking-widest mb-6">SYS_STATE: CLOUD_REGIONS</div>
+                <div class="flex-1 relative flex items-center justify-center">
+                  <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
+                    <circle cx="100" cy="150" r="60" fill="none" stroke="currentColor" class="text-nd-violet opacity-30"
+                      stroke-width="1" stroke-dasharray="4" />
+                    <circle cx="300" cy="150" r="80" fill="none" stroke="currentColor" class="text-primary opacity-10"
+                      stroke-width="1" stroke-dasharray="4" />
+                    <path d="M160,150 L220,150" stroke="currentColor" class="text-nd-violet opacity-50"
+                      stroke-width="2" />
+                    <rect x="80" y="130" width="40" height="40" rx="4" fill="currentColor"
+                      class="text-nd-violet opacity-20" />
+                    <rect x="260" y="110" width="30" height="30" rx="4" fill="currentColor"
+                      class="text-primary opacity-20" />
+                    <rect x="310" y="110" width="30" height="30" rx="4" fill="currentColor"
+                      class="text-primary opacity-20" />
+                    <rect x="285" y="160" width="30" height="30" rx="4" fill="currentColor"
+                      class="text-primary opacity-20" />
+                  </svg>
+                </div>
               </div>
 
               <!-- State 3: AI -->
               <div class="expertise-state" id="exp-state-2">
-                 <div class="font-mono text-xs text-nd-lime tracking-widest mb-6">SYS_STATE: INFERENCE_PIPELINE</div>
-                 <div class="flex-1 relative flex items-center justify-center">
-                    <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
-                       <path d="M50,150 L100,150 L150,100 L250,100 L300,150 L350,150" stroke="currentColor" class="text-nd-lime opacity-50" fill="none" stroke-width="2"/>
-                       <path d="M100,150 L150,200 L250,200 L300,150" stroke="currentColor" class="text-primary opacity-20" fill="none" stroke-width="2"/>
-                       <circle cx="50" cy="150" r="6" fill="currentColor" class="text-primary opacity-50"/>
-                       <circle cx="350" cy="150" r="6" fill="currentColor" class="text-nd-lime"/>
-                       <rect x="150" y="80" width="100" height="40" rx="20" fill="currentColor" class="text-nd-lime opacity-10" stroke="currentColor" stroke-width="1"/>
-                       <rect x="150" y="180" width="100" height="40" rx="20" fill="currentColor" class="text-primary opacity-5" stroke="currentColor" stroke-width="1"/>
-                    </svg>
-                 </div>
+                <div class="font-mono text-xs text-nd-lime tracking-widest mb-6">SYS_STATE: INFERENCE_PIPELINE</div>
+                <div class="flex-1 relative flex items-center justify-center">
+                  <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
+                    <path d="M50,150 L100,150 L150,100 L250,100 L300,150 L350,150" stroke="currentColor"
+                      class="text-nd-lime opacity-50" fill="none" stroke-width="2" />
+                    <path d="M100,150 L150,200 L250,200 L300,150" stroke="currentColor" class="text-primary opacity-20"
+                      fill="none" stroke-width="2" />
+                    <circle cx="50" cy="150" r="6" fill="currentColor" class="text-primary opacity-50" />
+                    <circle cx="350" cy="150" r="6" fill="currentColor" class="text-nd-lime" />
+                    <rect x="150" y="80" width="100" height="40" rx="20" fill="currentColor"
+                      class="text-nd-lime opacity-10" stroke="currentColor" stroke-width="1" />
+                    <rect x="150" y="180" width="100" height="40" rx="20" fill="currentColor"
+                      class="text-primary opacity-5" stroke="currentColor" stroke-width="1" />
+                  </svg>
+                </div>
               </div>
 
               <!-- State 4: Security -->
               <div class="expertise-state" id="exp-state-3">
-                 <div class="font-mono text-xs text-primary tracking-widest mb-6 opacity-50">SYS_STATE: ZERO_TRUST</div>
-                 <div class="flex-1 relative flex items-center justify-center">
-                    <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
-                       <rect x="100" y="50" width="200" height="200" rx="100" fill="none" stroke="currentColor" class="text-primary opacity-20" stroke-width="2" stroke-dasharray="8 8"/>
-                       <path d="M200,50 L200,250" stroke="currentColor" class="text-nd-cyan opacity-50" stroke-width="1"/>
-                       <rect x="160" y="110" width="80" height="80" rx="8" fill="currentColor" class="text-primary opacity-5" stroke="currentColor" stroke-width="1"/>
-                       <circle cx="200" cy="150" r="10" fill="currentColor" class="text-nd-cyan opacity-80"/>
-                    </svg>
-                 </div>
+                <div class="font-mono text-xs text-primary tracking-widest mb-6 opacity-50">SYS_STATE: ZERO_TRUST</div>
+                <div class="flex-1 relative flex items-center justify-center">
+                  <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
+                    <rect x="100" y="50" width="200" height="200" rx="100" fill="none" stroke="currentColor"
+                      class="text-primary opacity-20" stroke-width="2" stroke-dasharray="8 8" />
+                    <path d="M200,50 L200,250" stroke="currentColor" class="text-nd-cyan opacity-50" stroke-width="1" />
+                    <rect x="160" y="110" width="80" height="80" rx="8" fill="currentColor"
+                      class="text-primary opacity-5" stroke="currentColor" stroke-width="1" />
+                    <circle cx="200" cy="150" r="10" fill="currentColor" class="text-nd-cyan opacity-80" />
+                  </svg>
+                </div>
               </div>
 
               <!-- State 5: Growth -->
               <div class="expertise-state" id="exp-state-4">
-                 <div class="font-mono text-xs text-primary tracking-widest mb-6 opacity-50">SYS_STATE: ATTRIBUTION_PATHS</div>
-                 <div class="flex-1 relative flex items-center justify-center">
-                    <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
-                       <path d="M50,50 Q150,150 350,150" stroke="currentColor" class="text-nd-violet opacity-50" fill="none" stroke-width="2"/>
-                       <path d="M50,150 Q200,150 350,150" stroke="currentColor" class="text-primary opacity-20" fill="none" stroke-width="2"/>
-                       <path d="M50,250 Q150,150 350,150" stroke="currentColor" class="text-nd-cyan opacity-50" fill="none" stroke-width="2"/>
-                       <circle cx="350" cy="150" r="15" fill="none" stroke="currentColor" class="text-primary opacity-80" stroke-width="4"/>
-                       <circle cx="350" cy="150" r="5" fill="currentColor" class="text-primary"/>
-                    </svg>
-                 </div>
+                <div class="font-mono text-xs text-primary tracking-widest mb-6 opacity-50">SYS_STATE: ATTRIBUTION_PATHS
+                </div>
+                <div class="flex-1 relative flex items-center justify-center">
+                  <svg viewBox="0 0 400 300" class="w-full h-full overflow-visible">
+                    <path d="M50,50 Q150,150 350,150" stroke="currentColor" class="text-nd-violet opacity-50"
+                      fill="none" stroke-width="2" />
+                    <path d="M50,150 Q200,150 350,150" stroke="currentColor" class="text-primary opacity-20" fill="none"
+                      stroke-width="2" />
+                    <path d="M50,250 Q150,150 350,150" stroke="currentColor" class="text-nd-cyan opacity-50" fill="none"
+                      stroke-width="2" />
+                    <circle cx="350" cy="150" r="15" fill="none" stroke="currentColor" class="text-primary opacity-80"
+                      stroke-width="4" />
+                    <circle cx="350" cy="150" r="5" fill="currentColor" class="text-primary" />
+                  </svg>
+                </div>
               </div>
 
               <!-- State 6: Digital Experience -->
               <div class="expertise-state" id="exp-state-5">
-                 <div class="font-mono text-xs text-primary tracking-widest mb-6 opacity-50">SYS_STATE: MOTION_LAYER</div>
-                 <div class="flex-1 relative flex items-center justify-center perspective-1000">
-                    <div class="w-64 h-40 border border-nd-border bg-soft rounded-xl transform rotate-y-12 rotate-x-12 shadow-2xl relative overflow-hidden">
-                       <div class="absolute inset-0 bg-gradient-to-tr from-nd-cyan/10 to-transparent"></div>
-                       <div class="absolute top-6 left-6 w-32 h-4 bg-primary opacity-20 rounded"></div>
-                       <div class="absolute top-14 left-6 w-48 h-4 bg-primary opacity-10 rounded"></div>
-                       <div class="absolute bottom-6 right-6 w-12 h-12 rounded-full border-2 border-nd-lime opacity-50"></div>
+                <div class="font-mono text-xs text-primary tracking-widest mb-6 opacity-50">SYS_STATE: MOTION_LAYER
+                </div>
+                <div class="flex-1 relative flex items-center justify-center perspective-1000">
+                  <div
+                    class="w-64 h-40 border border-nd-border bg-soft rounded-xl transform rotate-y-12 rotate-x-12 shadow-2xl relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-nd-cyan/10 to-transparent"></div>
+                    <div class="absolute top-6 left-6 w-32 h-4 bg-primary opacity-20 rounded"></div>
+                    <div class="absolute top-14 left-6 w-48 h-4 bg-primary opacity-10 rounded"></div>
+                    <div class="absolute bottom-6 right-6 w-12 h-12 rounded-full border-2 border-nd-lime opacity-50">
                     </div>
-                 </div>
+                  </div>
+                </div>
               </div>
 
             </div>
@@ -407,69 +573,110 @@
       </div>
 
       <!-- Project 1: AETHER HEALTH -->
-      <a href="work/aether-health.html" class="block relative w-full border-t border-nd-border work-article group bg-[#040B16] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-nd-cyan focus-visible:z-30 transition-colors" data-cursor="view" aria-label="View the Aether Health case study">
+      <a href="work/aether-health.html"
+        class="block relative w-full border-t border-nd-border work-article group bg-[#040B16] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-nd-cyan focus-visible:z-30 transition-colors"
+        data-cursor="view" aria-label="View the Aether Health case study">
         <!-- We use a hardcoded dark background for the project atmosphere, but text uses specific colors -->
         <div class="min-h-[80vh] flex items-center py-20 overflow-hidden relative">
-          <div class="absolute right-0 top-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_center,_rgba(24,224,255,0.1),_transparent_70%)] pointer-events-none"></div>
-          
-          <div class="layout-container relative z-10 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-none">
+          <div
+            class="absolute right-0 top-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_center,_rgba(24,224,255,0.1),_transparent_70%)] pointer-events-none">
+          </div>
+
+          <div
+            class="layout-container relative z-10 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-none">
             <div class="work-content">
               <div class="font-mono text-[#18E0FF] text-sm tracking-widest mb-4">01 // HEALTHCARE</div>
               <h3 class="font-display text-clamp-h3 font-bold mb-6 text-primary">AETHER HEALTH</h3>
-              <p class="text-[#94A3B8] max-w-md mb-8 text-lg">Disconnected patient systems become one connected care platform. A secure ecosystem integrating telehealth, HIPAA-compliant data pipelines, and a unified patient application.</p>
+              <p class="text-[#94A3B8] max-w-md mb-8 text-lg">Disconnected patient systems become one connected care
+                platform. A secure ecosystem integrating telehealth, HIPAA-compliant data pipelines, and a unified
+                patient application.</p>
               <div class="flex gap-4 mb-10 flex-wrap">
-                <span class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">React Native</span>
-                <span class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">AWS</span>
-                <span class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">PostgreSQL</span>
+                <span
+                  class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">React
+                  Native</span>
+                <span
+                  class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">AWS</span>
+                <span
+                  class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">PostgreSQL</span>
               </div>
               <div class="inline-block">
-                <span class="btn-outline border-border-medium text-primary group-hover:border-[#18E0FF] group-hover:text-[#18E0FF]">View Case Study</span>
+                <span
+                  class="btn-outline border-border-medium text-primary group-hover:border-[#18E0FF] group-hover:text-[#18E0FF]">View
+                  Case Study</span>
               </div>
             </div>
-            
+
             <div class="relative h-[400px] w-full work-visual flex items-center justify-center">
-               <div class="absolute w-64 h-80 bg-surface-elevated border border-border-soft rounded-xl shadow-2xl backdrop-blur-sm z-20 transform -translate-x-10 translate-y-10 panel-1">
-                  <div class="p-6 border-b border-border-soft flex items-center gap-4"><div class="w-10 h-10 rounded-full bg-[#18E0FF]/20"></div><div class="w-24 h-4 bg-white/20 rounded"></div></div>
-                  <div class="p-6 space-y-4"><div class="w-full h-12 bg-surface-elevated rounded"></div><div class="w-full h-12 bg-surface-elevated rounded"></div></div>
-               </div>
-               <div class="absolute w-72 h-64 bg-[#18E0FF]/5 border border-[#18E0FF]/20 rounded-xl shadow-2xl backdrop-blur-md z-30 transform translate-x-10 -translate-y-10 panel-2 p-6 flex flex-col justify-between">
-                  <div class="font-display text-[#18E0FF]">Vitals Sync Active</div>
-                  <div class="font-display text-4xl text-primary font-bold">98<span class="text-lg text-[#94A3B8]">%</span></div>
-               </div>
+              <div
+                class="absolute w-64 h-80 bg-surface-elevated border border-border-soft rounded-xl shadow-2xl backdrop-blur-sm z-20 transform -translate-x-10 translate-y-10 panel-1">
+                <div class="p-6 border-b border-border-soft flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-full bg-[#18E0FF]/20"></div>
+                  <div class="w-24 h-4 bg-white/20 rounded"></div>
+                </div>
+                <div class="p-6 space-y-4">
+                  <div class="w-full h-12 bg-surface-elevated rounded"></div>
+                  <div class="w-full h-12 bg-surface-elevated rounded"></div>
+                </div>
+              </div>
+              <div
+                class="absolute w-72 h-64 bg-[#18E0FF]/5 border border-[#18E0FF]/20 rounded-xl shadow-2xl backdrop-blur-md z-30 transform translate-x-10 -translate-y-10 panel-2 p-6 flex flex-col justify-between">
+                <div class="font-display text-[#18E0FF]">Vitals Sync Active</div>
+                <div class="font-display text-4xl text-primary font-bold">98<span
+                    class="text-lg text-[#94A3B8]">%</span></div>
+              </div>
             </div>
           </div>
         </div>
       </a>
 
       <!-- Project 2: QUANTUM FINANCE -->
-      <a href="work/quantum-finance.html" class="block relative w-full border-t border-nd-border work-article group bg-[#0A0B10] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-nd-violet focus-visible:z-30 transition-colors" data-cursor="view" aria-label="View the Quantum Finance case study">
+      <a href="work/quantum-finance.html"
+        class="block relative w-full border-t border-nd-border work-article group bg-[#0A0B10] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-nd-violet focus-visible:z-30 transition-colors"
+        data-cursor="view" aria-label="View the Quantum Finance case study">
         <div class="min-h-[80vh] flex items-center py-20 overflow-hidden relative">
-          <div class="absolute left-0 top-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_center,_rgba(139,92,246,0.1),_transparent_70%)] pointer-events-none"></div>
-          
-          <div class="layout-container relative z-10 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-none">
+          <div
+            class="absolute left-0 top-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_center,_rgba(139,92,246,0.1),_transparent_70%)] pointer-events-none">
+          </div>
+
+          <div
+            class="layout-container relative z-10 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-none">
             <div class="order-2 md:order-1 relative h-[400px] w-full work-visual flex items-center justify-center">
-               <svg viewBox="0 0 400 300" class="w-full h-full opacity-80 panel-1">
-                  <path d="M0,250 C50,200 100,280 150,150 C200,50 250,100 300,80 L400,20" stroke="#8B5CF6" stroke-width="3" fill="none" class="chart-path" stroke-dasharray="1000" stroke-dashoffset="1000"/>
-                  <path d="M0,300 L0,250 C50,200 100,280 150,150 C200,50 250,100 300,80 L400,20 L400,300 Z" fill="url(#grad-qf)" opacity="0.2"/>
-                  <defs><linearGradient id="grad-qf" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="100%" stop-color="#0A0B10"/></linearGradient></defs>
-               </svg>
-               <div class="absolute right-10 top-20 w-48 bg-page-alt/50 border border-[#8B5CF6]/30 p-4 rounded backdrop-blur panel-2">
-                  <div class="text-xs text-[#8B5CF6] mb-1">PREDICTIVE ALPHA</div>
-                  <div class="text-3xl font-display text-primary">+14.2%</div>
-               </div>
+              <svg viewBox="0 0 400 300" class="w-full h-full opacity-80 panel-1">
+                <path d="M0,250 C50,200 100,280 150,150 C200,50 250,100 300,80 L400,20" stroke="#8B5CF6"
+                  stroke-width="3" fill="none" class="chart-path" stroke-dasharray="1000" stroke-dashoffset="1000" />
+                <path d="M0,300 L0,250 C50,200 100,280 150,150 C200,50 250,100 300,80 L400,20 L400,300 Z"
+                  fill="url(#grad-qf)" opacity="0.2" />
+                <defs>
+                  <linearGradient id="grad-qf" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#8B5CF6" />
+                    <stop offset="100%" stop-color="#0A0B10" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div
+                class="absolute right-10 top-20 w-48 bg-page-alt/50 border border-[#8B5CF6]/30 p-4 rounded backdrop-blur panel-2">
+                <div class="text-xs text-[#8B5CF6] mb-1">PREDICTIVE ALPHA</div>
+                <div class="text-3xl font-display text-primary">+14.2%</div>
+              </div>
             </div>
-            
+
             <div class="order-1 md:order-2 work-content md:pl-12">
               <div class="font-mono text-[#8B5CF6] text-sm tracking-widest mb-4">02 // FINTECH</div>
               <h3 class="font-display text-clamp-h3 font-bold mb-6 text-primary">QUANTUM FINANCE</h3>
-              <p class="text-[#94A3B8] max-w-md mb-8 text-lg">Raw high-volume market data becomes structured financial intelligence. A real-time platform processing high-velocity data with predictive AI modeling.</p>
+              <p class="text-[#94A3B8] max-w-md mb-8 text-lg">Raw high-volume market data becomes structured financial
+                intelligence. A real-time platform processing high-velocity data with predictive AI modeling.</p>
               <div class="flex gap-4 mb-10 flex-wrap">
-                <span class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">Python</span>
-                <span class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">TensorFlow</span>
-                <span class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">Kafka</span>
+                <span
+                  class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">Python</span>
+                <span
+                  class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">TensorFlow</span>
+                <span
+                  class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">Kafka</span>
               </div>
               <div class="inline-block">
-                <span class="btn-outline border-border-medium text-primary group-hover:border-[#8B5CF6] group-hover:text-[#8B5CF6]">View Case Study</span>
+                <span
+                  class="btn-outline border-border-medium text-primary group-hover:border-[#8B5CF6] group-hover:text-[#8B5CF6]">View
+                  Case Study</span>
               </div>
             </div>
           </div>
@@ -477,38 +684,55 @@
       </a>
 
       <!-- Project 3: NOVA LOGISTICS -->
-      <a href="work/nova-logistics.html" class="block relative w-full border-y border-nd-border work-article group bg-[#060B08] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-nd-lime focus-visible:z-30 transition-colors" data-cursor="view" aria-label="View the Nova Logistics case study">
+      <a href="work/nova-logistics.html"
+        class="block relative w-full border-y border-nd-border work-article group bg-[#060B08] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-nd-lime focus-visible:z-30 transition-colors"
+        data-cursor="view" aria-label="View the Nova Logistics case study">
         <div class="min-h-[80vh] flex items-center py-20 overflow-hidden relative">
-          <div class="absolute right-0 bottom-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_center,_rgba(163,255,95,0.05),_transparent_70%)] pointer-events-none"></div>
-          
-          <div class="layout-container relative z-10 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-none">
+          <div
+            class="absolute right-0 bottom-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_center,_rgba(163,255,95,0.05),_transparent_70%)] pointer-events-none">
+          </div>
+
+          <div
+            class="layout-container relative z-10 w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center pointer-events-none">
             <div class="work-content">
               <div class="font-mono text-[#A3FF5F] text-sm tracking-widest mb-4">03 // LOGISTICS</div>
               <h3 class="font-display text-clamp-h3 font-bold mb-6 text-primary">NOVA LOGISTICS</h3>
-              <p class="text-[#94A3B8] max-w-md mb-8 text-lg">Global operational complexity becomes an optimized routing system. An AI-powered infrastructure platform optimizing shipping routes through real-time satellite data.</p>
+              <p class="text-[#94A3B8] max-w-md mb-8 text-lg">Global operational complexity becomes an optimized routing
+                system. An AI-powered infrastructure platform optimizing shipping routes through real-time satellite
+                data.</p>
               <div class="flex gap-4 mb-10 flex-wrap">
-                <span class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">Node.js</span>
-                <span class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">K8s</span>
-                <span class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">Mapbox</span>
+                <span
+                  class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">Node.js</span>
+                <span
+                  class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">K8s</span>
+                <span
+                  class="px-3 py-1 border border-border-soft rounded-full text-xs bg-surface-elevated text-primary">Mapbox</span>
               </div>
               <div class="inline-block">
-                <span class="btn-outline border-border-medium text-primary group-hover:border-[#A3FF5F] group-hover:text-[#A3FF5F]">View Case Study</span>
+                <span
+                  class="btn-outline border-border-medium text-primary group-hover:border-[#A3FF5F] group-hover:text-[#A3FF5F]">View
+                  Case Study</span>
               </div>
             </div>
-            
+
             <div class="relative h-[400px] w-full work-visual flex items-center justify-center">
-               <div class="w-full h-full border border-[#A3FF5F]/10 bg-[#060B08]/80 backdrop-blur rounded-2xl transform rotate-x-12 rotate-y-[-10deg] shadow-2xl relative overflow-hidden panel-1">
-                  <div class="absolute inset-0 bg-[linear-gradient(rgba(163,255,95,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(163,255,95,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
-                  <svg class="absolute inset-0 w-full h-full">
-                     <path d="M50,100 Q150,50 250,150 T350,200" stroke="#A3FF5F" stroke-width="2" fill="none" stroke-dasharray="4" class="route-line"/>
-                     <circle cx="50" cy="100" r="4" fill="#fff" />
-                     <circle cx="255" cy="150" r="6" fill="#A3FF5F" class="animate-pulse" />
-                     <circle cx="350" cy="200" r="4" fill="#fff" />
-                  </svg>
-                  <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-page-alt/80 border border-[#A3FF5F]/30 px-4 py-2 rounded text-[#A3FF5F] font-mono text-xs panel-2">
-                     ROUTE OPTIMIZED (-68% LATENCY)
-                  </div>
-               </div>
+              <div
+                class="w-full h-full border border-[#A3FF5F]/10 bg-[#060B08]/80 backdrop-blur rounded-2xl transform rotate-x-12 rotate-y-[-10deg] shadow-2xl relative overflow-hidden panel-1">
+                <div
+                  class="absolute inset-0 bg-[linear-gradient(rgba(163,255,95,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(163,255,95,0.05)_1px,transparent_1px)] bg-[size:20px_20px]">
+                </div>
+                <svg class="absolute inset-0 w-full h-full">
+                  <path d="M50,100 Q150,50 250,150 T350,200" stroke="#A3FF5F" stroke-width="2" fill="none"
+                    stroke-dasharray="4" class="route-line" />
+                  <circle cx="50" cy="100" r="4" fill="#fff" />
+                  <circle cx="255" cy="150" r="6" fill="#A3FF5F" class="animate-pulse" />
+                  <circle cx="350" cy="200" r="4" fill="#fff" />
+                </svg>
+                <div
+                  class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-page-alt/80 border border-[#A3FF5F]/30 px-4 py-2 rounded text-[#A3FF5F] font-mono text-xs panel-2">
+                  ROUTE OPTIMIZED (-68% LATENCY)
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -524,33 +748,49 @@
           <div class="relative">
             <div class="font-mono text-xs text-nd-cyan mb-2">01 DISCOVER</div>
             <h3 class="font-display text-2xl font-bold mb-4 text-primary">Audit & Blueprint</h3>
-            <p class="text-secondary text-sm mb-6">Deep technical auditing and definitive KPI establishment before a line of code is written.</p>
+            <p class="text-secondary text-sm mb-6">Deep technical auditing and definitive KPI establishment before a
+              line of code is written.</p>
             <div class="w-full h-40 bg-soft border border-nd-border rounded flex items-center justify-center">
-              <svg viewBox="0 0 100 50" class="w-full h-full opacity-50"><circle cx="30" cy="25" r="10" fill="none" stroke="currentColor" class="text-nd-cyan"/><circle cx="70" cy="25" r="10" fill="none" stroke="currentColor" class="text-primary"/><path d="M40,25 L60,25" stroke="currentColor" class="text-nd-cyan" stroke-dasharray="2"/></svg>
+              <svg viewBox="0 0 100 50" class="w-full h-full opacity-50">
+                <circle cx="30" cy="25" r="10" fill="none" stroke="currentColor" class="text-nd-cyan" />
+                <circle cx="70" cy="25" r="10" fill="none" stroke="currentColor" class="text-primary" />
+                <path d="M40,25 L60,25" stroke="currentColor" class="text-nd-cyan" stroke-dasharray="2" />
+              </svg>
             </div>
           </div>
           <div class="relative">
             <div class="font-mono text-xs text-nd-violet mb-2">02 ARCHITECT</div>
             <h3 class="font-display text-2xl font-bold mb-4 text-primary">System Design</h3>
-            <p class="text-secondary text-sm mb-6">Database topology, wireframing, and precise technical stack selection.</p>
+            <p class="text-secondary text-sm mb-6">Database topology, wireframing, and precise technical stack
+              selection.</p>
             <div class="w-full h-40 bg-soft border border-nd-border rounded flex items-center justify-center">
-              <svg viewBox="0 0 100 50" class="w-full h-full opacity-50"><rect x="20" y="10" width="60" height="10" fill="none" stroke="currentColor" class="text-primary"/><rect x="20" y="30" width="25" height="10" fill="none" stroke="currentColor" class="text-nd-violet"/><rect x="55" y="30" width="25" height="10" fill="none" stroke="currentColor" class="text-nd-violet"/></svg>
+              <svg viewBox="0 0 100 50" class="w-full h-full opacity-50">
+                <rect x="20" y="10" width="60" height="10" fill="none" stroke="currentColor" class="text-primary" />
+                <rect x="20" y="30" width="25" height="10" fill="none" stroke="currentColor" class="text-nd-violet" />
+                <rect x="55" y="30" width="25" height="10" fill="none" stroke="currentColor" class="text-nd-violet" />
+              </svg>
             </div>
           </div>
           <div class="relative">
             <div class="font-mono text-xs text-primary opacity-50 mb-2">03 ENGINEER</div>
             <h3 class="font-display text-2xl font-bold mb-4 text-primary">Implementation</h3>
-            <p class="text-secondary text-sm mb-6">Agile software development and secure dimensional backend implementation.</p>
-            <div class="w-full h-40 bg-soft border border-nd-border rounded flex items-center justify-center perspective-1000">
-               <div class="w-20 h-10 border border-nd-cyan transform rotate-x-60 rotate-z-45"></div>
+            <p class="text-secondary text-sm mb-6">Agile software development and secure dimensional backend
+              implementation.</p>
+            <div
+              class="w-full h-40 bg-soft border border-nd-border rounded flex items-center justify-center perspective-1000">
+              <div class="w-20 h-10 border border-nd-cyan transform rotate-x-60 rotate-z-45"></div>
             </div>
           </div>
           <div class="relative">
             <div class="font-mono text-xs text-nd-lime mb-2">04 OPTIMIZE</div>
             <h3 class="font-display text-2xl font-bold mb-4 text-primary">Scale & CI/CD</h3>
-            <p class="text-secondary text-sm mb-6">Infrastructure monitoring, continuous integration, and conversion loops.</p>
+            <p class="text-secondary text-sm mb-6">Infrastructure monitoring, continuous integration, and conversion
+              loops.</p>
             <div class="w-full h-40 bg-soft border border-nd-border rounded flex items-center justify-center">
-              <svg viewBox="0 0 100 50" class="w-full h-full opacity-50"><path d="M10,25 C30,25 40,10 50,25 C60,40 70,25 90,25" stroke="currentColor" class="text-nd-lime" fill="none" stroke-width="1"/></svg>
+              <svg viewBox="0 0 100 50" class="w-full h-full opacity-50">
+                <path d="M10,25 C30,25 40,10 50,25 C60,40 70,25 90,25" stroke="currentColor" class="text-nd-lime"
+                  fill="none" stroke-width="1" />
+              </svg>
             </div>
           </div>
         </div>
@@ -559,97 +799,145 @@
       <!-- Desktop Scroll Story (Balanced Timeline) -->
       <div class="hidden md:block layout-container relative h-[400vh]" id="approach-scroll-container">
         <div class="sticky top-[96px] w-full h-[calc(100vh-96px)] flex items-center grid grid-cols-12 gap-16">
-          
+
           <div class="col-span-5 relative h-full flex flex-col justify-center">
             <!-- Protected Section Title -->
-            <div class="absolute top-0 left-0 w-full pt-12 z-20 approach-heading-rail bg-gradient-to-b from-surface via-surface to-transparent h-[150px]">
+            <div
+              class="absolute top-0 left-0 w-full pt-12 z-20 approach-heading-rail bg-gradient-to-b from-surface via-surface to-transparent h-[150px]">
               <h2 class="text-clamp-h2 font-display text-primary">System Construction</h2>
             </div>
-            
+
             <div class="relative w-full h-[250px] mt-20">
               <div class="absolute inset-0 flex flex-col justify-center approach-text opacity-100" data-stage="1">
                 <div class="font-mono text-sm text-nd-cyan mb-4">01 // DISCOVER</div>
                 <h3 class="font-display text-4xl font-bold mb-4 text-primary">Audit & Blueprint</h3>
-                <p class="text-secondary text-lg">Scattered inputs, documents, business signals, and data points are gathered to establish rigorous technical and business KPIs.</p>
+                <p class="text-secondary text-lg">Scattered inputs, documents, business signals, and data points are
+                  gathered to establish rigorous technical and business KPIs.</p>
               </div>
               <div class="absolute inset-0 flex flex-col justify-center approach-text opacity-0" data-stage="2">
                 <div class="font-mono text-sm text-nd-violet mb-4">02 // ARCHITECT</div>
                 <h3 class="font-display text-4xl font-bold mb-4 text-primary">System Design</h3>
-                <p class="text-secondary text-lg">Inputs become a structured blueprint. Service boundaries, API routes, database topology, and infrastructure are mapped before a line of code is written.</p>
+                <p class="text-secondary text-lg">Inputs become a structured blueprint. Service boundaries, API routes,
+                  database topology, and infrastructure are mapped before a line of code is written.</p>
               </div>
               <div class="absolute inset-0 flex flex-col justify-center approach-text opacity-0" data-stage="3">
                 <div class="font-mono text-sm text-primary mb-4 opacity-50">03 // ENGINEER</div>
                 <h3 class="font-display text-4xl font-bold mb-4 text-primary">Implementation</h3>
-                <p class="text-secondary text-lg">The blueprint becomes a functional, dimensional system. Interfaces assemble, secure backends connect, and data begins flowing.</p>
+                <p class="text-secondary text-lg">The blueprint becomes a functional, dimensional system. Interfaces
+                  assemble, secure backends connect, and data begins flowing.</p>
               </div>
               <div class="absolute inset-0 flex flex-col justify-center approach-text opacity-0" data-stage="4">
                 <div class="font-mono text-sm text-nd-lime mb-4">04 // OPTIMIZE</div>
                 <h3 class="font-display text-4xl font-bold mb-4 text-primary">Deployment & Scale</h3>
-                <p class="text-secondary text-lg">Performance signals, monitoring, integration tests, and growth loops activate around the completed production system.</p>
+                <p class="text-secondary text-lg">Performance signals, monitoring, integration tests, and growth loops
+                  activate around the completed production system.</p>
               </div>
             </div>
           </div>
 
-          <div class="col-span-7 h-[600px] bg-elevated border border-nd-border rounded-2xl relative overflow-hidden flex items-center justify-center">
+          <div
+            class="col-span-7 h-[600px] bg-elevated border border-nd-border rounded-2xl relative overflow-hidden flex items-center justify-center">
             <div class="relative w-full h-full perspective-1000">
-               
-               <!-- Stage 1: Scatter (Discover) -->
-               <div class="approach-stage is-active p-12" id="stage-1-vis">
-                  <div class="absolute w-16 h-16 border border-nd-cyan bg-nd-cyan/10 rounded transform rotate-12 translate-x-[50px] translate-y-[100px] s1-item"></div>
-                  <div class="absolute w-24 h-8 border border-nd-border bg-soft rounded transform -rotate-6 translate-x-[250px] translate-y-[80px] s1-item"></div>
-                  <div class="absolute w-12 h-12 border border-nd-violet rounded-full transform translate-x-[400px] translate-y-[300px] s1-item"></div>
-                  <div class="absolute w-32 h-24 border border-nd-border bg-page shadow transform rotate-6 translate-x-[150px] translate-y-[400px] s1-item flex flex-col p-2 gap-2"><div class="h-2 w-1/2 bg-primary opacity-20 rounded"></div><div class="h-2 w-full bg-primary opacity-10 rounded"></div><div class="h-2 w-3/4 bg-primary opacity-10 rounded"></div></div>
-                  
-                  <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-50"><path d="M80,130 L160,420" stroke="currentColor" class="text-nd-cyan" stroke-dasharray="4" fill="none" class="s1-line"/><path d="M270,100 L420,320" stroke="currentColor" class="text-nd-cyan" stroke-dasharray="4" fill="none" class="s1-line"/></svg>
-               </div>
 
-               <!-- Stage 2: Blueprint (Architect) -->
-               <div class="approach-stage items-center justify-center" id="stage-2-vis">
-                  <div class="w-[80%] h-[80%] border border-nd-violet/50 rounded flex flex-col justify-between p-8 relative overflow-hidden bg-soft">
-                     <div class="grid grid-cols-3 gap-6 z-10 w-full h-full">
-                        <div class="col-span-3 h-16 border-2 border-nd-violet/50 rounded flex items-center justify-center font-mono text-sm text-nd-violet s2-box bg-page">CLIENT UI</div>
-                        <div class="col-span-1 border border-nd-border rounded flex items-center justify-center font-mono text-xs text-secondary s2-box bg-page">AUTH</div>
-                        <div class="col-span-1 border border-nd-border rounded flex items-center justify-center font-mono text-xs text-secondary s2-box bg-page">API GW</div>
-                        <div class="col-span-1 border border-nd-border rounded flex items-center justify-center font-mono text-xs text-secondary s2-box bg-page">SERVICES</div>
-                        <div class="col-span-3 h-16 border border-nd-border opacity-50 rounded flex items-center justify-center font-mono text-xs text-secondary s2-box bg-page">DATA STORE</div>
-                     </div>
-                  </div>
-               </div>
+              <!-- Stage 1: Scatter (Discover) -->
+              <div class="approach-stage is-active p-12" id="stage-1-vis">
+                <div
+                  class="absolute w-16 h-16 border border-nd-cyan bg-nd-cyan/10 rounded transform rotate-12 translate-x-[50px] translate-y-[100px] s1-item">
+                </div>
+                <div
+                  class="absolute w-24 h-8 border border-nd-border bg-soft rounded transform -rotate-6 translate-x-[250px] translate-y-[80px] s1-item">
+                </div>
+                <div
+                  class="absolute w-12 h-12 border border-nd-violet rounded-full transform translate-x-[400px] translate-y-[300px] s1-item">
+                </div>
+                <div
+                  class="absolute w-32 h-24 border border-nd-border bg-page shadow transform rotate-6 translate-x-[150px] translate-y-[400px] s1-item flex flex-col p-2 gap-2">
+                  <div class="h-2 w-1/2 bg-primary opacity-20 rounded"></div>
+                  <div class="h-2 w-full bg-primary opacity-10 rounded"></div>
+                  <div class="h-2 w-3/4 bg-primary opacity-10 rounded"></div>
+                </div>
 
-               <!-- Stage 3: Engineer (Dimensional) -->
-               <div class="approach-stage items-center justify-center" id="stage-3-vis">
-                  <div class="w-64 h-64 relative transform rotate-x-60 rotate-z-45">
-                     <div class="absolute inset-0 border border-nd-cyan bg-nd-cyan/10 rounded shadow-lg transform translate-z-20 s3-layer backdrop-blur-sm"></div>
-                     <div class="absolute inset-0 border border-nd-violet bg-nd-violet/10 rounded transform translate-z-10 translate-y-8 translate-x-8 s3-layer backdrop-blur-sm"></div>
-                     <div class="absolute inset-0 border border-nd-border bg-soft rounded transform translate-y-16 translate-x-16 s3-layer backdrop-blur-sm"></div>
-                     
-                     <svg class="absolute inset-0 w-full h-full overflow-visible z-50">
-                       <path d="M128,128 L128,200" stroke="currentColor" class="text-primary" stroke-width="2" class="s3-flow"/>
-                       <circle cx="128" cy="200" r="4" fill="currentColor" class="text-nd-cyan s3-pulse"/>
-                     </svg>
-                  </div>
-               </div>
+                <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-50">
+                  <path d="M80,130 L160,420" stroke="currentColor" class="text-nd-cyan" stroke-dasharray="4" fill="none"
+                    class="s1-line" />
+                  <path d="M270,100 L420,320" stroke="currentColor" class="text-nd-cyan" stroke-dasharray="4"
+                    fill="none" class="s1-line" />
+                </svg>
+              </div>
 
-               <!-- Stage 4: Optimize (Monitoring) -->
-               <div class="approach-stage items-center justify-center" id="stage-4-vis">
-                  <div class="w-full h-full p-8 relative flex flex-col gap-6">
-                     <div class="w-full h-32 border border-nd-lime/50 bg-page rounded-xl p-4 flex flex-col justify-between s4-panel">
-                        <div class="flex justify-between font-mono text-xs text-nd-lime"><span>SYS_HEALTH</span><span>100%</span></div>
-                        <svg viewBox="0 0 400 50" class="w-full h-full"><path d="M0,25 C50,25 75,10 100,25 C125,40 150,10 175,25 C200,25 250,25 300,25 L400,25" fill="none" stroke="currentColor" class="text-nd-lime" stroke-width="2" class="s4-wave"/></svg>
-                     </div>
-                     <div class="grid grid-cols-2 gap-6 h-32">
-                        <div class="border border-nd-border bg-page rounded-xl p-4 flex flex-col justify-center items-center s4-panel">
-                           <div class="text-3xl font-display font-bold text-primary mb-1">12ms</div>
-                           <div class="text-xs text-muted font-mono">LATENCY</div>
-                        </div>
-                        <div class="border border-nd-border bg-page rounded-xl p-4 flex flex-col justify-center items-center s4-panel relative overflow-hidden">
-                           <div class="absolute inset-0 bg-nd-cyan/10 scale-x-0 origin-left s4-bar"></div>
-                           <div class="text-3xl font-display font-bold text-primary mb-1 relative z-10">99.99%</div>
-                           <div class="text-xs text-muted font-mono relative z-10">UPTIME</div>
-                        </div>
-                     </div>
+              <!-- Stage 2: Blueprint (Architect) -->
+              <div class="approach-stage items-center justify-center" id="stage-2-vis">
+                <div
+                  class="w-[80%] h-[80%] border border-nd-violet/50 rounded flex flex-col justify-between p-8 relative overflow-hidden bg-soft">
+                  <div class="grid grid-cols-3 gap-6 z-10 w-full h-full">
+                    <div
+                      class="col-span-3 h-16 border-2 border-nd-violet/50 rounded flex items-center justify-center font-mono text-sm text-nd-violet s2-box bg-page">
+                      CLIENT UI</div>
+                    <div
+                      class="col-span-1 border border-nd-border rounded flex items-center justify-center font-mono text-xs text-secondary s2-box bg-page">
+                      AUTH</div>
+                    <div
+                      class="col-span-1 border border-nd-border rounded flex items-center justify-center font-mono text-xs text-secondary s2-box bg-page">
+                      API GW</div>
+                    <div
+                      class="col-span-1 border border-nd-border rounded flex items-center justify-center font-mono text-xs text-secondary s2-box bg-page">
+                      SERVICES</div>
+                    <div
+                      class="col-span-3 h-16 border border-nd-border opacity-50 rounded flex items-center justify-center font-mono text-xs text-secondary s2-box bg-page">
+                      DATA STORE</div>
                   </div>
-               </div>
+                </div>
+              </div>
+
+              <!-- Stage 3: Engineer (Dimensional) -->
+              <div class="approach-stage items-center justify-center" id="stage-3-vis">
+                <div class="w-64 h-64 relative transform rotate-x-60 rotate-z-45">
+                  <div
+                    class="absolute inset-0 border border-nd-cyan bg-nd-cyan/10 rounded shadow-lg transform translate-z-20 s3-layer backdrop-blur-sm">
+                  </div>
+                  <div
+                    class="absolute inset-0 border border-nd-violet bg-nd-violet/10 rounded transform translate-z-10 translate-y-8 translate-x-8 s3-layer backdrop-blur-sm">
+                  </div>
+                  <div
+                    class="absolute inset-0 border border-nd-border bg-soft rounded transform translate-y-16 translate-x-16 s3-layer backdrop-blur-sm">
+                  </div>
+
+                  <svg class="absolute inset-0 w-full h-full overflow-visible z-50">
+                    <path d="M128,128 L128,200" stroke="currentColor" class="text-primary" stroke-width="2"
+                      class="s3-flow" />
+                    <circle cx="128" cy="200" r="4" fill="currentColor" class="text-nd-cyan s3-pulse" />
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Stage 4: Optimize (Monitoring) -->
+              <div class="approach-stage items-center justify-center" id="stage-4-vis">
+                <div class="w-full h-full p-8 relative flex flex-col gap-6">
+                  <div
+                    class="w-full h-32 border border-nd-lime/50 bg-page rounded-xl p-4 flex flex-col justify-between s4-panel">
+                    <div class="flex justify-between font-mono text-xs text-nd-lime">
+                      <span>SYS_HEALTH</span><span>100%</span>
+                    </div>
+                    <svg viewBox="0 0 400 50" class="w-full h-full">
+                      <path d="M0,25 C50,25 75,10 100,25 C125,40 150,10 175,25 C200,25 250,25 300,25 L400,25"
+                        fill="none" stroke="currentColor" class="text-nd-lime" stroke-width="2" class="s4-wave" />
+                    </svg>
+                  </div>
+                  <div class="grid grid-cols-2 gap-6 h-32">
+                    <div
+                      class="border border-nd-border bg-page rounded-xl p-4 flex flex-col justify-center items-center s4-panel">
+                      <div class="text-3xl font-display font-bold text-primary mb-1">12ms</div>
+                      <div class="text-xs text-muted font-mono">LATENCY</div>
+                    </div>
+                    <div
+                      class="border border-nd-border bg-page rounded-xl p-4 flex flex-col justify-center items-center s4-panel relative overflow-hidden">
+                      <div class="absolute inset-0 bg-nd-cyan/10 scale-x-0 origin-left s4-bar"></div>
+                      <div class="text-3xl font-display font-bold text-primary mb-1 relative z-10">99.99%</div>
+                      <div class="text-xs text-muted font-mono relative z-10">UPTIME</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             </div>
           </div>
@@ -661,60 +949,109 @@
     <section id="technology" class="py-24 md:py-40 bg-page border-t border-nd-border relative overflow-hidden z-10">
       <div class="layout-container relative z-10">
         <h2 class="text-clamp-h2 font-display mb-8 text-primary">System Architecture Map</h2>
-        <p class="text-secondary max-w-xl mb-16 text-lg">We utilize a disciplined, modern stack designed for enterprise security, developer velocity, and massive scalability.</p>
-        
-        <div class="relative w-full h-[600px] border border-nd-border bg-surface rounded-2xl p-8 flex items-center justify-center overflow-hidden" id="tech-map-container">
-          <svg class="absolute inset-0 w-full h-full z-10 pointer-events-none" id="tech-network-svg" viewBox="0 0 1000 600" preserveAspectRatio="none">
-            <path id="path-product" d="M500 300 L250 150" stroke="currentColor" class="text-primary opacity-10" stroke-width="2" fill="none"/>
-            <circle cx="0" cy="0" r="4" fill="currentColor" class="text-nd-cyan network-signal hidden" id="sig-product"/>
-            
-            <path id="path-cloud" d="M500 300 L750 150" stroke="currentColor" class="text-primary opacity-10" stroke-width="2" fill="none"/>
-            <circle cx="0" cy="0" r="4" fill="currentColor" class="text-nd-violet network-signal hidden" id="sig-cloud"/>
+        <p class="text-secondary max-w-xl mb-16 text-lg">We utilize a disciplined, modern stack designed for enterprise
+          security, developer velocity, and massive scalability.</p>
 
-            <path id="path-intel" d="M500 300 L250 450" stroke="currentColor" class="text-primary opacity-10" stroke-width="2" fill="none"/>
-            <circle cx="0" cy="0" r="4" fill="currentColor" class="text-primary network-signal hidden" id="sig-intel"/>
+        <div
+          class="relative w-full h-[600px] border border-nd-border bg-surface rounded-2xl p-8 flex items-center justify-center overflow-hidden"
+          id="tech-map-container">
+          <svg class="absolute inset-0 w-full h-full z-10 pointer-events-none" id="tech-network-svg"
+            viewBox="0 0 1000 600" preserveAspectRatio="none">
+            <path id="path-product" d="M500 300 L250 150" stroke="currentColor" class="text-primary opacity-10"
+              stroke-width="2" fill="none" />
+            <circle cx="0" cy="0" r="4" fill="currentColor" class="text-nd-cyan network-signal hidden"
+              id="sig-product" />
 
-            <path id="path-growth" d="M500 300 L750 450" stroke="currentColor" class="text-primary opacity-10" stroke-width="2" fill="none"/>
-            <circle cx="0" cy="0" r="4" fill="currentColor" class="text-nd-lime network-signal hidden" id="sig-growth"/>
+            <path id="path-cloud" d="M500 300 L750 150" stroke="currentColor" class="text-primary opacity-10"
+              stroke-width="2" fill="none" />
+            <circle cx="0" cy="0" r="4" fill="currentColor" class="text-nd-violet network-signal hidden"
+              id="sig-cloud" />
+
+            <path id="path-intel" d="M500 300 L250 450" stroke="currentColor" class="text-primary opacity-10"
+              stroke-width="2" fill="none" />
+            <circle cx="0" cy="0" r="4" fill="currentColor" class="text-primary network-signal hidden" id="sig-intel" />
+
+            <path id="path-growth" d="M500 300 L750 450" stroke="currentColor" class="text-primary opacity-10"
+              stroke-width="2" fill="none" />
+            <circle cx="0" cy="0" r="4" fill="currentColor" class="text-nd-lime network-signal hidden"
+              id="sig-growth" />
           </svg>
 
-          <div class="absolute z-20 w-32 h-32 rounded-full border border-nd-cyan/50 bg-page flex items-center justify-center font-display font-bold shadow-[0_0_50px_rgba(24,224,255,0.1)] text-primary text-xl" id="tech-core">
+          <div
+            class="absolute z-20 w-32 h-32 rounded-full border border-nd-cyan/50 bg-page flex items-center justify-center font-display font-bold shadow-[0_0_50px_rgba(24,224,255,0.1)] text-primary text-xl"
+            id="tech-core">
             NEXUS
           </div>
-          
-          <div class="tech-node absolute z-20 top-[20%] left-[20%] transform -translate-x-1/2 -translate-y-1/2 text-center opacity-0 scale-90">
-            <div class="px-6 py-3 bg-page border border-nd-cyan/50 rounded shadow-lg font-mono text-sm mb-4 text-nd-cyan">PRODUCT</div>
+
+          <div
+            class="tech-node absolute z-20 top-[20%] left-[20%] transform -translate-x-1/2 -translate-y-1/2 text-center opacity-0 scale-90">
+            <div
+              class="px-6 py-3 bg-page border border-nd-cyan/50 rounded shadow-lg font-mono text-sm mb-4 text-nd-cyan">
+              PRODUCT</div>
             <div class="text-sm text-secondary space-y-1 bg-elevated border border-nd-border p-4 rounded text-left">
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nd-cyan rounded-full"></div> React / TS</div>
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nd-cyan rounded-full"></div> Node.js / Python</div>
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nd-cyan rounded-full"></div> PostgreSQL</div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-nd-cyan rounded-full"></div> React / TS
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-nd-cyan rounded-full"></div> Node.js / Python
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-nd-cyan rounded-full"></div> PostgreSQL
+              </div>
             </div>
           </div>
-          
-          <div class="tech-node absolute z-20 top-[20%] right-[20%] transform translate-x-1/2 -translate-y-1/2 text-center opacity-0 scale-90">
-            <div class="px-6 py-3 bg-page border border-nd-violet/50 rounded shadow-lg font-mono text-sm mb-4 text-nd-violet">CLOUD</div>
+
+          <div
+            class="tech-node absolute z-20 top-[20%] right-[20%] transform translate-x-1/2 -translate-y-1/2 text-center opacity-0 scale-90">
+            <div
+              class="px-6 py-3 bg-page border border-nd-violet/50 rounded shadow-lg font-mono text-sm mb-4 text-nd-violet">
+              CLOUD</div>
             <div class="text-sm text-secondary space-y-1 bg-elevated border border-nd-border p-4 rounded text-left">
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nd-violet rounded-full"></div> AWS / Azure</div>
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nd-violet rounded-full"></div> Docker / K8s</div>
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nd-violet rounded-full"></div> CI/CD Pipelines</div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-nd-violet rounded-full"></div> AWS / Azure
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-nd-violet rounded-full"></div> Docker / K8s
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-nd-violet rounded-full"></div> CI/CD Pipelines
+              </div>
             </div>
           </div>
-          
-          <div class="tech-node absolute z-20 bottom-[20%] left-[20%] transform -translate-x-1/2 translate-y-1/2 text-center opacity-0 scale-90">
-            <div class="px-6 py-3 bg-page border border-nd-border rounded shadow-lg font-mono text-sm mb-4 text-primary">INTELLIGENCE</div>
+
+          <div
+            class="tech-node absolute z-20 bottom-[20%] left-[20%] transform -translate-x-1/2 translate-y-1/2 text-center opacity-0 scale-90">
+            <div
+              class="px-6 py-3 bg-page border border-nd-border rounded shadow-lg font-mono text-sm mb-4 text-primary">
+              INTELLIGENCE</div>
             <div class="text-sm text-secondary space-y-1 bg-elevated border border-nd-border p-4 rounded text-left">
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-primary rounded-full"></div> Custom LLMs</div>
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-primary rounded-full"></div> Data Pipelines</div>
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-primary rounded-full"></div> Agent Workflows</div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-primary rounded-full"></div> Custom LLMs
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-primary rounded-full"></div> Data Pipelines
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-primary rounded-full"></div> Agent Workflows
+              </div>
             </div>
           </div>
-          
-          <div class="tech-node absolute z-20 bottom-[20%] right-[20%] transform translate-x-1/2 translate-y-1/2 text-center opacity-0 scale-90">
-            <div class="px-6 py-3 bg-page border border-nd-lime/50 rounded shadow-lg font-mono text-sm mb-4 text-nd-lime">GROWTH</div>
+
+          <div
+            class="tech-node absolute z-20 bottom-[20%] right-[20%] transform translate-x-1/2 translate-y-1/2 text-center opacity-0 scale-90">
+            <div
+              class="px-6 py-3 bg-page border border-nd-lime/50 rounded shadow-lg font-mono text-sm mb-4 text-nd-lime">
+              GROWTH</div>
             <div class="text-sm text-secondary space-y-1 bg-elevated border border-nd-border p-4 rounded text-left">
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nd-lime rounded-full"></div> Attribution</div>
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nd-lime rounded-full"></div> Programmatic</div>
-              <div class="flex items-center gap-2"><div class="w-1.5 h-1.5 bg-nd-lime rounded-full"></div> CRM Routing</div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-nd-lime rounded-full"></div> Attribution
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-nd-lime rounded-full"></div> Programmatic
+              </div>
+              <div class="flex items-center gap-2">
+                <div class="w-1.5 h-1.5 bg-nd-lime rounded-full"></div> CRM Routing
+              </div>
             </div>
           </div>
         </div>
@@ -723,48 +1060,68 @@
 
     <!-- Continuity Element -->
     <div class="relative w-full h-32 bg-surface z-10 hidden md:block">
-       <div class="absolute left-1/2 w-[1px] h-full bg-gradient-to-b from-primary/20 to-transparent transform -translate-x-1/2"></div>
-       <div class="absolute left-1/2 top-0 w-2 h-2 rounded-full bg-nd-cyan transform -translate-x-1/2 diagnostic-signal hidden"></div>
+      <div
+        class="absolute left-1/2 w-[1px] h-full bg-gradient-to-b from-primary/20 to-transparent transform -translate-x-1/2">
+      </div>
+      <div
+        class="absolute left-1/2 top-0 w-2 h-2 rounded-full bg-nd-cyan transform -translate-x-1/2 diagnostic-signal hidden">
+      </div>
     </div>
 
     <!-- CHAPTER 07: THE PARTNERSHIP (WHY NEXUS / DIAGNOSTIC) -->
     <section class="py-24 md:py-32 bg-surface" id="diagnostic">
       <div class="layout-container">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 auto-rows-[280px]">
-          
-          <div class="md:col-span-8 md:row-span-2 bg-elevated border border-nd-border rounded-2xl p-10 flex flex-col justify-between relative overflow-hidden diag-panel">
-             <div class="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,_rgba(24,224,255,0.05),_transparent_70%)] pointer-events-none"></div>
-             <div class="absolute top-0 left-0 w-full h-[2px] bg-nd-cyan/50 shadow-[0_0_10px_rgba(24,224,255,0.8)] diag-scanner opacity-0 pointer-events-none"></div>
-             
-             <div class="relative z-10">
-               <div class="font-mono text-sm text-nd-cyan mb-8 tracking-widest diag-text opacity-0">SYSTEM DIAGNOSTIC: COMPLETE</div>
-               <h3 class="font-display text-3xl md:text-5xl font-bold mb-6 leading-tight max-w-2xl diag-text opacity-0 text-primary">Strategy and engineering under one roof.</h3>
-               <p class="text-secondary max-w-md text-lg diag-text opacity-0">We do not hand off designs to third-party factories. Our system architects and interface designers sit together, ensuring the technical foundation is as robust as the visual experience is premium.</p>
-             </div>
+
+          <div
+            class="md:col-span-8 md:row-span-2 bg-elevated border border-nd-border rounded-2xl p-10 flex flex-col justify-between relative overflow-hidden diag-panel">
+            <div
+              class="absolute top-0 right-0 w-1/2 h-full bg-[radial-gradient(ellipse_at_top_right,_rgba(24,224,255,0.05),_transparent_70%)] pointer-events-none">
+            </div>
+            <div
+              class="absolute top-0 left-0 w-full h-[2px] bg-nd-cyan/50 shadow-[0_0_10px_rgba(24,224,255,0.8)] diag-scanner opacity-0 pointer-events-none">
+            </div>
+
+            <div class="relative z-10">
+              <div class="font-mono text-sm text-nd-cyan mb-8 tracking-widest diag-text opacity-0">SYSTEM DIAGNOSTIC:
+                COMPLETE</div>
+              <h3
+                class="font-display text-3xl md:text-5xl font-bold mb-6 leading-tight max-w-2xl diag-text opacity-0 text-primary">
+                Strategy and engineering under one roof.</h3>
+              <p class="text-secondary max-w-md text-lg diag-text opacity-0">We do not hand off designs to third-party
+                factories. Our system architects and interface designers sit together, ensuring the technical foundation
+                is as robust as the visual experience is premium.</p>
+            </div>
           </div>
 
-          <div class="md:col-span-4 bg-page border border-nd-border rounded-2xl p-8 flex flex-col justify-center relative overflow-hidden diag-panel group">
+          <div
+            class="md:col-span-4 bg-page border border-nd-border rounded-2xl p-8 flex flex-col justify-center relative overflow-hidden diag-panel group">
             <div class="text-nd-violet font-mono text-sm mb-4 tracking-widest flex justify-between">
-               <span>DEPLOYMENT VELOCITY</span>
-               <span class="diag-status text-muted">[AWAITING]</span>
+              <span>DEPLOYMENT VELOCITY</span>
+              <span class="diag-status text-muted">[AWAITING]</span>
             </div>
             <div class="h-2 w-full bg-soft rounded overflow-hidden mb-6">
-               <div class="h-full bg-nd-violet w-0 diag-bar"></div>
+              <div class="h-full bg-nd-violet w-0 diag-bar"></div>
             </div>
-            <h4 class="font-display text-xl font-bold mb-2 text-primary opacity-50 diag-header transition-colors">Measurable Business Outcomes</h4>
-            <p class="text-muted text-sm">Every system is built to drive specific metrics—from acquisition cost reduction to database query speed.</p>
+            <h4 class="font-display text-xl font-bold mb-2 text-primary opacity-50 diag-header transition-colors">
+              Measurable Business Outcomes</h4>
+            <p class="text-muted text-sm">Every system is built to drive specific metrics—from acquisition cost
+              reduction to database query speed.</p>
           </div>
 
-          <div class="md:col-span-4 bg-soft border border-nd-border rounded-2xl p-8 flex flex-col justify-center relative overflow-hidden diag-panel group">
+          <div
+            class="md:col-span-4 bg-soft border border-nd-border rounded-2xl p-8 flex flex-col justify-center relative overflow-hidden diag-panel group">
             <div class="text-primary font-mono text-sm mb-4 tracking-widest flex justify-between">
-               <span>SECURITY POSTURE</span>
-               <span class="diag-status text-muted">[AWAITING]</span>
+              <span>SECURITY POSTURE</span>
+              <span class="diag-status text-muted">[AWAITING]</span>
             </div>
             <div class="h-2 w-full bg-page rounded overflow-hidden mb-6">
-               <div class="h-full bg-primary w-0 diag-bar"></div>
+              <div class="h-full bg-primary w-0 diag-bar"></div>
             </div>
-            <h4 class="font-display text-xl font-bold mb-2 text-primary opacity-50 diag-header transition-colors">Zero-Trust Architecture</h4>
-            <p class="text-muted text-sm">Enterprise-grade encryption, rigid compliance standards, and continuous vulnerability scanning built in from day one.</p>
+            <h4 class="font-display text-xl font-bold mb-2 text-primary opacity-50 diag-header transition-colors">
+              Zero-Trust Architecture</h4>
+            <p class="text-muted text-sm">Enterprise-grade encryption, rigid compliance standards, and continuous
+              vulnerability scanning built in from day one.</p>
           </div>
 
         </div>
@@ -774,12 +1131,17 @@
     <!-- TESTIMONIALS -->
     <section class="py-24 md:py-32 bg-surface border-t border-nd-border overflow-hidden">
       <div class="layout-container relative">
-        <div class="absolute top-0 left-0 font-display text-[200px] leading-none text-primary opacity-[0.03] pointer-events-none select-none">"</div>
-        
+        <div
+          class="absolute top-0 left-0 font-display text-[200px] leading-none text-primary opacity-[0.03] pointer-events-none select-none">
+          "</div>
+
         <div class="max-w-4xl mx-auto relative z-10 pt-16">
           <div class="relative min-h-[350px]" id="testimonial-container">
-            <div class="absolute top-0 left-0 w-full opacity-100 transition-opacity duration-500 test-slide" data-index="0">
-              <p class="font-display text-2xl md:text-4xl leading-tight mb-10 text-primary font-medium">"NEXUS completely transformed our digital acquisition pipeline while rebuilding our cloud backend. They are rare partners who truly master both high-end brand creative and complex systems engineering."</p>
+            <div class="absolute top-0 left-0 w-full opacity-100 transition-opacity duration-500 test-slide"
+              data-index="0">
+              <p class="font-display text-2xl md:text-4xl leading-tight mb-10 text-primary font-medium">"NEXUS
+                completely transformed our digital acquisition pipeline while rebuilding our cloud backend. They are
+                rare partners who truly master both high-end brand creative and complex systems engineering."</p>
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
                   <div class="font-bold text-lg text-primary">Elena Rostova</div>
@@ -791,8 +1153,12 @@
                 </div>
               </div>
             </div>
-            <div class="absolute top-0 left-0 w-full opacity-0 pointer-events-none transition-opacity duration-500 test-slide" data-index="1">
-              <p class="font-display text-2xl md:text-4xl leading-tight mb-10 text-primary font-medium">"The AI inference models NEXUS deployed cut our manual data processing by over half, but it was the beautifully designed internal platform they built around it that drove full team adoption."</p>
+            <div
+              class="absolute top-0 left-0 w-full opacity-0 pointer-events-none transition-opacity duration-500 test-slide"
+              data-index="1">
+              <p class="font-display text-2xl md:text-4xl leading-tight mb-10 text-primary font-medium">"The AI
+                inference models NEXUS deployed cut our manual data processing by over half, but it was the beautifully
+                designed internal platform they built around it that drove full team adoption."</p>
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
                   <div class="font-bold text-lg text-primary">Marcus Vance</div>
@@ -804,8 +1170,12 @@
                 </div>
               </div>
             </div>
-            <div class="absolute top-0 left-0 w-full opacity-0 pointer-events-none transition-opacity duration-500 test-slide" data-index="2">
-              <p class="font-display text-2xl md:text-4xl leading-tight mb-10 text-primary font-medium">"We needed an infrastructure overhaul to support global shipping routes. NEXUS delivered an orchestration system that never goes down and a client portal that looks like a consumer app."</p>
+            <div
+              class="absolute top-0 left-0 w-full opacity-0 pointer-events-none transition-opacity duration-500 test-slide"
+              data-index="2">
+              <p class="font-display text-2xl md:text-4xl leading-tight mb-10 text-primary font-medium">"We needed an
+                infrastructure overhaul to support global shipping routes. NEXUS delivered an orchestration system that
+                never goes down and a client portal that looks like a consumer app."</p>
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                 <div>
                   <div class="font-bold text-lg text-primary">Sarah Jenkins</div>
@@ -818,15 +1188,23 @@
               </div>
             </div>
           </div>
-          
+
           <div class="flex items-center justify-between mt-12 border-t border-nd-border pt-6">
             <div class="text-sm font-mono tracking-widest text-muted" id="test-counter">1 / 3</div>
             <div class="flex gap-4">
-              <button id="test-prev" class="w-10 h-10 rounded-full border border-nd-border flex items-center justify-center text-primary hover:border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan" aria-label="Previous testimonial">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+              <button id="test-prev"
+                class="w-10 h-10 rounded-full border border-nd-border flex items-center justify-center text-primary hover:border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan"
+                aria-label="Previous testimonial">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
               </button>
-              <button id="test-next" class="w-10 h-10 rounded-full border border-nd-border flex items-center justify-center text-primary hover:border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan" aria-label="Next testimonial">
-                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+              <button id="test-next"
+                class="w-10 h-10 rounded-full border border-nd-border flex items-center justify-center text-primary hover:border-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan"
+                aria-label="Next testimonial">
+                <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
               </button>
             </div>
           </div>
@@ -835,19 +1213,29 @@
     </section>
 
     <!-- CHAPTER 08: THE CONNECTION (CTA PORTAL) -->
-    <section class="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden border-t border-nd-border bg-page">
+    <section
+      class="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden border-t border-nd-border bg-page">
       <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none" id="cta-bg">
-        <div class="w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(24,224,255,0.08),_transparent_60%)] rounded-full animate-[pulse_8s_ease-in-out_infinite]"></div>
-        <div class="absolute w-[300px] h-[300px] border border-nd-cyan/20 rounded-full cta-ring" style="transform: scale(0.5);"></div>
-        <div class="absolute w-[500px] h-[500px] border border-nd-cyan/10 border-dashed rounded-full animate-[spin_40s_linear_infinite] cta-ring"></div>
+        <div
+          class="w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_rgba(24,224,255,0.08),_transparent_60%)] rounded-full animate-[pulse_8s_ease-in-out_infinite]">
+        </div>
+        <div class="absolute w-[300px] h-[300px] border border-nd-cyan/20 rounded-full cta-ring"
+          style="transform: scale(0.5);"></div>
+        <div
+          class="absolute w-[500px] h-[500px] border border-nd-cyan/10 border-dashed rounded-full animate-[spin_40s_linear_infinite] cta-ring">
+        </div>
       </div>
 
       <div class="relative z-10 text-center px-4 cta-content">
         <h2 class="text-clamp-h2 font-display mb-6 text-primary">Your next digital advantage starts here.</h2>
-        <p class="text-secondary text-lg md:text-xl max-w-2xl mx-auto mb-12">Bring us the ambition. We will engineer the system behind it.</p>
-        
-        <a href="#contact" class="inline-flex items-center justify-center w-48 h-48 rounded-full border border-nd-cyan bg-page/50 backdrop-blur-md text-primary font-display font-bold tracking-widest uppercase hover:bg-nd-cyan hover:text-[#02040A] transition-colors duration-500 group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-nd-cyan" data-cursor="start">
-          <span class="transform group-hover:scale-110 transition-transform duration-500 text-center">Start a<br>Project</span>
+        <p class="text-secondary text-lg md:text-xl max-w-2xl mx-auto mb-12">Bring us the ambition. We will engineer the
+          system behind it.</p>
+
+        <a href="#contact"
+          class="inline-flex items-center justify-center w-48 h-48 rounded-full border border-nd-cyan bg-page/50 backdrop-blur-md text-primary font-display font-bold tracking-widest uppercase hover:bg-nd-cyan hover:text-[#02040A] transition-colors duration-500 group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-nd-cyan"
+          data-cursor="start">
+          <span class="transform group-hover:scale-110 transition-transform duration-500 text-center">Start
+            a<br>Project</span>
         </a>
       </div>
     </section>
@@ -856,33 +1244,41 @@
     <section id="contact" class="py-24 md:py-40 bg-surface border-t border-nd-border">
       <div class="layout-container max-w-[1320px] mx-auto px-6 md:px-10 lg:px-16">
         <div class="grid grid-cols-1 xl:grid-cols-[0.8fr_1.2fr] gap-16 xl:gap-24 items-center">
-          
+
           <div class="flex flex-col justify-center">
             <h2 class="font-display text-clamp-intro font-bold mb-6 text-primary">Initialize a<br>New System</h2>
-            <p class="text-secondary text-lg mb-12 max-w-md">Provide project parameters for an architectural review. Our systems engineering team typically responds within 24 hours to schedule a technical discovery call.</p>
-            
+            <p class="text-secondary text-lg mb-12 max-w-md">Provide project parameters for an architectural review. Our
+              systems engineering team typically responds within 24 hours to schedule a technical discovery call.</p>
+
             <div class="space-y-6 font-mono text-sm">
-               <div>
-                  <div class="text-muted mb-1">DIRECT INQUIRIES</div>
-                  <a href="mailto:systems@nexusdynamics.com" class="text-nd-cyan hover:text-primary transition-colors">systems@nexusdynamics.com</a>
-               </div>
-               <div>
-                  <div class="text-muted mb-1">GLOBAL DELIVERY</div>
-                  <div class="text-primary">Distributed Engineering Teams<br>Available for remote enterprise deployment.</div>
-               </div>
-               <div>
-                  <div class="text-muted mb-1">SECURE TRANSMISSION</div>
-                  <div class="text-primary flex items-center gap-2">
-                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                     End-to-end encrypted inquiry
-                  </div>
-               </div>
+              <div>
+                <div class="text-muted mb-1">DIRECT INQUIRIES</div>
+                <a href="mailto:systems@nexusdynamics.com"
+                  class="text-nd-cyan hover:text-primary transition-colors">systems@nexusdynamics.com</a>
+              </div>
+              <div>
+                <div class="text-muted mb-1">GLOBAL DELIVERY</div>
+                <div class="text-primary">Distributed Engineering Teams<br>Available for remote enterprise deployment.
+                </div>
+              </div>
+              <div>
+                <div class="text-muted mb-1">SECURE TRANSMISSION</div>
+                <div class="text-primary flex items-center gap-2">
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  End-to-end encrypted inquiry
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- Rebalanced Form container -->
           <div class="w-full max-w-[720px] justify-self-center xl:justify-self-end relative">
-            <form id="inquiry-form" class="bg-elevated border border-nd-border rounded-2xl p-6 sm:p-10 lg:p-12 relative overflow-hidden h-full flex flex-col justify-center min-h-[450px]" novalidate>
+            <form id="inquiry-form"
+              class="bg-elevated border border-nd-border rounded-2xl p-6 sm:p-10 lg:p-12 relative overflow-hidden h-full flex flex-col justify-center min-h-[450px]"
+              novalidate>
               <div class="absolute top-0 left-0 w-full h-1 bg-soft">
                 <div id="form-progress" class="h-full bg-nd-cyan transition-all duration-500 w-[33%]"></div>
               </div>
@@ -892,24 +1288,29 @@
                 <div class="form-step transition-opacity duration-300" data-step="1">
                   <h3 class="font-display text-2xl mb-8 text-primary">1. What are you building?</h3>
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                    <label class="flex items-center p-4 border border-nd-border rounded-lg cursor-pointer hover:border-nd-cyan transition-colors has-[:checked]:border-nd-cyan has-[:checked]:bg-nd-cyan/5 focus-within:ring-2 focus-within:ring-nd-cyan bg-page">
+                    <label
+                      class="flex items-center p-4 border border-nd-border rounded-lg cursor-pointer hover:border-nd-cyan transition-colors has-[:checked]:border-nd-cyan has-[:checked]:bg-nd-cyan/5 focus-within:ring-2 focus-within:ring-nd-cyan bg-page">
                       <input type="radio" name="project_type" value="Digital Product" class="mr-3" checked>
                       <span class="text-sm font-medium text-primary">Digital Product</span>
                     </label>
-                    <label class="flex items-center p-4 border border-nd-border rounded-lg cursor-pointer hover:border-nd-cyan transition-colors has-[:checked]:border-nd-cyan has-[:checked]:bg-nd-cyan/5 focus-within:ring-2 focus-within:ring-nd-cyan bg-page">
+                    <label
+                      class="flex items-center p-4 border border-nd-border rounded-lg cursor-pointer hover:border-nd-cyan transition-colors has-[:checked]:border-nd-cyan has-[:checked]:bg-nd-cyan/5 focus-within:ring-2 focus-within:ring-nd-cyan bg-page">
                       <input type="radio" name="project_type" value="Enterprise Platform" class="mr-3">
                       <span class="text-sm font-medium text-primary">Enterprise Platform</span>
                     </label>
-                    <label class="flex items-center p-4 border border-nd-border rounded-lg cursor-pointer hover:border-nd-cyan transition-colors has-[:checked]:border-nd-cyan has-[:checked]:bg-nd-cyan/5 focus-within:ring-2 focus-within:ring-nd-cyan bg-page">
+                    <label
+                      class="flex items-center p-4 border border-nd-border rounded-lg cursor-pointer hover:border-nd-cyan transition-colors has-[:checked]:border-nd-cyan has-[:checked]:bg-nd-cyan/5 focus-within:ring-2 focus-within:ring-nd-cyan bg-page">
                       <input type="radio" name="project_type" value="AI System" class="mr-3">
                       <span class="text-sm font-medium text-primary">AI System</span>
                     </label>
-                    <label class="flex items-center p-4 border border-nd-border rounded-lg cursor-pointer hover:border-nd-cyan transition-colors has-[:checked]:border-nd-cyan has-[:checked]:bg-nd-cyan/5 focus-within:ring-2 focus-within:ring-nd-cyan bg-page">
+                    <label
+                      class="flex items-center p-4 border border-nd-border rounded-lg cursor-pointer hover:border-nd-cyan transition-colors has-[:checked]:border-nd-cyan has-[:checked]:bg-nd-cyan/5 focus-within:ring-2 focus-within:ring-nd-cyan bg-page">
                       <input type="radio" name="project_type" value="Cloud Infrastructure" class="mr-3">
                       <span class="text-sm font-medium text-primary">Cloud Infrastructure</span>
                     </label>
                   </div>
-                  <button type="button" class="btn-magnetic w-full btn-next focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-elevated focus-visible:ring-nd-cyan">Continue</button>
+                  <button type="button"
+                    class="btn-magnetic w-full btn-next focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-elevated focus-visible:ring-nd-cyan">Continue</button>
                 </div>
 
                 <!-- Step 2 -->
@@ -917,28 +1318,31 @@
                   <h3 class="font-display text-2xl mb-8 text-primary">2. Project Parameters</h3>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div>
-                       <label class="block text-sm text-secondary mb-2">Stage</label>
-                       <select class="w-full h-12 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan appearance-none">
-                          <option>Exploring technical feasibility</option>
-                          <option>Planning architecture & budget</option>
-                          <option>Ready to build</option>
-                       </select>
+                      <label class="block text-sm text-secondary mb-2">Stage</label>
+                      <select
+                        class="w-full h-12 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan appearance-none">
+                        <option>Exploring technical feasibility</option>
+                        <option>Planning architecture & budget</option>
+                        <option>Ready to build</option>
+                      </select>
                     </div>
                     <div>
-                       <label class="block text-sm text-secondary mb-2">Estimated Budget</label>
-                       <select class="w-full h-12 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan appearance-none">
-                          <option>$50k - $100k</option>
-                          <option>$100k - $250k</option>
-                          <option>$250k+</option>
-                       </select>
+                      <label class="block text-sm text-secondary mb-2">Estimated Budget</label>
+                      <select
+                        class="w-full h-12 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan appearance-none">
+                        <option>$50k - $100k</option>
+                        <option>$100k - $250k</option>
+                        <option>$250k+</option>
+                      </select>
                     </div>
                     <div class="md:col-span-2">
-                       <label class="block text-sm text-secondary mb-2">Desired Timeline</label>
-                       <select class="w-full h-12 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan appearance-none">
-                          <option>Immediate start (Within 2 weeks)</option>
-                          <option>Short term (1-2 months)</option>
-                          <option>Planning phase (3+ months)</option>
-                       </select>
+                      <label class="block text-sm text-secondary mb-2">Desired Timeline</label>
+                      <select
+                        class="w-full h-12 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan appearance-none">
+                        <option>Immediate start (Within 2 weeks)</option>
+                        <option>Short term (1-2 months)</option>
+                        <option>Planning phase (3+ months)</option>
+                      </select>
                     </div>
                   </div>
                   <div class="flex flex-col sm:flex-row gap-4 mt-auto">
@@ -953,33 +1357,44 @@
                   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     <div>
                       <label for="name" class="block text-sm text-secondary mb-2">Name *</label>
-                      <input type="text" id="name" required class="w-full h-11 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan transition-colors" aria-required="true">
+                      <input type="text" id="name" required
+                        class="w-full h-11 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan transition-colors"
+                        aria-required="true">
                       <span class="text-red-500 text-xs hidden mt-1 err-msg">Name is required</span>
                     </div>
                     <div>
                       <label for="company" class="block text-sm text-secondary mb-2">Company *</label>
-                      <input type="text" id="company" required class="w-full h-11 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan transition-colors" aria-required="true">
+                      <input type="text" id="company" required
+                        class="w-full h-11 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan transition-colors"
+                        aria-required="true">
                       <span class="text-red-500 text-xs hidden mt-1 err-msg">Company is required</span>
                     </div>
                   </div>
                   <div class="mb-4">
                     <label for="email" class="block text-sm text-secondary mb-2">Business Email *</label>
-                    <input type="email" id="email" required class="w-full h-11 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan transition-colors" aria-required="true">
+                    <input type="email" id="email" required
+                      class="w-full h-11 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan transition-colors"
+                      aria-required="true">
                     <span class="text-red-500 text-xs hidden mt-1 err-msg">Valid email is required</span>
                   </div>
                   <div class="mb-6">
                     <label for="brief" class="block text-sm text-secondary mb-2">Project Brief *</label>
-                    <textarea id="brief" rows="3" required class="w-full py-3 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan resize-none transition-colors" aria-required="true"></textarea>
+                    <textarea id="brief" rows="3" required
+                      class="w-full py-3 bg-page border border-nd-border rounded-lg px-4 text-primary focus:outline-none focus:border-nd-cyan resize-none transition-colors"
+                      aria-required="true"></textarea>
                     <span class="text-red-500 text-xs hidden mt-1 err-msg">Brief is required</span>
                   </div>
                   <div class="flex flex-col sm:flex-row gap-4 mt-auto">
                     <button type="button" class="btn-outline btn-prev w-full sm:w-1/3">Back</button>
-                    <button type="submit" class="btn-magnetic w-full sm:w-2/3 bg-primary text-page hover:bg-nd-cyan hover:text-page">Initialize Request</button>
+                    <button type="submit"
+                      class="btn-magnetic w-full sm:w-2/3 bg-primary text-page hover:bg-nd-cyan hover:text-page">Initialize
+                      Request</button>
                   </div>
                 </div>
               </div>
 
-              <div id="form-feedback" aria-live="polite" class="text-sm hidden h-full flex flex-col justify-center"></div>
+              <div id="form-feedback" aria-live="polite" class="text-sm hidden h-full flex flex-col justify-center">
+              </div>
             </form>
           </div>
         </div>
@@ -996,12 +1411,15 @@
 
     <div class="layout-container relative z-10">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20">
-        
+
         <div class="md:col-span-5">
-          <a href="/" class="font-display font-bold text-2xl tracking-wide block mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded text-primary">NEXUS<span class="text-nd-cyan">DYNAMICS</span></a>
-          <p class="text-secondary max-w-sm mb-8">Engineering complex digital products, intelligent platforms, and scalable technology for ambitious enterprises.</p>
+          <a href="/"
+            class="font-display font-bold text-2xl tracking-wide block mb-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded text-primary">NEXUS<span
+              class="text-nd-cyan">DYNAMICS</span></a>
+          <p class="text-secondary max-w-sm mb-8">Engineering complex digital products, intelligent platforms, and
+            scalable technology for ambitious enterprises.</p>
         </div>
-        
+
         <div class="md:col-span-2 md:col-start-8">
           <div class="font-mono text-xs text-muted tracking-widest mb-6">NAVIGATION</div>
           <ul class="space-y-4 text-sm font-medium">
@@ -1023,7 +1441,8 @@
 
       </div>
 
-      <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-nd-border text-xs font-mono text-muted">
+      <div
+        class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-nd-border text-xs font-mono text-muted">
         <div>&copy; 2026 NEXUS DYNAMICS LLC. ALL RIGHTS RESERVED.</div>
         <div class="mt-4 md:mt-0 flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-nd-lime animate-pulse"></span> SYSTEM ONLINE
@@ -1044,17 +1463,17 @@
       function initializeApplication() {
         if (appInitialized) return;
         appInitialized = true;
-        
-        document.querySelectorAll('.js-hidden').forEach(el => el.classList.remove('js-hidden'));
+
+        document.querySelectorAll('.gsap-reveal').forEach(el => el.classList.remove('gsap-reveal'));
         if (window.gsap) {
           gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, CustomEase);
           CustomEase.create("cinematic", "0.25, 1, 0.5, 1");
           CustomEase.create("ui", "0.4, 0, 0.2, 1");
-          
+
           initThemeToggle();
           initNavigation();
           initHero(prefersReducedMotion);
-          
+
           if (!prefersReducedMotion) {
             initCursor();
             initStoryContinuity();
@@ -1063,7 +1482,7 @@
             initTechMap();
             initDiagnostic();
           }
-          
+
           initExpertiseMobile();
           initTestimonials();
           initContactForm();
@@ -1071,19 +1490,19 @@
       }
 
       if (prefersReducedMotion || sessionStorage.getItem('nexus_loaded')) {
-        if(loader) gsap.set(loader, { display: 'none' });
+        if (loader) gsap.set(loader, { display: 'none' });
         initializeApplication();
       } else {
         // If loader existed (removed for brevity, assuming already loaded for dev speed, or wrap this block)
-        sessionStorage.setItem('nexus_loaded', 'true'); 
+        sessionStorage.setItem('nexus_loaded', 'true');
         initializeApplication();
       }
 
       window.addEventListener('beforeunload', () => {
-        if(webglResources.animationId) cancelAnimationFrame(webglResources.animationId);
+        if (webglResources.animationId) cancelAnimationFrame(webglResources.animationId);
         webglResources.geometries.forEach(g => g.dispose());
         webglResources.materials.forEach(m => m.dispose());
-        if(webglResources.renderer) webglResources.renderer.dispose();
+        if (webglResources.renderer) webglResources.renderer.dispose();
       });
     });
 
@@ -1091,18 +1510,18 @@
     function initThemeToggle() {
       const btnDesktop = document.getElementById('theme-toggle-desktop');
       const btnMobile = document.getElementById('theme-toggle-mobile');
-      
+
       function updateTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         document.documentElement.style.colorScheme = theme;
         localStorage.setItem('nexus_theme', theme);
         document.getElementById('meta-theme-color').content = theme === 'dark' ? '#02040A' : '#F4F7FB';
-        
+
         const isDark = theme === 'dark';
-        if(btnDesktop) btnDesktop.setAttribute('aria-pressed', !isDark);
-        
+        if (btnDesktop) btnDesktop.setAttribute('aria-pressed', !isDark);
+
         // Update WebGL if active without restarting
-        if(webglResources.scene && webglResources.fog) {
+        if (webglResources.scene && webglResources.fog) {
           webglResources.fog.color.setHex(isDark ? 0x02040A : 0xF4F7FB);
           webglResources.scene.background = new THREE.Color(isDark ? 0x02040A : 0xF4F7FB);
         }
@@ -1113,8 +1532,8 @@
         updateTheme(current === 'dark' ? 'light' : 'dark');
       }
 
-      if(btnDesktop) btnDesktop.addEventListener('click', toggle);
-      if(btnMobile) btnMobile.addEventListener('click', toggle);
+      if (btnDesktop) btnDesktop.addEventListener('click', toggle);
+      if (btnMobile) btnMobile.addEventListener('click', toggle);
     }
 
     function initNavigation() {
@@ -1173,18 +1592,18 @@
 
       btn.addEventListener('click', toggleMenu);
       links.forEach(l => l.addEventListener('click', toggleMenu));
-      window.addEventListener('keydown', e => { if(e.key === 'Escape' && menuOpen) toggleMenu(); });
+      window.addEventListener('keydown', e => { if (e.key === 'Escape' && menuOpen) toggleMenu(); });
     }
 
     function initCursor() {
       const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
       if (isTouch) return;
-      
+
       const cursor = document.getElementById('custom-cursor');
       gsap.set(cursor, { xPercent: -50, yPercent: -50 });
-      const xTo = gsap.quickTo(cursor, "x", {duration: 0.4, ease: "power3"}), yTo = gsap.quickTo(cursor, "y", {duration: 0.4, ease: "power3"});
+      const xTo = gsap.quickTo(cursor, "x", { duration: 0.4, ease: "power3" }), yTo = gsap.quickTo(cursor, "y", { duration: 0.4, ease: "power3" });
 
-      window.addEventListener("mousemove", e => { xTo(e.clientX); yTo(e.clientY); if(!cursor.classList.contains('active')) cursor.classList.add('active'); }, {passive:true});
+      window.addEventListener("mousemove", e => { xTo(e.clientX); yTo(e.clientY); if (!cursor.classList.contains('active')) cursor.classList.add('active'); }, { passive: true });
       document.querySelectorAll('[data-cursor]').forEach(el => {
         el.addEventListener('mouseenter', () => { const state = el.getAttribute('data-cursor'); cursor.setAttribute('data-state', state); cursor.innerText = state === 'view' ? 'VIEW' : ''; });
         el.addEventListener('mouseleave', () => { cursor.removeAttribute('data-state'); cursor.innerText = ''; });
@@ -1204,7 +1623,7 @@
         scene.fog = new THREE.FogExp2(fogColor, 0.02);
         webglResources.scene = scene;
         webglResources.fog = scene.fog;
-        
+
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 30; camera.position.x = window.innerWidth > 768 ? 15 : 0;
         webglResources.camera = camera;
@@ -1218,16 +1637,16 @@
         const geoCore = new THREE.BufferGeometry();
         const posCore = new Float32Array(pCount * 3);
         const origCore = new Float32Array(pCount * 3);
-        
-        for(let i=0; i < pCount; i++) {
-          posCore[i*3] = (Math.random() - 0.5) * 100;
-          posCore[i*3+1] = (Math.random() - 0.5) * 100;
-          posCore[i*3+2] = (Math.random() - 0.5) * 100;
+
+        for (let i = 0; i < pCount; i++) {
+          posCore[i * 3] = (Math.random() - 0.5) * 100;
+          posCore[i * 3 + 1] = (Math.random() - 0.5) * 100;
+          posCore[i * 3 + 2] = (Math.random() - 0.5) * 100;
           const phi = Math.acos(-1 + (2 * i) / pCount), theta = Math.sqrt(pCount * Math.PI) * phi;
           const r = 8 + (Math.random() * 4);
-          origCore[i*3] = r * Math.cos(theta) * Math.sin(phi);
-          origCore[i*3+1] = r * Math.sin(theta) * Math.sin(phi);
-          origCore[i*3+2] = r * Math.cos(phi);
+          origCore[i * 3] = r * Math.cos(theta) * Math.sin(phi);
+          origCore[i * 3 + 1] = r * Math.sin(theta) * Math.sin(phi);
+          origCore[i * 3 + 2] = r * Math.cos(phi);
         }
         geoCore.setAttribute('position', new THREE.BufferAttribute(posCore, 3));
         const matCore = new THREE.PointsMaterial({ color: 0x18E0FF, size: window.innerWidth < 768 ? 0.08 : 0.12, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending });
@@ -1243,14 +1662,14 @@
         webglResources.geometries.push(ringGeo1); webglResources.materials.push(ringMat1);
 
         let time = 0, isRendering = true, mouseX = 0, mouseY = 0;
-        if(!('ontouchstart' in window)) window.addEventListener('mousemove', (e) => { mouseX = (e.clientX / window.innerWidth) * 2 - 1; mouseY = -(e.clientY / window.innerHeight) * 2 + 1; }, { passive: true });
+        if (!('ontouchstart' in window)) window.addEventListener('mousemove', (e) => { mouseX = (e.clientX / window.innerWidth) * 2 - 1; mouseY = -(e.clientY / window.innerHeight) * 2 + 1; }, { passive: true });
 
         const obj = { progress: 0 };
         gsap.to(obj, {
           progress: 1, duration: 2.5, ease: "power3.inOut",
           onUpdate: () => {
             const pa = geoCore.attributes.position;
-            for(let i=0; i<pCount*3; i++) pa.array[i] = posCore[i] + (origCore[i] - posCore[i]) * obj.progress;
+            for (let i = 0; i < pCount * 3; i++) pa.array[i] = posCore[i] + (origCore[i] - posCore[i]) * obj.progress;
             pa.needsUpdate = true;
           }
         });
@@ -1261,19 +1680,19 @@
         });
 
         function render() {
-          if(!isRendering) return;
+          if (!isRendering) return;
           time += 0.005;
           pointsCore.rotation.y = time * 0.5 + (mouseX * 0.1);
           pointsCore.rotation.x = (mouseY * 0.1);
-          ring1.rotation.y = -time * 0.8; ring1.rotation.x = Math.PI/2 + (mouseY * 0.2);
-          
+          ring1.rotation.y = -time * 0.8; ring1.rotation.x = Math.PI / 2 + (mouseY * 0.2);
+
           renderer.render(scene, camera);
           webglResources.animationId = requestAnimationFrame(render);
         }
         render();
 
-        document.addEventListener('visibilitychange', () => { isRendering = !document.hidden; if(isRendering) render(); });
-        
+        document.addEventListener('visibilitychange', () => { isRendering = !document.hidden; if (isRendering) render(); });
+
         let resizeTimeout;
         window.addEventListener('resize', () => {
           if (resizeTimeout) cancelAnimationFrame(resizeTimeout);
@@ -1314,7 +1733,7 @@
     function initExpertiseDesktop() {
       const triggers = document.querySelectorAll('.expertise-trigger');
       const states = document.querySelectorAll('.expertise-state');
-      if(triggers.length === 0 || states.length === 0) return;
+      if (triggers.length === 0 || states.length === 0) return;
 
       triggers.forEach((trigger, idx) => {
         ScrollTrigger.create({
@@ -1334,10 +1753,10 @@
         // Fade visual states purely (fixes layout overlap/flip bugs for completely distinct SVGs)
         states.forEach((s, i) => {
           if (i === idx) {
-             s.classList.add('is-active');
-             gsap.fromTo(s, { autoAlpha: 0, scale: 0.95 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: "power2.out" });
+            s.classList.add('is-active');
+            gsap.fromTo(s, { autoAlpha: 0, scale: 0.95 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: "power2.out" });
           } else {
-             gsap.to(s, { autoAlpha: 0, scale: 1.05, duration: 0.3, onComplete: () => s.classList.remove('is-active') });
+            gsap.to(s, { autoAlpha: 0, scale: 1.05, duration: 0.3, onComplete: () => s.classList.remove('is-active') });
           }
         });
       }
@@ -1345,97 +1764,97 @@
 
     function initApproachSequence() {
       const container = document.getElementById('approach-scroll-container');
-      if(!container) return;
+      if (!container) return;
 
       const texts = document.querySelectorAll('.approach-text');
       const stages = document.querySelectorAll('.approach-stage');
-      if(stages.length < 4) return;
+      if (stages.length < 4) return;
 
       const tl = gsap.timeline({ scrollTrigger: { trigger: container, start: "top top", end: "bottom bottom", scrub: true } });
 
       function setStage(idx) {
         stages.forEach((s, i) => {
-           if(i === idx) {
-              s.classList.add('is-active');
-              gsap.to(s, { autoAlpha: 1, duration: 0.1 });
-           } else {
-              s.classList.remove('is-active');
-              gsap.to(s, { autoAlpha: 0, duration: 0.1 });
-           }
+          if (i === idx) {
+            s.classList.add('is-active');
+            gsap.to(s, { autoAlpha: 1, duration: 0.1 });
+          } else {
+            s.classList.remove('is-active');
+            gsap.to(s, { autoAlpha: 0, duration: 0.1 });
+          }
         });
       }
 
       // 0-22%: Discover
-      tl.to(texts[0], {opacity: 1, duration: 0.5})
-        .to({}, {duration: 1}) // Hold
-        .to(texts[0], {opacity: 0, duration: 0.5})
+      tl.to(texts[0], { opacity: 1, duration: 0.5 })
+        .to({}, { duration: 1 }) // Hold
+        .to(texts[0], { opacity: 0, duration: 0.5 })
         .call(() => setStage(1))
-        
-      // 22-47%: Architect
-        .to(texts[1], {opacity: 1, duration: 0.5})
-        .to({}, {duration: 1}) // Hold
-        .to(texts[1], {opacity: 0, duration: 0.5})
+
+        // 22-47%: Architect
+        .to(texts[1], { opacity: 1, duration: 0.5 })
+        .to({}, { duration: 1 }) // Hold
+        .to(texts[1], { opacity: 0, duration: 0.5 })
         .call(() => setStage(2))
 
-      // 47-72%: Engineer
-        .to(texts[2], {opacity: 1, duration: 0.5})
-        .to({}, {duration: 1}) // Hold
-        .to(texts[2], {opacity: 0, duration: 0.5})
+        // 47-72%: Engineer
+        .to(texts[2], { opacity: 1, duration: 0.5 })
+        .to({}, { duration: 1 }) // Hold
+        .to(texts[2], { opacity: 0, duration: 0.5 })
         .call(() => setStage(3))
 
-      // 72-100%: Optimize
-        .to(texts[3], {opacity: 1, duration: 0.5})
-        .to({}, {duration: 1}); // Hold to end
-        
+        // 72-100%: Optimize
+        .to(texts[3], { opacity: 1, duration: 0.5 })
+        .to({}, { duration: 1 }); // Hold to end
+
       // Backwards scrolling callbacks (simplistic for scrub)
       // Because scrub timelines evaluate forward/back automatically, 
       // direct DOM manipulation calls inside scrub timelines need careful positioning.
       // Better approach for absolute reliability with scrub is to animate autoAlpha directly on the timeline.
-      
+
       tl.clear(); // Reset to build purely declarative timeline
-      
+
       // Init all to 0 except first
       gsap.set(stages[0], { autoAlpha: 1 });
       gsap.set([stages[1], stages[2], stages[3]], { autoAlpha: 0 });
 
       // 0 -> 25% (Discover -> Architect)
-      tl.to({}, {duration: 1}) // Hold 1
-        .to(texts[0], {opacity: 0, duration: 0.5}, "trans1")
-        .to(stages[0], {autoAlpha: 0, duration: 0.5}, "trans1")
-        .to(stages[1], {autoAlpha: 1, duration: 0.5}, "trans1")
-        .to(texts[1], {opacity: 1, duration: 0.5}, "trans1")
-        
-      // 25 -> 50% (Architect -> Engineer)
-        .to({}, {duration: 1}) // Hold 2
-        .to(texts[1], {opacity: 0, duration: 0.5}, "trans2")
-        .to(stages[1], {autoAlpha: 0, duration: 0.5}, "trans2")
-        .to(stages[2], {autoAlpha: 1, duration: 0.5}, "trans2")
-        .to(texts[2], {opacity: 1, duration: 0.5}, "trans2")
+      tl.to({}, { duration: 1 }) // Hold 1
+        .to(texts[0], { opacity: 0, duration: 0.5 }, "trans1")
+        .to(stages[0], { autoAlpha: 0, duration: 0.5 }, "trans1")
+        .to(stages[1], { autoAlpha: 1, duration: 0.5 }, "trans1")
+        .to(texts[1], { opacity: 1, duration: 0.5 }, "trans1")
 
-      // 50 -> 75% (Engineer -> Optimize)
-        .to({}, {duration: 1}) // Hold 3
-        .to(texts[2], {opacity: 0, duration: 0.5}, "trans3")
-        .to(stages[2], {autoAlpha: 0, duration: 0.5}, "trans3")
-        .to(stages[3], {autoAlpha: 1, duration: 0.5}, "trans3")
-        .to(texts[3], {opacity: 1, duration: 0.5}, "trans3")
-        
-      // 75 -> 100%
-        .to({}, {duration: 1}); // Hold 4
+        // 25 -> 50% (Architect -> Engineer)
+        .to({}, { duration: 1 }) // Hold 2
+        .to(texts[1], { opacity: 0, duration: 0.5 }, "trans2")
+        .to(stages[1], { autoAlpha: 0, duration: 0.5 }, "trans2")
+        .to(stages[2], { autoAlpha: 1, duration: 0.5 }, "trans2")
+        .to(texts[2], { opacity: 1, duration: 0.5 }, "trans2")
+
+        // 50 -> 75% (Engineer -> Optimize)
+        .to({}, { duration: 1 }) // Hold 3
+        .to(texts[2], { opacity: 0, duration: 0.5 }, "trans3")
+        .to(stages[2], { autoAlpha: 0, duration: 0.5 }, "trans3")
+        .to(stages[3], { autoAlpha: 1, duration: 0.5 }, "trans3")
+        .to(texts[3], { opacity: 1, duration: 0.5 }, "trans3")
+
+        // 75 -> 100%
+        .to({}, { duration: 1 }); // Hold 4
     }
 
     function initTechMap() {
       const container = document.getElementById('tech-map-container');
-      if(!container) return;
+      if (!container) return;
 
       const tl = gsap.timeline({ scrollTrigger: { trigger: container, start: "top 60%", once: true } });
-      tl.fromTo("#tech-core", {scale: 0, opacity: 0}, {scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.5)"})
-        .fromTo("#tech-network-svg path", {strokeDasharray: 1000, strokeDashoffset: 1000}, {strokeDashoffset: 0, duration: 1, stagger: 0.1}, "-=0.2")
-        .to(".tech-node", {scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.2)"}, "-=0.5");
-        
-        gsap.to("#sig-product", { display: "block", motionPath: {path: "#path-product", align: "#path-product", alignOrigin: [0.5, 0.5]}, duration: 2, repeat: -1, ease: "none"});
-        gsap.to("#sig-cloud", { display: "block", motionPath: {path: "#path-cloud", align: "#path-cloud", alignOrigin: [0.5, 0.5]}, duration: 2, repeat: -1, delay: 0.5, ease: "none"});
-        gsap.to("#sig-intel", { display: "block", motionPath: {path: "#path-intel", align: "#path-intel", alignOrigin: [0.5, 0.5]}, duration: 2, repeat: -1, delay: 1, ease: "none"});
-        gsap.to("#sig-growth", { display: "block", motionPath: {path: "#path-growth", align: "#path-growth", alignOrigin: [0.5, 0.5]}, duration: 2, repeat: -1, delay: 1.5, ease: "none"});
+      tl.fromTo("#tech-core", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.5)" })
+        .fromTo("#tech-network-svg path", { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1, stagger: 0.1 }, "-=0.2")
+        .to(".tech-node", { scale: 1, opacity: 1, duration: 0.6, stagger: 0.1, ease: "back.out(1.2)" }, "-=0.5");
+
+      gsap.to("#sig-product", { display: "block", motionPath: { path: "#path-product", align: "#path-product", alignOrigin: [0.5, 0.5] }, duration: 2, repeat: -1, ease: "none" });
+      gsap.to("#sig-cloud", { display: "block", motionPath: { path: "#path-cloud", align: "#path-cloud", alignOrigin: [0.5, 0.5] }, duration: 2, repeat: -1, delay: 0.5, ease: "none" });
+      gsap.to("#sig-intel", { display: "block", motionPath: { path: "#path-intel", align: "#path-intel", alignOrigin: [0.5, 0.5] }, duration: 2, repeat: -1, delay: 1, ease: "none" });
+      gsap.to("#sig-growth", { display: "block", motionPath: { path: "#path-growth", align: "#path-growth", alignOrigin: [0.5, 0.5] }, duration: 2, repeat: -1, delay: 1.5, ease: "none" });
 
       gsap.to(".diagnostic-signal", { display: "block", y: "100%", duration: 1, scrollTrigger: { trigger: ".diagnostic-signal", start: "top 60%", once: true } });
     }
@@ -1454,7 +1873,7 @@
       const counter = document.getElementById('test-counter');
       const btnPrev = document.getElementById('test-prev');
       const btnNext = document.getElementById('test-next');
-      if(!slides.length || !btnNext) return;
+      if (!slides.length || !btnNext) return;
 
       let current = 0;
       function showSlide(idx) {
@@ -1474,7 +1893,7 @@
       const container = document.getElementById('form-steps-container');
       const progress = document.getElementById('form-progress');
       const feedback = document.getElementById('form-feedback');
-      
+
       if (!form || !steps.length) return;
 
       function goToStep(newIdx, currentIdx) {
@@ -1483,41 +1902,43 @@
         let isValid = true;
         currentStepEl.querySelectorAll('[required]').forEach(req => {
           const errMsg = req.nextElementSibling;
-          if(!req.value.trim() || (req.type === 'email' && !req.value.includes('@'))) { 
-             isValid = false; 
-             req.classList.add('input-error'); 
-             if(errMsg) errMsg.classList.remove('hidden');
-             req.setAttribute('aria-invalid', 'true');
-          } else { 
-             req.classList.remove('input-error'); 
-             if(errMsg) errMsg.classList.add('hidden');
-             req.setAttribute('aria-invalid', 'false');
+          if (!req.value.trim() || (req.type === 'email' && !req.value.includes('@'))) {
+            isValid = false;
+            req.classList.add('input-error');
+            if (errMsg) errMsg.classList.remove('hidden');
+            req.setAttribute('aria-invalid', 'true');
+          } else {
+            req.classList.remove('input-error');
+            if (errMsg) errMsg.classList.add('hidden');
+            req.setAttribute('aria-invalid', 'false');
           }
         });
 
-        if(newIdx > currentIdx && !isValid) {
-           const firstInvalid = currentStepEl.querySelector('.input-error');
-           if(firstInvalid) firstInvalid.focus();
-           return;
+        if (newIdx > currentIdx && !isValid) {
+          const firstInvalid = currentStepEl.querySelector('.input-error');
+          if (firstInvalid) firstInvalid.focus();
+          return;
         }
 
         // Animate out
-        gsap.to(currentStepEl, { opacity: 0, duration: 0.3, onComplete: () => {
-           currentStepEl.classList.add('hidden');
-           currentStepEl.classList.remove('is-active');
-           
-           // Animate in
-           const nextStepEl = steps[newIdx];
-           nextStepEl.classList.remove('hidden');
-           nextStepEl.classList.add('is-active');
-           gsap.fromTo(nextStepEl, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3 });
-           
-           // Resize container
-           gsap.to(container, { height: nextStepEl.offsetHeight, duration: 0.3 });
-           
-           const focusTarget = nextStepEl.querySelector('h3, input, select');
-           if(focusTarget) focusTarget.focus();
-        }});
+        gsap.to(currentStepEl, {
+          opacity: 0, duration: 0.3, onComplete: () => {
+            currentStepEl.classList.add('hidden');
+            currentStepEl.classList.remove('is-active');
+
+            // Animate in
+            const nextStepEl = steps[newIdx];
+            nextStepEl.classList.remove('hidden');
+            nextStepEl.classList.add('is-active');
+            gsap.fromTo(nextStepEl, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.3 });
+
+            // Resize container
+            gsap.to(container, { height: nextStepEl.offsetHeight, duration: 0.3 });
+
+            const focusTarget = nextStepEl.querySelector('h3, input, select');
+            if (focusTarget) focusTarget.focus();
+          }
+        });
 
         gsap.to(progress, { width: `${((newIdx + 1) / steps.length) * 100}%`, duration: 0.4 });
       }
@@ -1540,11 +1961,11 @@
 
       // Clear errors on input
       form.querySelectorAll('[required]').forEach(req => {
-         req.addEventListener('input', () => {
-            req.classList.remove('input-error');
-            const errMsg = req.nextElementSibling;
-            if(errMsg) errMsg.classList.add('hidden');
-         });
+        req.addEventListener('input', () => {
+          req.classList.remove('input-error');
+          const errMsg = req.nextElementSibling;
+          if (errMsg) errMsg.classList.add('hidden');
+        });
       });
 
       // Initial container height
@@ -1555,17 +1976,17 @@
         const currentIdx = 2; // Step 3
         const currentStepEl = steps[currentIdx];
         let isValid = true;
-        
+
         currentStepEl.querySelectorAll('[required]').forEach(req => {
           const errMsg = req.nextElementSibling;
-          if(!req.value.trim() || (req.type === 'email' && !req.value.includes('@'))) { 
-             isValid = false; 
-             req.classList.add('input-error'); 
-             if(errMsg) errMsg.classList.remove('hidden');
+          if (!req.value.trim() || (req.type === 'email' && !req.value.includes('@'))) {
+            isValid = false;
+            req.classList.add('input-error');
+            if (errMsg) errMsg.classList.remove('hidden');
           }
         });
 
-        if(isValid) {
+        if (isValid) {
           document.getElementById('form-steps-container').style.display = 'none';
           feedback.classList.remove('hidden');
           feedback.innerHTML = `
@@ -1578,11 +1999,12 @@
             </div>
           `;
         } else {
-           const firstInvalid = currentStepEl.querySelector('.input-error');
-           if(firstInvalid) firstInvalid.focus();
+          const firstInvalid = currentStepEl.querySelector('.input-error');
+          if (firstInvalid) firstInvalid.focus();
         }
       });
     }
   </script>
 </body>
+
 </html>

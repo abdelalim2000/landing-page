@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import gsap from 'gsap';
+import { gsap } from '../core/gsap-register.js';
 
 export class ThemeController {
   constructor(material, scene) {
