@@ -8,109 +8,171 @@ import fragShader from '../../shaders/particles.frag.glsl?raw';
 export class HeroWebGL {
   constructor(container) {
     this.container = container;
+    this.canvas = container.querySelector('#hero-canvas') ?? document.getElementById('hero-canvas');
     this.qualityManager = new QualityManager();
-    this.isRunning = true;
-    
+    this.isRunning = false;
+    this.isVisible = true;
+    this.isDocumentVisible = !document.hidden;
+    this.rings = [];
+
+    if (!this.canvas) {
+      throw new Error('[NEXUS] The authored #hero-canvas element is missing.');
+    }
+    if (typeof vertShader !== 'string' || !vertShader.trim() || typeof fragShader !== 'string' || !fragShader.trim()) {
+      throw new Error('[NEXUS] Hero GLSL shaders failed to load.');
+    }
+
     this.init();
   }
 
   init() {
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.FogExp2(0x02040A, 0.03); // Base color, updated by ThemeController
+    this.scene.fog = new THREE.FogExp2(0x02040a, 0.025);
 
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.camera.position.z = 50;
+    const { width, height } = this.getSize();
+    this.camera = new THREE.PerspectiveCamera(52, width / height, 0.1, 1000);
+    this.camera.position.set(0, 0, 38);
 
-    this.renderer = new THREE.WebGLRenderer({ 
-      alpha: true, 
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: this.canvas,
+      alpha: true,
       antialias: this.qualityManager.quality !== 'LOW',
-      powerPreference: "high-performance"
+      powerPreference: 'high-performance',
     });
+    this.renderer.setClearColor(0x000000, 0);
     this.renderer.setPixelRatio(this.qualityManager.getPixelRatio());
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.container.appendChild(this.renderer.domElement);
+    this.renderer.setSize(width, height, false);
 
+    this.coreGroup = new THREE.Group();
+    this.scene.add(this.coreGroup);
     this.createParticles();
+    this.createOrbitArchitecture();
+
     this.themeController = new ThemeController(this.material, this.scene);
 
     this.pointer = new THREE.Vector2();
     this.targetPointer = new THREE.Vector2();
+    this.clock = new THREE.Clock();
 
     this.onWindowResize = this.onWindowResize.bind(this);
     this.onPointerMove = this.onPointerMove.bind(this);
-    
-    window.addEventListener('resize', this.onWindowResize);
-    window.addEventListener('mousemove', this.onPointerMove);
-
-    this.clock = new THREE.Clock();
+    this.onVisibilityChange = this.onVisibilityChange.bind(this);
     this.animate = this.animate.bind(this);
+
+    window.addEventListener('resize', this.onWindowResize, { passive: true });
+    window.addEventListener('pointermove', this.onPointerMove, { passive: true });
+    document.addEventListener('visibilitychange', this.onVisibilityChange);
+
+    this.intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        this.isVisible = entry?.isIntersecting ?? true;
+        this.updateLoopState();
+      },
+      { threshold: 0.01 },
+    );
+    this.intersectionObserver.observe(this.container);
+
+    this.positionCore();
+    this.isRunning = true;
     this.animationFrame = requestAnimationFrame(this.animate);
 
+    if (import.meta.env.DEV) {
+      console.log('[NEXUS] Hero WebGL initialized.', {
+        canvas: `${width}×${height}`,
+        particles: this.qualityManager.getParticleCount(),
+        rings: this.rings.length,
+      });
+    }
+  }
+
+  getSize() {
+    const rect = this.container.getBoundingClientRect();
+    return {
+      width: Math.max(1, Math.round(rect.width || window.innerWidth)),
+      height: Math.max(1, Math.round(rect.height || window.innerHeight)),
+    };
+  }
+
+  positionCore() {
+    const desktop = window.innerWidth >= 900;
+    this.coreGroup.position.x = desktop ? 11 : 0;
+    this.coreGroup.position.y = desktop ? 0.5 : -3;
+    this.coreGroup.scale.setScalar(desktop ? 1 : 0.78);
   }
 
   playAssembly() {
-    gsap.to(this.material.uniforms.uAssembly, {
-      value: 1.0,
-      duration: 3.0,
-      ease: "power3.out"
+    if (!this.material?.uniforms?.uAssembly) return;
+    return gsap.to(this.material.uniforms.uAssembly, {
+      value: 1,
+      duration: 3,
+      ease: 'power3.out',
     });
   }
 
   setAssemblyProgress(progress) {
-    this.material.uniforms.uAssembly.value = progress;
+    if (this.material?.uniforms?.uAssembly) {
+      this.material.uniforms.uAssembly.value = progress;
+    }
   }
 
   setScrollProgress(progress) {
-    this.material.uniforms.uScroll.value = progress;
+    if (this.material?.uniforms?.uScroll) {
+      this.material.uniforms.uScroll.value = progress;
+    }
   }
 
   pause() {
     this.isRunning = false;
+    if (this.animationFrame) cancelAnimationFrame(this.animationFrame);
+    this.animationFrame = null;
   }
 
   resume() {
-    if (!this.isRunning) {
-      this.isRunning = true;
-      this.animate();
-    }
+    if (this.isRunning || !this.isVisible || !this.isDocumentVisible) return;
+    this.isRunning = true;
+    this.clock.getDelta();
+    this.animationFrame = requestAnimationFrame(this.animate);
+  }
+
+  updateLoopState() {
+    if (this.isVisible && this.isDocumentVisible) this.resume();
+    else this.pause();
   }
 
   createParticles() {
     const count = this.qualityManager.getParticleCount();
     const geometry = new THREE.BufferGeometry();
-    
+
     const positions = new Float32Array(count * 3);
     const sizes = new Float32Array(count);
     const depths = new Float32Array(count);
     const colorsDark = new Float32Array(count * 3);
     const colorsLight = new Float32Array(count * 3);
 
-    const darkCore = new THREE.Color(0xBDEBFF);
-    const darkOuter = new THREE.Color(0x18E0FF);
-    const lightCore = new THREE.Color(0x063A4A);
-    const lightOuter = new THREE.Color(0x007E9B);
+    const darkCore = new THREE.Color(0xbdebff);
+    const darkOuter = new THREE.Color(0x18e0ff);
+    const lightCore = new THREE.Color(0x063a4a);
+    const lightOuter = new THREE.Color(0x007e9b);
 
-    for (let i = 0; i < count; i++) {
-      // Create a dense core and sparse outer field
-      const r = Math.pow(Math.random(), 1.5) * 20;
+    for (let i = 0; i < count; i += 1) {
+      const density = Math.random();
+      const radius = Math.pow(density, 1.85) * 14 + Math.random() * 1.5;
       const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos((Math.random() * 2) - 1);
+      const phi = Math.acos(Math.random() * 2 - 1);
 
-      positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
-      positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
-      positions[i*3+2] = r * Math.cos(phi);
+      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      positions[i * 3 + 2] = radius * Math.cos(phi);
 
       depths[i] = Math.random();
-      sizes[i] = Math.random() * 2.0 + 0.5;
+      sizes[i] = Math.random() * 1.65 + 0.45;
 
-      // Color mapping based on distance from center
-      const distRatio = r / 20.0;
-      
-      const cd = darkCore.clone().lerp(darkOuter, distRatio);
-      colorsDark[i*3] = cd.r; colorsDark[i*3+1] = cd.g; colorsDark[i*3+2] = cd.b;
-      
-      const cl = lightCore.clone().lerp(lightOuter, distRatio);
-      colorsLight[i*3] = cl.r; colorsLight[i*3+1] = cl.g; colorsLight[i*3+2] = cl.b;
+      const distanceRatio = Math.min(1, radius / 15.5);
+      const darkColor = darkCore.clone().lerp(darkOuter, distanceRatio);
+      const lightColor = lightCore.clone().lerp(lightOuter, distanceRatio);
+
+      colorsDark.set([darkColor.r, darkColor.g, darkColor.b], i * 3);
+      colorsLight.set([lightColor.r, lightColor.g, lightColor.b], i * 3);
     }
 
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
@@ -124,38 +186,67 @@ export class HeroWebGL {
       fragmentShader: fragShader,
       uniforms: {
         uTime: { value: 0 },
-        uThemeMix: { value: 0.0 }, // 0 = dark, 1 = light
-        uAssembly: { value: 0.0 },
-        uPointer: { value: new THREE.Vector2(0, 0) },
+        uThemeMix: { value: 0 },
+        uAssembly: { value: 0 },
+        uPointer: { value: new THREE.Vector2() },
         uScroll: { value: 0 },
-        uPixelRatio: { value: this.qualityManager.getPixelRatio() }
+        uPixelRatio: { value: this.qualityManager.getPixelRatio() },
       },
       transparent: true,
       depthWrite: false,
-      blending: THREE.NormalBlending // Additive can wash out light mode
+      blending: THREE.NormalBlending,
     });
 
     this.points = new THREE.Points(geometry, this.material);
-    this.scene.add(this.points);
+    this.coreGroup.add(this.points);
+  }
 
-    // Add Orbit Rings if quality allows
-    const ringCount = this.qualityManager.getRingCount();
-    for(let i = 0; i < ringCount; i++) {
-       // Minimal ring representation to avoid full code bloat for now
-       // In full version, use THREE.Line geometry here.
+  createOrbitArchitecture() {
+    const ringCount = Math.max(2, this.qualityManager.getRingCount());
+    const ringColor = new THREE.Color(0x8b5cf6);
+
+    for (let index = 0; index < ringCount; index += 1) {
+      const radius = 16.5 + index * 2.8;
+      const points = [];
+      const segments = 160;
+      for (let segment = 0; segment <= segments; segment += 1) {
+        const angle = (segment / segments) * Math.PI * 2;
+        points.push(new THREE.Vector3(Math.cos(angle) * radius, Math.sin(angle) * radius, 0));
+      }
+
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const material = new THREE.LineBasicMaterial({
+        color: ringColor,
+        transparent: true,
+        opacity: 0.18 - index * 0.025,
+      });
+      const ring = new THREE.LineLoop(geometry, material);
+      ring.rotation.x = Math.PI * (0.2 + index * 0.16);
+      ring.rotation.y = Math.PI * (0.08 + index * 0.1);
+      ring.userData.speed = (index % 2 ? -1 : 1) * (0.035 + index * 0.012);
+      this.rings.push(ring);
+      this.coreGroup.add(ring);
     }
   }
 
   onWindowResize() {
-    this.camera.aspect = window.innerWidth / window.innerHeight;
+    const { width, height } = this.getSize();
+    this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    this.renderer.setPixelRatio(this.qualityManager.getPixelRatio());
+    this.renderer.setSize(width, height, false);
     this.material.uniforms.uPixelRatio.value = this.qualityManager.getPixelRatio();
+    this.positionCore();
   }
 
   onPointerMove(event) {
     this.targetPointer.x = (event.clientX / window.innerWidth) * 2 - 1;
     this.targetPointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+  }
+
+  onVisibilityChange() {
+    this.isDocumentVisible = !document.hidden;
+    this.updateLoopState();
   }
 
   animate() {
@@ -164,29 +255,32 @@ export class HeroWebGL {
 
     const time = this.clock.getElapsedTime();
     this.material.uniforms.uTime.value = time;
-    
-    // Smooth pointer interpolation
-    this.pointer.lerp(this.targetPointer, 0.05);
+    this.pointer.lerp(this.targetPointer, 0.045);
     this.material.uniforms.uPointer.value.copy(this.pointer);
 
-    this.points.rotation.y = time * 0.05 + (this.pointer.x * 0.2);
-    this.points.rotation.x = this.pointer.y * 0.2;
+    this.coreGroup.rotation.y = time * 0.035 + this.pointer.x * 0.14;
+    this.coreGroup.rotation.x = this.pointer.y * 0.1;
+    this.rings.forEach((ring) => {
+      ring.rotation.z += ring.userData.speed * 0.01;
+    });
 
     this.renderer.render(this.scene, this.camera);
   }
 
   dispose() {
-    this.isRunning = false;
-    cancelAnimationFrame(this.animationFrame);
+    this.pause();
     window.removeEventListener('resize', this.onWindowResize);
-    window.removeEventListener('mousemove', this.onPointerMove);
-    this.themeController.dispose();
-    
-    this.points.geometry.dispose();
-    this.material.dispose();
-    this.renderer.dispose();
-    if(this.container.contains(this.renderer.domElement)) {
-       this.container.removeChild(this.renderer.domElement);
-    }
+    window.removeEventListener('pointermove', this.onPointerMove);
+    document.removeEventListener('visibilitychange', this.onVisibilityChange);
+    this.intersectionObserver?.disconnect();
+    this.themeController?.dispose();
+
+    this.points?.geometry.dispose();
+    this.material?.dispose();
+    this.rings.forEach((ring) => {
+      ring.geometry.dispose();
+      ring.material.dispose();
+    });
+    this.renderer?.dispose();
   }
 }
