@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>QUANTUM FINANCE | Nexus Dynamics</title>
+  <meta name="description" content="High-volume market data becoming structured decision intelligence.">
+  <meta name="theme-color" content="#02040A" id="meta-theme-color">
+
+  <script>
+    (function() {
+      try {
+        const storedTheme = localStorage.getItem('nexus_theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = storedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+        document.getElementById('meta-theme-color').content = theme === 'dark' ? '#02040A' : '#F4F7FB';
+      } catch (e) {}
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['class', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            page: "rgb(var(--page-bg) / <alpha-value>)",
+            surface: "rgb(var(--surface) / <alpha-value>)",
+            elevated: "rgb(var(--surface-elevated) / <alpha-value>)",
+            soft: "rgb(var(--surface-soft) / <alpha-value>)",
+            primary: "rgb(var(--text-primary) / <alpha-value>)",
+            secondary: "rgb(var(--text-secondary) / <alpha-value>)",
+            muted: "rgb(var(--text-muted) / <alpha-value>)",
+            nd: {
+              cyan: "rgb(var(--cyan) / <alpha-value>)",
+              violet: "rgb(var(--violet) / <alpha-value>)",
+              lime: "rgb(var(--lime) / <alpha-value>)",
+              border: "rgba(var(--border-color), var(--border-alpha))"
+            }
+          },
+          fontFamily: { display: ['Syne', 'sans-serif'], body: ['Inter', 'sans-serif'] }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root, html[data-theme="dark"] {
+      --page-bg: 2 4 10;
+      --surface: 6 11 22;
+      --surface-elevated: 10 18 34;
+      --surface-soft: 13 23 40;
+      --text-primary: 248 250 252;
+      --text-secondary: 148 163 184;
+      --text-muted: 100 116 139;
+      --border-color: 255, 255, 255;
+      --border-alpha: 0.10;
+      --cyan: 24 224 255;
+      --violet: 139 92 246;
+      --lime: 163 255 95;
+      --cursor-bg: #8B5CF6;
+      --cursor-text: #02040A;
+      --theme-toggle-x: 0px;
+    }
+    html[data-theme="light"] {
+      --page-bg: 244 247 251;
+      --surface: 255 255 255;
+      --surface-elevated: 234 240 247;
+      --surface-soft: 223 232 242;
+      --text-primary: 7 17 31;
+      --text-secondary: 64 81 106;
+      --text-muted: 102 117 138;
+      --border-color: 7, 17, 31;
+      --border-alpha: 0.12;
+      --cyan: 0 126 155;
+      --violet: 109 63 214;
+      --lime: 79 127 22;
+      --cursor-bg: #07111F;
+      --cursor-text: #FFFFFF;
+      --theme-toggle-x: 24px;
+    }
+
+    body { font-family: 'Inter', sans-serif; background-color: rgb(var(--page-bg)); color: rgb(var(--text-primary)); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
+    h1, h2, h3, h4, h5, h6, .font-display { font-family: 'Syne', sans-serif; }
+    
+    .custom-cursor { position: fixed; top: 0; left: 0; width: 16px; height: 16px; background-color: var(--cursor-bg); border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--cursor-text); opacity: 0; transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, color 0.4s ease; }
+    .custom-cursor.active { opacity: 1; }
+    .custom-cursor[data-state="start"] { width: 80px; height: 80px; }
+    html[data-theme="dark"] .custom-cursor { mix-blend-mode: difference; }
+    @media (pointer: coarse), (max-width: 768px) { .custom-cursor { display: none !important; } }
+
+    .layout-container { width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 24px; }
+    @media (min-width: 768px) { .layout-container { padding: 0 40px; } }
+    @media (min-width: 1024px) { .layout-container { padding: 0 64px; } }
+
+    .text-clamp-hero { font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem); line-height: 1.05; letter-spacing: -0.02em; }
+    .text-clamp-h2 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; letter-spacing: -0.02em; }
+    
+    .btn-magnetic { display: inline-flex; position: relative; padding: 14px 28px; border-radius: 999px; background: rgb(var(--violet)); color: rgb(var(--page-bg)); font-weight: 600; text-decoration: none; align-items: center; justify-content: center; overflow: hidden; }
+    html[data-theme="light"] .btn-magnetic { color: #FFF; }
+    .btn-magnetic::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.2); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
+    .btn-magnetic:hover::after { transform: scaleY(1); transform-origin: top; }
+    
+    .theme-toggle-thumb { transform: translateX(var(--theme-toggle-x)); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+    .hero-glow { position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: radial-gradient(circle at center, rgba(var(--violet), 0.15) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+    .grid-bg { background-image: linear-gradient(rgba(var(--border-color), 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--border-color), 0.05) 1px, transparent 1px); background-size: 40px 40px; }
+  </style>
+</head>
+<body data-page="case-study">
+  <div class="custom-cursor" id="custom-cursor"></div>
+  
+  <header id="site-header" class="fixed top-0 left-0 w-full z-50 py-6 transition-all duration-300">
+    <div class="layout-container flex justify-between items-center" id="nav-container">
+      <a href="../index.html" class="font-display font-bold text-xl tracking-wide text-primary z-10 relative">NEXUS<span class="text-nd-cyan">DYNAMICS</span></a>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="../index.html#work" class="text-secondary hover:text-primary transition-colors flex items-center gap-2">
+           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+           Back to Work
+        </a>
+        <button id="theme-toggle-desktop" class="relative w-12 h-6 rounded-full bg-soft border border-nd-border flex items-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-violet ml-2" aria-label="Toggle theme" aria-pressed="false">
+          <div class="w-4 h-4 rounded-full bg-primary theme-toggle-thumb"></div>
+        </button>
+      </nav>
+      <button class="md:hidden w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-violet" id="mobile-menu-btn" aria-label="Toggle Menu">
+        <span class="w-6 h-[2px] bg-primary"></span>
+        <span class="w-6 h-[2px] bg-primary"></span>
+        <span class="w-6 h-[2px] bg-primary"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="fixed inset-0 bg-surface z-40 flex flex-col justify-center px-8 opacity-0 pointer-events-none transition-opacity duration-500">
+    <nav class="flex flex-col gap-6 text-3xl font-display font-bold">
+      <a href="../index.html#work" class="mobile-link text-primary">Back to Work</a>
+      <div class="mt-4 flex items-center gap-4">
+        <span class="text-lg text-secondary">Theme</span>
+        <button id="theme-toggle-mobile" class="relative w-14 h-7 rounded-full bg-soft border border-nd-border flex items-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-violet" aria-label="Toggle theme">
+          <div class="w-5 h-5 rounded-full bg-primary theme-toggle-thumb"></div>
+        </button>
+      </div>
+    </nav>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="relative pt-40 pb-20 md:pt-48 md:pb-32 bg-page overflow-hidden border-b border-nd-border grid-bg">
+      <div class="hero-glow"></div>
+      <div class="layout-container relative z-10">
+        <div class="font-mono text-nd-violet text-sm tracking-widest mb-6">CASE STUDY 02 // FINTECH</div>
+        <h1 class="font-display text-clamp-hero font-bold text-primary mb-8 max-w-4xl">Quantum Finance</h1>
+        <p class="text-xl md:text-2xl text-secondary max-w-3xl mb-12">High-volume market data becoming structured decision intelligence.</p>
+        
+        <div class="w-full h-[400px] md:h-[600px] bg-elevated border border-nd-border rounded-2xl overflow-hidden relative shadow-2xl flex items-center justify-center p-8">
+           <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(139,92,246,0.05),_transparent_70%)]"></div>
+           <svg viewBox="0 0 800 400" class="w-full h-full opacity-80 absolute inset-0 z-0">
+              <path d="M0,350 C100,300 200,380 300,250 C400,150 500,200 600,180 L800,20" stroke="currentColor" class="text-nd-violet" stroke-width="2" fill="none" opacity="0.5"/>
+              <path d="M0,400 L0,350 C100,300 200,380 300,250 C400,150 500,200 600,180 L800,20 L800,400 Z" fill="currentColor" class="text-nd-violet" opacity="0.05"/>
+           </svg>
+           <div class="w-full max-w-md bg-page/80 border border-nd-violet/30 p-8 rounded-xl shadow-2xl backdrop-blur relative z-10 self-end md:self-center justify-self-end md:ml-auto">
+              <div class="text-xs text-nd-violet mb-2 font-mono tracking-widest">PREDICTIVE ALPHA</div>
+              <div class="text-5xl font-display text-primary font-bold">+14.2%</div>
+              <div class="mt-4 h-2 bg-soft rounded overflow-hidden w-full"><div class="h-full bg-nd-violet w-[85%]"></div></div>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OVERVIEW & CHALLENGE -->
+    <section class="py-24 bg-surface border-b border-nd-border">
+      <div class="layout-container">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-16">
+          <div class="md:col-span-4 text-sm font-mono tracking-widest text-muted border-l-2 border-nd-violet pl-4 h-fit">PROJECT OVERVIEW</div>
+          <div class="md:col-span-8">
+            <h2 class="text-3xl font-display font-bold text-primary mb-6">The Challenge</h2>
+            <p class="text-lg text-secondary mb-12">Quantum Finance operated on legacy risk-modeling systems that could not process the volume of live market data fast enough. Their analysts were forced to make decisions on data that was already 15 to 30 minutes stale, resulting in missed alpha and elevated exposure.</p>
+            
+            <h2 class="text-3xl font-display font-bold text-primary mb-6">System Strategy</h2>
+            <p class="text-lg text-secondary">We replaced their entire batch-processing architecture with a real-time event streaming pipeline. By normalizing fragmented data inputs at the edge and passing them through a custom TensorFlow inference layer, we delivered sub-second predictive insights directly to a new, high-performance analyst dashboard.</p>
+            
+            <p class="text-xs text-muted mt-8 font-mono bg-soft p-4 rounded border border-nd-border inline-block">NOTE: Demonstration metrics for portfolio purposes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="py-24 bg-page border-b border-nd-border">
+      <div class="layout-container">
+        <h2 class="text-clamp-h2 font-display text-primary mb-16 text-center">System Architecture</h2>
+        
+        <div class="w-full h-[500px] border border-nd-border bg-surface rounded-2xl relative overflow-hidden flex items-center justify-center p-8">
+           <svg class="absolute inset-0 w-full h-full opacity-50" viewBox="0 0 1000 500">
+              <path d="M100,250 L900,250" stroke="currentColor" class="text-nd-violet" stroke-width="2" stroke-dasharray="6" fill="none"/>
+           </svg>
+           <div class="flex flex-col md:flex-row justify-between w-[90%] h-full z-10 gap-4">
+              <div class="flex flex-col justify-center w-full md:w-1/5 gap-2">
+                 <div class="bg-elevated border border-nd-border rounded p-3 text-center text-[10px] font-mono text-primary shadow">MARKET FEED A</div>
+                 <div class="bg-elevated border border-nd-border rounded p-3 text-center text-[10px] font-mono text-primary shadow">MARKET FEED B</div>
+                 <div class="bg-elevated border border-nd-border rounded p-3 text-center text-[10px] font-mono text-primary shadow">INTERNAL DATA</div>
+              </div>
+              <div class="flex items-center w-full md:w-1/5">
+                 <div class="w-full bg-soft border border-nd-violet/30 rounded p-4 text-center text-xs font-mono text-nd-violet h-[60%] flex items-center justify-center shadow">STREAM PROCESSOR (KAFKA)</div>
+              </div>
+              <div class="flex items-center w-full md:w-1/5">
+                 <div class="w-full bg-soft border border-nd-violet/50 rounded p-4 text-center text-xs font-mono text-nd-violet h-[40%] flex items-center justify-center shadow">AI MODEL LAYER (TF)</div>
+              </div>
+              <div class="flex flex-col justify-center w-full md:w-1/5 gap-2">
+                 <div class="bg-elevated border border-nd-border rounded p-3 text-center text-[10px] font-mono text-primary shadow">RISK VERIFICATION</div>
+                 <div class="bg-elevated border border-nd-border rounded p-3 text-center text-[10px] font-mono text-primary shadow">DECISION ENGINE</div>
+              </div>
+              <div class="flex items-center w-full md:w-1/5">
+                 <div class="w-full bg-page border-2 border-primary/20 border-dashed rounded p-4 text-center text-xs font-mono text-secondary h-[80%] flex items-center justify-center">ANALYST DASHBOARD</div>
+              </div>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNOLOGY & OUTCOMES -->
+    <section class="py-24 bg-surface border-b border-nd-border">
+      <div class="layout-container">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+          <div>
+            <h2 class="text-3xl font-display font-bold text-primary mb-8">Technology Stack</h2>
+            <div class="flex flex-wrap gap-3">
+              <span class="px-4 py-2 border border-nd-border rounded text-sm bg-page text-primary">Python & FastAPI</span>
+              <span class="px-4 py-2 border border-nd-border rounded text-sm bg-page text-primary">Apache Kafka</span>
+              <span class="px-4 py-2 border border-nd-border rounded text-sm bg-page text-primary">TensorFlow</span>
+              <span class="px-4 py-2 border border-nd-border rounded text-sm bg-page text-primary">Redis / TimescaleDB</span>
+              <span class="px-4 py-2 border border-nd-border rounded text-sm bg-page text-primary">React & WebSockets</span>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-3xl font-display font-bold text-primary mb-8">Demonstration Outcomes</h2>
+            <div class="space-y-6">
+               <div class="flex items-start gap-4">
+                  <div class="w-20 font-display font-bold text-2xl text-nd-violet shrink-0">&lt;50ms</div>
+                  <div class="text-secondary">Glass-to-glass latency from market event to dashboard render.</div>
+               </div>
+               <div class="flex items-start gap-4">
+                  <div class="w-20 font-display font-bold text-2xl text-nd-violet shrink-0">-65%</div>
+                  <div class="text-secondary">Reduction in manual data processing time per analyst.</div>
+               </div>
+               <div class="flex items-start gap-4">
+                  <div class="w-20 font-display font-bold text-2xl text-nd-violet shrink-0">14.2%</div>
+                  <div class="text-secondary">Increase in predictive modeling accuracy against historical baselines.</div>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEXT PROJECT & CTA -->
+    <section class="py-24 bg-page text-center">
+      <div class="layout-container">
+        <div class="font-mono text-sm tracking-widest text-muted mb-4">NEXT CASE STUDY</div>
+        <a href="nova-logistics.html" class="inline-block group focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-nd-lime rounded-lg">
+           <h2 class="text-clamp-h2 font-display font-bold text-primary group-hover:text-nd-lime transition-colors">Nova Logistics</h2>
+           <div class="flex items-center justify-center gap-2 mt-4 text-nd-lime opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
+              View Project <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+           </div>
+        </a>
+        
+        <div class="mt-32">
+           <a href="../index.html#contact" class="btn-magnetic" data-cursor="start">Initialize Your Project</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-surface pt-12 pb-12 border-t border-nd-border text-center">
+    <div class="layout-container text-xs font-mono text-muted flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>&copy; 2026 NEXUS DYNAMICS LLC. ALL RIGHTS RESERVED.</div>
+      <a href="../index.html" class="text-primary font-display font-bold text-sm tracking-wide">NEXUS<span class="text-nd-cyan">DYNAMICS</span></a>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      if (!isTouch && window.gsap) {
+        const cursor = document.getElementById('custom-cursor');
+        gsap.set(cursor, { xPercent: -50, yPercent: -50 });
+        const xTo = gsap.quickTo(cursor, "x", {duration: 0.4, ease: "power3"}), yTo = gsap.quickTo(cursor, "y", {duration: 0.4, ease: "power3"});
+        window.addEventListener("mousemove", e => { xTo(e.clientX); yTo(e.clientY); if(!cursor.classList.contains('active')) cursor.classList.add('active'); }, {passive:true});
+        document.querySelectorAll('[data-cursor]').forEach(el => {
+          el.addEventListener('mouseenter', () => { const state = el.getAttribute('data-cursor'); cursor.setAttribute('data-state', state); cursor.innerText = state === 'start' ? 'START' : ''; });
+          el.addEventListener('mouseleave', () => { cursor.removeAttribute('data-state'); cursor.innerText = ''; });
+        });
+      }
+
+      const btnDesktop = document.getElementById('theme-toggle-desktop');
+      const btnMobile = document.getElementById('theme-toggle-mobile');
+      function toggle() {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        const theme = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+        document.documentElement.style.colorScheme = theme;
+        localStorage.setItem('nexus_theme', theme);
+        document.getElementById('meta-theme-color').content = theme === 'dark' ? '#02040A' : '#F4F7FB';
+      }
+      if(btnDesktop) btnDesktop.addEventListener('click', toggle);
+      if(btnMobile) btnMobile.addEventListener('click', toggle);
+      
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      if(menuBtn) {
+         let menuOpen = false;
+         menuBtn.addEventListener('click', () => {
+            menuOpen = !menuOpen;
+            if(menuOpen) { document.body.style.overflow = 'hidden'; gsap.to(menu, {opacity: 1, pointerEvents: 'auto'}); }
+            else { document.body.style.overflow = ''; gsap.to(menu, {opacity: 0, pointerEvents: 'none'}); }
+         });
+         document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => menuBtn.click()));
+      }
+    });
+  </script>
+</body>
+</html>
