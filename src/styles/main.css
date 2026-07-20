@@ -4,13 +4,11 @@
 
 @layer base {
   html {
-    min-width: 320px;
     background: var(--page-bg);
   }
 
   body {
     @apply font-body bg-page text-primary overflow-x-hidden transition-colors duration-300;
-    min-width: 320px;
   }
   
   h1, h2, h3, h4, h5, h6, .font-display {
