@@ -2,8 +2,12 @@ name: Vite parity verification
 
 on:
   pull_request:
-    branches: [master]
+    branches: [master, vite-migration]
   workflow_dispatch:
+
+concurrency:
+  group: vite-parity-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   parity:
