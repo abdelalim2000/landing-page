@@ -1,7 +1,5 @@
 import { test, expect } from '@playwright/test';
 
-const baseURL = 'http://127.0.0.1:4173/';
-
 async function collectRuntimeErrors(page) {
   const errors = [];
   page.on('console', (message) => {
@@ -18,7 +16,7 @@ test.describe('NEXUS DYNAMICS Vite parity', () => {
 
   test('boots the home motion system without runtime errors', async ({ page }) => {
     const errors = await collectRuntimeErrors(page);
-    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('#loader')).toBeHidden({ timeout: 6000 });
 
     await expect.poll(async () => page.evaluate(() => window.__NEXUS_DIAGNOSTICS__ ?? null)).not.toBeNull();
@@ -33,7 +31,7 @@ test.describe('NEXUS DYNAMICS Vite parity', () => {
   });
 
   test('restores the component CSS required by the storytelling layout', async ({ page }) => {
-    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('#loader')).toBeHidden({ timeout: 6000 });
 
     await expect(page.locator('.hero-title')).toBeVisible();
@@ -56,7 +54,7 @@ test.describe('NEXUS DYNAMICS Vite parity', () => {
   });
 
   test('keeps a single correctly-sized WebGL canvas', async ({ page }) => {
-    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('#loader')).toBeHidden({ timeout: 6000 });
 
     await expect(page.locator('canvas')).toHaveCount(1);
@@ -67,7 +65,7 @@ test.describe('NEXUS DYNAMICS Vite parity', () => {
   });
 
   test('does not overflow horizontally', async ({ page }) => {
-    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('#loader')).toBeHidden({ timeout: 6000 });
     const noOverflow = await page.evaluate(
       () => document.documentElement.scrollWidth <= window.innerWidth,
