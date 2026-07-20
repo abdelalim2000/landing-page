@@ -1,65 +1,77 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('NEXUS DYNAMICS Parity Tests', () => {
-  const baseURL = 'http://localhost:4173/';
-  
+const baseURL = 'http://127.0.0.1:4173/';
+
+async function collectRuntimeErrors(page) {
+  const errors = [];
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text());
+  });
+  page.on('pageerror', (error) => errors.push(error.message));
+  return errors;
+}
+
+test.describe('NEXUS DYNAMICS Vite parity', () => {
   test.beforeEach(async ({ page }) => {
-    // Navigate to production preview
-    await page.goto(baseURL);
+    await page.emulateMedia({ reducedMotion: 'no-preference', colorScheme: 'dark' });
   });
 
-  test('should load main assets and modules', async ({ page }) => {
-    // Wait for the loader to disappear
-    await page.waitForSelector('#loader', { state: 'hidden', timeout: 10000 });
+  test('boots the home motion system without runtime errors', async ({ page }) => {
+    const errors = await collectRuntimeErrors(page);
+    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await expect(page.locator('#loader')).toBeHidden({ timeout: 6000 });
 
-    // Assert canvas exists
-    const canvasCount = await page.evaluate(() => document.querySelectorAll("canvas").length);
-    expect(canvasCount).toBeGreaterThan(0);
-
-    // Assert ScrollTrigger count is > 0 (by checking the diagnostics we exposed)
+    await expect.poll(async () => page.evaluate(() => window.__NEXUS_DIAGNOSTICS__ ?? null)).not.toBeNull();
     const diagnostics = await page.evaluate(() => window.__NEXUS_DIAGNOSTICS__);
-    if (diagnostics) {
-      expect(diagnostics.appStarted).toBe(true);
-      expect(diagnostics.scrollTriggerCount).toBeGreaterThan(0);
-      expect(diagnostics.webglRunning).toBe(true);
-    }
 
-    // Hero title is visible
-    const heroTitle = page.locator('.hero-title');
-    await expect(heroTitle).toBeVisible();
-
-    // Verify canvas dimensions
-    const canvasBox = await page.locator('#hero-canvas').boundingBox();
-    expect(canvasBox.width).toBeGreaterThan(0);
-    expect(canvasBox.height).toBeGreaterThan(0);
+    expect(diagnostics.appStarted).toBe(true);
+    expect(diagnostics.page).toBe('home');
+    expect(diagnostics.scrollTriggerCount).toBeGreaterThan(0);
+    expect(diagnostics.canvasCount).toBe(1);
+    expect(diagnostics.webglRunning).toBe(true);
+    expect(errors).toEqual([]);
   });
 
-  test('should not have console errors', async ({ page }) => {
-    const errors = [];
-    page.on('console', msg => {
-      if (msg.type() === 'error') {
-        errors.push(msg.text());
-      }
-    });
-    page.on('pageerror', error => {
-      errors.push(error.message);
+  test('restores the component CSS required by the storytelling layout', async ({ page }) => {
+    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await expect(page.locator('#loader')).toBeHidden({ timeout: 6000 });
+
+    await expect(page.locator('.hero-title')).toBeVisible();
+    await expect(page.locator('.btn-magnetic').first()).toHaveCSS('display', 'inline-flex');
+
+    const componentStyles = await page.evaluate(() => {
+      const approach = document.querySelector('.approach-stage');
+      const expertise = document.querySelector('.expertise-state');
+      const accordion = document.querySelector('.accordion-content');
+      return {
+        approachPosition: approach ? getComputedStyle(approach).position : null,
+        expertisePosition: expertise ? getComputedStyle(expertise).position : null,
+        accordionOverflow: accordion ? getComputedStyle(accordion).overflow : null,
+      };
     });
 
-    await page.goto(baseURL);
-    await page.waitForSelector('#loader', { state: 'hidden', timeout: 10000 });
-    
-    // Some minor WebGL or missing favicon errors might happen, but ideally 0 app errors
-    // We log them if they exist
-    if (errors.length > 0) {
-      console.log("Console Errors found:", errors);
-    }
+    expect(componentStyles.approachPosition).toBe('absolute');
+    expect(componentStyles.expertisePosition).toBe('absolute');
+    expect(componentStyles.accordionOverflow).toBe('hidden');
   });
 
-  test('should not have horizontal overflow', async ({ page }) => {
-    await page.waitForSelector('#loader', { state: 'hidden' });
-    const overflowResult = await page.evaluate(() => {
-      return document.documentElement.scrollWidth <= window.innerWidth;
-    });
-    expect(overflowResult).toBeTruthy();
+  test('keeps a single correctly-sized WebGL canvas', async ({ page }) => {
+    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await expect(page.locator('#loader')).toBeHidden({ timeout: 6000 });
+
+    await expect(page.locator('canvas')).toHaveCount(1);
+    const box = await page.locator('#hero-canvas').boundingBox();
+    expect(box).not.toBeNull();
+    expect(box.width).toBeGreaterThan(300);
+    expect(box.height).toBeGreaterThan(300);
+  });
+
+  test('does not overflow horizontally', async ({ page }) => {
+    await page.goto(baseURL, { waitUntil: 'networkidle' });
+    await expect(page.locator('#loader')).toBeHidden({ timeout: 6000 });
+    const noOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth <= window.innerWidth,
+    );
+    expect(noOverflow).toBe(true);
   });
 });
