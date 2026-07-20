@@ -1,0 +1,42 @@
+<a href="#main-content" class="visually-hidden focus:!fixed focus:!top-4 focus:!left-4 focus:!z-[10000] focus:!bg-nd-cyan focus:!text-page focus:!px-4 focus:!py-2 focus:!rounded">Skip to content</a>
+<header id="site-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-6">
+  <div class="layout-container flex justify-between items-center" id="nav-container">
+    <a href="index.html" class="font-display font-bold text-xl tracking-wide z-10 relative text-primary">NEXUS<span class="text-nd-cyan">DYNAMICS</span></a>
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Primary Navigation">
+      <a href="services.html" class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">Services</a>
+      <a href="work.html" class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">Work</a>
+      <a href="about.html" class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">About</a>
+      <a href="contact.html" class="text-primary hover:text-nd-cyan transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan rounded px-2 py-1">Contact</a>
+
+      <button id="theme-toggle-desktop" class="relative w-12 h-6 rounded-full bg-soft border border-nd-border flex items-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan ml-2" aria-label="Toggle theme" aria-pressed="false">
+        <div class="w-4 h-4 rounded-full bg-primary theme-toggle-thumb flex items-center justify-center relative overflow-hidden"></div>
+      </button>
+
+      <a href="contact.html" class="btn-magnetic text-xs px-5 py-2.5 ml-2">Start a Project</a>
+    </nav>
+    <button class="md:hidden relative z-50 w-10 h-10 flex flex-col justify-center items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan" id="mobile-menu-btn" aria-label="Toggle Menu" aria-expanded="false">
+      <span class="w-6 h-[2px] bg-primary transition-transform duration-300 line-1"></span>
+      <span class="w-6 h-[2px] bg-primary transition-opacity duration-300 line-2"></span>
+      <span class="w-6 h-[2px] bg-primary transition-transform duration-300 line-3"></span>
+    </button>
+  </div>
+</header>
+
+<div id="mobile-menu" class="fixed inset-0 bg-surface z-40 flex flex-col justify-center px-8 opacity-0 pointer-events-none transition-opacity duration-500" aria-hidden="true" tabindex="-1">
+  <nav class="flex flex-col gap-6 text-3xl font-display font-bold">
+    <a href="index.html" class="mobile-link text-primary">Home</a>
+    <a href="services.html" class="mobile-link text-primary">Services</a>
+    <a href="work.html" class="mobile-link text-primary">Work</a>
+    <a href="about.html" class="mobile-link text-primary">About</a>
+    <a href="contact.html" class="mobile-link text-primary">Contact</a>
+
+    <div class="mt-4 flex items-center gap-4">
+      <span class="text-lg text-secondary">Theme</span>
+      <button id="theme-toggle-mobile" class="relative w-14 h-7 rounded-full bg-soft border border-nd-border flex items-center p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-nd-cyan" aria-label="Toggle theme">
+        <div class="w-5 h-5 rounded-full bg-primary theme-toggle-thumb"></div>
+      </button>
+    </div>
+
+    <a href="contact.html" class="mobile-link text-nd-cyan mt-8">Start a Project</a>
+  </nav>
+</div>

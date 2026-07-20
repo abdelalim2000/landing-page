@@ -1,6 +1,8 @@
 import { initTheme } from './theme.js';
 import { initNavigation } from './navigation.js';
 import { initCursor } from './cursor.js';
+import { initFooter } from './footer.js';
+import { initPageTransitions } from '../motion/page-transitions.js';
 import { registerGsap, ScrollTrigger } from './gsap-register.js';
 
 let appInitialized = false;
@@ -43,7 +45,10 @@ async function initializePageModule(page) {
       const { initWork } = await import('../pages/work.js');
       return initWork();
     }
-    case 'case-study': {
+    case 'case-study':
+    case 'aether-health':
+    case 'quantum-finance':
+    case 'nova-logistics': {
       const { initCaseStudy } = await import('../pages/case-study.js');
       return initCaseStudy();
     }
@@ -86,6 +91,8 @@ export async function initializeApplication() {
     const cleanupTheme = initTheme();
     const cleanupNavigation = initNavigation();
     const cleanupCursor = initCursor();
+    const cleanupFooter = initFooter();
+    const cleanupTransitions = initPageTransitions();
     const page = document.body.dataset.page;
 
     if (!page) throw new Error('The data-page attribute is missing from <body>.');
@@ -98,6 +105,8 @@ export async function initializeApplication() {
 
     currentCleanup = () => {
       if (typeof cleanupPage === 'function') cleanupPage();
+      if (typeof cleanupTransitions === 'function') cleanupTransitions();
+      if (typeof cleanupFooter === 'function') cleanupFooter();
       if (typeof cleanupCursor === 'function') cleanupCursor();
       if (typeof cleanupNavigation === 'function') cleanupNavigation();
       if (typeof cleanupTheme === 'function') cleanupTheme();

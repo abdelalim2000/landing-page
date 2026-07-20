@@ -1,9 +1,40 @@
+import fs from 'fs';
+import path from 'path';
+
 export default function nexusHtmlTransform() {
   return {
     name: 'nexus-html-transform',
     transformIndexHtml: {
       order: 'pre',
-      handler(html) {
+      handler(html, ctx) {
+        const isNested = ctx.path && ctx.path.includes('/work/');
+        const navPath = isNested 
+          ? path.resolve(__dirname, '../src/partials/navigation-nested.html') 
+          : path.resolve(__dirname, '../src/partials/navigation-root.html');
+        const footerPath = isNested 
+          ? path.resolve(__dirname, '../src/partials/footer-nested.html') 
+          : path.resolve(__dirname, '../src/partials/footer-root.html');
+          
+        let navHtml = '';
+        let footerHtml = '';
+        try {
+          navHtml = fs.readFileSync(navPath, 'utf-8');
+          footerHtml = fs.readFileSync(footerPath, 'utf-8');
+        } catch (e) {
+          console.warn('[NEXUS] Could not read partials:', e);
+        }
+
+        // Apply aria-current="page" to active link
+        let filename = ctx.path ? path.basename(ctx.path) : 'index.html';
+        if (!filename || filename === '/') filename = 'index.html';
+        // escape dot
+        const escapedFilename = filename.replace(/\./g, '\\.');
+        const activePattern = new RegExp('href="([^"]*' + escapedFilename + ')"', 'g');
+        navHtml = navHtml.replace(activePattern, 'href="$1" aria-current="page"');
+
+        html = html.replace('<!-- NEXUS:NAVIGATION -->', navHtml);
+        html = html.replace('<!-- NEXUS:FOOTER -->', footerHtml);
+
         const headInjection = `
   <script>
     (function() {

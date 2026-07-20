@@ -212,3 +212,10 @@ html[data-theme='light'] .btn-primary { color: #fff; }
   #loader { display: none !important; }
   .no-motion-fallback { display: block !important; }
 }
+
+/* Work Page Specifics */
+.filter-btn.active { background-color: var(--page-bg); }
+.filter-btn { transition: all 0.2s ease-in-out; }
+.discovery-pulse { transform-origin: center; }
+.aether-artwork, .quantum-artwork, .nova-artwork { transform: translateZ(0); }
+
