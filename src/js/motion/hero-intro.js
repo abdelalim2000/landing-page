@@ -5,14 +5,11 @@ let fallbackTimer = null;
 
 function revealEverything(elements, titleLines, heroWebGL) {
   gsap.set(elements.filter(Boolean), { autoAlpha: 1, y: 0, clearProps: 'transform' });
-  gsap.set(titleLines, { yPercent: 0 });
+  gsap.set(titleLines, { yPercent: 0, rotateX: 0 });
   heroWebGL?.setAssemblyProgress?.(1);
 }
 
 export function startVisualExperienceOnce(heroWebGL) {
-  if (visualExperienceStarted) return window.__NEXUS_HERO_TIMELINE__ ?? null;
-  visualExperienceStarted = true;
-
   const loader = document.getElementById('loader');
   const loaderProgress = document.getElementById('loader-progress');
   const loaderBar = document.getElementById('loader-bar');
@@ -26,6 +23,17 @@ export function startVisualExperienceOnce(heroWebGL) {
   const telemetry = document.querySelector('.hero-telemetry');
   const revealElements = [navContainer, eyebrow, copy, ctas, telemetry];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (visualExperienceStarted) {
+    if (loader) {
+      loader.style.display = 'none';
+      loader.style.pointerEvents = 'none';
+    }
+    revealEverything(revealElements, titleLines, heroWebGL);
+    document.body.style.overflow = '';
+    return window.__NEXUS_HERO_TIMELINE__ ?? null;
+  }
+  visualExperienceStarted = true;
 
   if (reducedMotion) {
     if (loader) loader.style.display = 'none';
@@ -83,25 +91,28 @@ export function startVisualExperienceOnce(heroWebGL) {
     timeline.to(loader, { autoAlpha: 0, duration: 0.25 });
   }
 
-  timeline
-    .to(navContainer, { autoAlpha: 1, y: 0, duration: 0.65 }, '-=0.35')
-    .to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.65 }, '-=0.4')
-    .to(titleLines, {
+  if (navContainer) timeline.to(navContainer, { autoAlpha: 1, y: 0, duration: 0.65 }, '-=0.35');
+  if (eyebrow) timeline.to(eyebrow, { autoAlpha: 1, y: 0, duration: 0.65 }, '-=0.4');
+  if (titleLines.length) {
+    timeline.to(titleLines, {
       yPercent: 0,
       rotateX: 0,
       duration: 1.05,
       stagger: 0.12,
       ease: 'power4.out',
-    }, '-=0.45')
-    .to(titleGradient, {
+    }, '-=0.45');
+  }
+  if (titleGradient) {
+    timeline.to(titleGradient, {
       backgroundPosition: '0% center',
       duration: 1.25,
       ease: 'power2.out',
-    }, '-=0.75')
-    .to(copy, { autoAlpha: 1, y: 0, duration: 0.7 }, '-=0.9')
-    .to(ctas, { autoAlpha: 1, y: 0, duration: 0.7 }, '-=0.55')
-    .add(() => heroWebGL?.playAssembly?.(), '-=0.65')
-    .to(telemetry, { autoAlpha: 1, y: 0, duration: 0.7 }, '-=0.25');
+    }, '-=0.75');
+  }
+  if (copy) timeline.to(copy, { autoAlpha: 1, y: 0, duration: 0.7 }, '-=0.9');
+  if (ctas) timeline.to(ctas, { autoAlpha: 1, y: 0, duration: 0.7 }, '-=0.55');
+  timeline.add(() => heroWebGL?.playAssembly?.(), '-=0.65');
+  if (telemetry) timeline.to(telemetry, { autoAlpha: 1, y: 0, duration: 0.7 }, '-=0.25');
 
   window.__NEXUS_HERO_TIMELINE__ = timeline;
   timeline.play(0);
@@ -127,4 +138,8 @@ export function resetVisualExperience() {
   fallbackTimer = null;
   window.__NEXUS_HERO_TIMELINE__?.kill?.();
   delete window.__NEXUS_HERO_TIMELINE__;
+}
+
+if (import.meta.hot) {
+  import.meta.hot.dispose(resetVisualExperience);
 }
