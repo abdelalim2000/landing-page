@@ -8,6 +8,10 @@ export function initApproachSequence() {
   const stages = Array.from(container.querySelectorAll('.approach-stage'));
   if (texts.length < 4 || stages.length < 4) return () => {};
 
+  const discoverPaths = container.querySelectorAll('#stage-1-vis svg path');
+  const engineerPath = container.querySelector('#stage-3-vis svg path');
+  const optimizePath = container.querySelector('#stage-4-vis svg path');
+
   const ctx = gsap.context(() => {
     gsap.set(texts, { autoAlpha: 0 });
     gsap.set(stages, { autoAlpha: 0, pointerEvents: 'none' });
@@ -42,7 +46,7 @@ export function initApproachSequence() {
         stagger: 0.08,
         duration: 0.55,
       })
-      .fromTo('.s1-line', { strokeDasharray: 500, strokeDashoffset: 500 }, {
+      .fromTo(discoverPaths, { strokeDasharray: 500, strokeDashoffset: 500 }, {
         strokeDashoffset: 0,
         duration: 0.55,
       }, '<0.1')
@@ -69,7 +73,7 @@ export function initApproachSequence() {
         stagger: 0.1,
         duration: 0.55,
       }, '<0.05')
-      .fromTo('.s3-flow', { strokeDasharray: 200, strokeDashoffset: 200 }, {
+      .fromTo(engineerPath, { strokeDasharray: 200, strokeDashoffset: 200 }, {
         strokeDashoffset: 0,
         duration: 0.45,
       }, '<0.15')
@@ -89,7 +93,7 @@ export function initApproachSequence() {
         stagger: 0.1,
         duration: 0.45,
       }, '<0.05')
-      .fromTo('.s4-wave', { strokeDasharray: 700, strokeDashoffset: 700 }, {
+      .fromTo(optimizePath, { strokeDasharray: 700, strokeDashoffset: 700 }, {
         strokeDashoffset: 0,
         duration: 0.55,
       }, '<0.1')
