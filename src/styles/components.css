@@ -1,0 +1,213 @@
+/* Component and storytelling styles restored from the pre-Vite baseline. */
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--cursor-bg);
+  color: var(--cursor-text);
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition:
+    width 300ms cubic-bezier(0.25, 1, 0.5, 1),
+    height 300ms cubic-bezier(0.25, 1, 0.5, 1),
+    background-color 300ms ease,
+    color 300ms ease;
+  z-index: 10000;
+}
+
+.custom-cursor.active { opacity: 1; }
+.custom-cursor[data-state='view'],
+.custom-cursor[data-state='start'] { width: 80px; height: 80px; }
+html[data-theme='dark'] .custom-cursor { mix-blend-mode: difference; }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.text-clamp-intro {
+  font-size: clamp(1.75rem, 4vw + 0.5rem, 4rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.text-clamp-metric {
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.btn-magnetic,
+.btn-primary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--cyan-primary);
+  color: var(--page-bg);
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+html[data-theme='light'] .btn-magnetic,
+html[data-theme='light'] .btn-primary { color: #fff; }
+
+.btn-magnetic::after,
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgb(255 255 255 / 0.2);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 400ms cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: -1;
+}
+
+.btn-magnetic:hover::after,
+.btn-primary:hover::after {
+  transform: scaleY(1);
+  transform-origin: top;
+}
+
+/* GSAP applies temporary start states only after the application has booted. */
+.gsap-reveal { visibility: visible; }
+
+/* The authored canvas is the only WebGL surface. */
+#hero-canvas,
+#hero > canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Desktop capability workspace: every state occupies the same visual plane. */
+.expertise-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.expertise-state.is-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.expertise-trigger.active { opacity: 1 !important; }
+
+/* Desktop process workspace: stages crossfade rather than entering document flow. */
+.approach-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.approach-stage.is-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Mobile expertise accordions. */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 450ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 300ms ease;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 900px;
+  opacity: 1;
+}
+
+.accordion-icon { transition: transform 300ms ease; }
+.accordion-item.active .accordion-icon { transform: rotate(180deg); }
+
+.theme-toggle-thumb {
+  transform: translateX(var(--theme-toggle-x));
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-error { border-color: var(--danger) !important; }
+
+/* Missing 3D helpers used by the original authored markup. */
+.perspective-1000 { perspective: 1000px; }
+.rotate-x-12 { transform: rotateX(12deg); }
+.rotate-y-12 { transform: rotateY(12deg); }
+.rotate-y-\[-10deg\] { transform: rotateY(-10deg); }
+.rotate-x-60.rotate-z-45 { transform: rotateX(60deg) rotateZ(45deg); }
+.translate-z-10 { transform: translateZ(10px); }
+.translate-z-20 { transform: translateZ(20px); }
+
+/* Prevent sticky screenshot seams and protect titles from scrolling copy. */
+.expertise-heading-rail,
+.approach-heading-rail {
+  isolation: isolate;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan-primary);
+  outline-offset: 4px;
+}
+
+@media (pointer: coarse), (max-width: 768px) {
+  .custom-cursor { display: none !important; }
+}
+
+@media (max-width: 319px) {
+  .layout-container { padding-inline: 16px; }
+  .text-clamp-hero { font-size: 2.15rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .custom-cursor { display: none !important; }
+  html { scroll-behavior: auto !important; }
+  .theme-toggle-thumb,
+  .accordion-content,
+  .accordion-icon { transition: none !important; }
+  .gsap-reveal {
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  #loader { display: none !important; }
+  .no-motion-fallback { display: block !important; }
+}
