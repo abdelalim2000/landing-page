@@ -1,10 +1,12 @@
 import { defineConfig } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
+import nexusHtmlTransform from './build/html-transform.js';
 
 export default defineConfig({
   plugins: [
     tailwindcss(),
+    nexusHtmlTransform(),
   ],
   base: './', // Use relative paths for deployment flexibility
   build: {
