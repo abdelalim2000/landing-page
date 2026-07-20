@@ -6,10 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ARTIFACT_DIR = path.resolve('C:/Users/moham/.gemini/antigravity/brain/ea67026c-25f1-4ad7-bc58-5c5a53681dfa/');
 
-const indexUrl = 'file://' + path.join(__dirname, 'index.html').replace(/\\/g, '/');
-const aetherUrl = 'file://' + path.join(__dirname, 'work', 'aether-health.html').replace(/\\/g, '/');
-const quantumUrl = 'file://' + path.join(__dirname, 'work', 'quantum-finance.html').replace(/\\/g, '/');
-const novaUrl = 'file://' + path.join(__dirname, 'work', 'nova-logistics.html').replace(/\\/g, '/');
+const BASE_URL = 'http://localhost:4173';
 
 async function run() {
   const browser = await chromium.launch({ headless: true });
@@ -19,7 +16,7 @@ async function run() {
   await page.setViewportSize({ width: 1440, height: 900 });
 
   // Load index
-  await page.goto(indexUrl);
+  await page.goto(BASE_URL);
   await page.waitForTimeout(1000);
 
   // Helper to scroll to element and wait

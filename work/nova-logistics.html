@@ -7,115 +7,14 @@
   <meta name="description" content="Operational complexity becoming an optimized global network.">
   <meta name="theme-color" content="#02040A" id="meta-theme-color">
 
-  <script>
-    (function() {
-      try {
-        const storedTheme = localStorage.getItem('nexus_theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = storedTheme || (prefersDark ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-        document.documentElement.style.colorScheme = theme;
-        document.getElementById('meta-theme-color').content = theme === 'dark' ? '#02040A' : '#F4F7FB';
-      } catch (e) {}
-    })();
-  </script>
-
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  
-  <script src="https://cdn.tailwindcss.com/3.4.1"></script>
-  <script>
-    tailwind.config = {
-      darkMode: ['class', '[data-theme="dark"]'],
-      theme: {
-        extend: {
-          colors: {
-            page: "rgb(var(--page-bg) / <alpha-value>)",
-            surface: "rgb(var(--surface) / <alpha-value>)",
-            elevated: "rgb(var(--surface-elevated) / <alpha-value>)",
-            soft: "rgb(var(--surface-soft) / <alpha-value>)",
-            primary: "rgb(var(--text-primary) / <alpha-value>)",
-            secondary: "rgb(var(--text-secondary) / <alpha-value>)",
-            muted: "rgb(var(--text-muted) / <alpha-value>)",
-            nd: {
-              cyan: "rgb(var(--cyan) / <alpha-value>)",
-              violet: "rgb(var(--violet) / <alpha-value>)",
-              lime: "rgb(var(--lime) / <alpha-value>)",
-              border: "rgba(var(--border-color), var(--border-alpha))"
-            }
-          },
-          fontFamily: { display: ['Syne', 'sans-serif'], body: ['Inter', 'sans-serif'] }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    :root, html[data-theme="dark"] {
-      --page-bg: 2 4 10;
-      --surface: 6 11 22;
-      --surface-elevated: 10 18 34;
-      --surface-soft: 13 23 40;
-      --text-primary: 248 250 252;
-      --text-secondary: 148 163 184;
-      --text-muted: 100 116 139;
-      --border-color: 255, 255, 255;
-      --border-alpha: 0.10;
-      --cyan: 24 224 255;
-      --violet: 139 92 246;
-      --lime: 163 255 95;
-      --cursor-bg: #A3FF5F;
-      --cursor-text: #02040A;
-      --theme-toggle-x: 0px;
-    }
-    html[data-theme="light"] {
-      --page-bg: 244 247 251;
-      --surface: 255 255 255;
-      --surface-elevated: 234 240 247;
-      --surface-soft: 223 232 242;
-      --text-primary: 7 17 31;
-      --text-secondary: 64 81 106;
-      --text-muted: 102 117 138;
-      --border-color: 7, 17, 31;
-      --border-alpha: 0.12;
-      --cyan: 0 126 155;
-      --violet: 109 63 214;
-      --lime: 79 127 22;
-      --cursor-bg: #07111F;
-      --cursor-text: #FFFFFF;
-      --theme-toggle-x: 24px;
-    }
-
-    body { font-family: 'Inter', sans-serif; background-color: rgb(var(--page-bg)); color: rgb(var(--text-primary)); overflow-x: hidden; transition: background-color 0.4s ease, color 0.4s ease; }
-    h1, h2, h3, h4, h5, h6, .font-display { font-family: 'Syne', sans-serif; }
+      
     
-    .custom-cursor { position: fixed; top: 0; left: 0; width: 16px; height: 16px; background-color: var(--cursor-bg); border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--cursor-text); opacity: 0; transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.4s ease, color 0.4s ease; }
-    .custom-cursor.active { opacity: 1; }
-    .custom-cursor[data-state="start"] { width: 80px; height: 80px; }
-    html[data-theme="dark"] .custom-cursor { mix-blend-mode: difference; }
-    @media (pointer: coarse), (max-width: 768px) { .custom-cursor { display: none !important; } }
-
-    .layout-container { width: 100%; max-width: 1440px; margin: 0 auto; padding: 0 24px; }
-    @media (min-width: 768px) { .layout-container { padding: 0 40px; } }
-    @media (min-width: 1024px) { .layout-container { padding: 0 64px; } }
-
-    .text-clamp-hero { font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem); line-height: 1.05; letter-spacing: -0.02em; }
-    .text-clamp-h2 { font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; letter-spacing: -0.02em; }
-    
-    .btn-magnetic { display: inline-flex; position: relative; padding: 14px 28px; border-radius: 999px; background: rgb(var(--lime)); color: rgb(var(--page-bg)); font-weight: 600; text-decoration: none; align-items: center; justify-content: center; overflow: hidden; }
-    html[data-theme="light"] .btn-magnetic { color: #FFF; background: rgb(var(--lime)); }
-    .btn-magnetic::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.2); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); }
-    .btn-magnetic:hover::after { transform: scaleY(1); transform-origin: top; }
-    
-    .theme-toggle-thumb { transform: translateX(var(--theme-toggle-x)); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-
-    .hero-glow { position: absolute; width: 100%; height: 100%; top: 0; left: 0; background: radial-gradient(circle at center, rgba(var(--lime), 0.1) 0%, transparent 60%); pointer-events: none; z-index: 0; }
-    .grid-bg { background-image: linear-gradient(rgba(var(--border-color), 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(var(--border-color), 0.05) 1px, transparent 1px); background-size: 40px 40px; }
-  </style>
+    <script type="module" src="../src/main.js"></script>
 </head>
 <body data-page="case-study">
   <div class="custom-cursor" id="custom-cursor"></div>
@@ -288,45 +187,5 @@
     </div>
   </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-      if (!isTouch && window.gsap) {
-        const cursor = document.getElementById('custom-cursor');
-        gsap.set(cursor, { xPercent: -50, yPercent: -50 });
-        const xTo = gsap.quickTo(cursor, "x", {duration: 0.4, ease: "power3"}), yTo = gsap.quickTo(cursor, "y", {duration: 0.4, ease: "power3"});
-        window.addEventListener("mousemove", e => { xTo(e.clientX); yTo(e.clientY); if(!cursor.classList.contains('active')) cursor.classList.add('active'); }, {passive:true});
-        document.querySelectorAll('[data-cursor]').forEach(el => {
-          el.addEventListener('mouseenter', () => { const state = el.getAttribute('data-cursor'); cursor.setAttribute('data-state', state); cursor.innerText = state === 'start' ? 'START' : ''; });
-          el.addEventListener('mouseleave', () => { cursor.removeAttribute('data-state'); cursor.innerText = ''; });
-        });
-      }
-
-      const btnDesktop = document.getElementById('theme-toggle-desktop');
-      const btnMobile = document.getElementById('theme-toggle-mobile');
-      function toggle() {
-        const current = document.documentElement.getAttribute('data-theme') || 'dark';
-        const theme = current === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', theme);
-        document.documentElement.style.colorScheme = theme;
-        localStorage.setItem('nexus_theme', theme);
-        document.getElementById('meta-theme-color').content = theme === 'dark' ? '#02040A' : '#F4F7FB';
-      }
-      if(btnDesktop) btnDesktop.addEventListener('click', toggle);
-      if(btnMobile) btnMobile.addEventListener('click', toggle);
-      
-      const menuBtn = document.getElementById('mobile-menu-btn');
-      const menu = document.getElementById('mobile-menu');
-      if(menuBtn) {
-         let menuOpen = false;
-         menuBtn.addEventListener('click', () => {
-            menuOpen = !menuOpen;
-            if(menuOpen) { document.body.style.overflow = 'hidden'; gsap.to(menu, {opacity: 1, pointerEvents: 'auto'}); }
-            else { document.body.style.overflow = ''; gsap.to(menu, {opacity: 0, pointerEvents: 'none'}); }
-         });
-         document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => menuBtn.click()));
-      }
-    });
-  </script>
-</body>
+  </body>
 </html>
