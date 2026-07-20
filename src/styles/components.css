@@ -168,14 +168,15 @@ html[data-theme='light'] .btn-primary { color: #fff; }
 
 .input-error { border-color: var(--danger) !important; }
 
-/* Missing 3D helpers used by the original authored markup. */
+/* Missing 3D helpers used by the authored markup. */
 .perspective-1000 { perspective: 1000px; }
 .rotate-x-12 { transform: rotateX(12deg); }
 .rotate-y-12 { transform: rotateY(12deg); }
 .rotate-y-\[-10deg\] { transform: rotateY(-10deg); }
+.rotate-x-12.rotate-y-\[-10deg\] { transform: rotateX(12deg) rotateY(-10deg); }
 .rotate-x-60.rotate-z-45 { transform: rotateX(60deg) rotateZ(45deg); }
-.translate-z-10 { transform: translateZ(10px); }
-.translate-z-20 { transform: translateZ(20px); }
+.s3-layer.translate-z-20 { transform: translateZ(20px); }
+.s3-layer.translate-z-10.translate-y-8.translate-x-8 { transform: translate3d(2rem, 2rem, 10px); }
 
 /* Prevent sticky screenshot seams and protect titles from scrolling copy. */
 .expertise-heading-rail,
