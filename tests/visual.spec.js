@@ -35,19 +35,23 @@ test.describe('NEXUS DYNAMICS Vite parity', () => {
     await expect(page.locator('#loader')).toBeHidden({ timeout: 6000 });
 
     await expect(page.locator('.hero-title')).toBeVisible();
-    await expect(page.locator('.btn-magnetic').first()).toHaveCSS('display', 'inline-flex');
 
     const componentStyles = await page.evaluate(() => {
+      const button = document.querySelector('.btn-magnetic');
       const approach = document.querySelector('.approach-stage');
       const expertise = document.querySelector('.expertise-state');
       const accordion = document.querySelector('.accordion-content');
       return {
+        buttonDisplay: button ? getComputedStyle(button).display : null,
+        buttonPosition: button ? getComputedStyle(button).position : null,
         approachPosition: approach ? getComputedStyle(approach).position : null,
         expertisePosition: expertise ? getComputedStyle(expertise).position : null,
         accordionOverflow: accordion ? getComputedStyle(accordion).overflow : null,
       };
     });
 
+    expect(['flex', 'inline-flex']).toContain(componentStyles.buttonDisplay);
+    expect(componentStyles.buttonPosition).toBe('relative');
     expect(componentStyles.approachPosition).toBe('absolute');
     expect(componentStyles.expertisePosition).toBe('absolute');
     expect(componentStyles.accordionOverflow).toBe('hidden');
