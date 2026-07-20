@@ -1,7 +1,7 @@
 import { initTheme } from './theme.js';
 import { initNavigation } from './navigation.js';
 import { initCursor } from './cursor.js';
-import { registerGsap } from './gsap-register.js';
+import { registerGsap, ScrollTrigger } from './gsap-register.js';
 
 let appInitialized = false;
 let currentCleanup = null;
@@ -61,6 +61,18 @@ async function initializePageModule(page) {
   }
 }
 
+function updateDiagnostics(page) {
+  const heroCanvas = document.getElementById('hero-canvas');
+  window.__NEXUS_DIAGNOSTICS__ = {
+    appStarted: appInitialized,
+    page,
+    heroTimelineDuration: window.__NEXUS_HERO_TIMELINE__?.duration?.() ?? 0,
+    scrollTriggerCount: ScrollTrigger.getAll().length,
+    canvasCount: document.querySelectorAll('canvas').length,
+    webglRunning: Boolean(heroCanvas && heroCanvas.width > 0 && heroCanvas.height > 0),
+  };
+}
+
 export async function initializeApplication() {
   if (appInitialized) return currentCleanup;
   appInitialized = true;
@@ -81,11 +93,15 @@ export async function initializeApplication() {
 
     const cleanupPage = await initializePageModule(page);
 
+    requestAnimationFrame(() => updateDiagnostics(page));
+    window.setTimeout(() => updateDiagnostics(page), 3500);
+
     currentCleanup = () => {
       if (typeof cleanupPage === 'function') cleanupPage();
       if (typeof cleanupCursor === 'function') cleanupCursor();
       if (typeof cleanupNavigation === 'function') cleanupNavigation();
       if (typeof cleanupTheme === 'function') cleanupTheme();
+      delete window.__NEXUS_DIAGNOSTICS__;
       currentCleanup = null;
       appInitialized = false;
     };
